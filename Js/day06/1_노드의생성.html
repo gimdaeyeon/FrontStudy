@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노드 생성</title>
+</head>
+<body>
+  <h2>노드의 생성</h2>
+  <p id="el">새로운 문장이 앞에 추가 됨</p>
+  <p id="attr">이 단락에 새로운 속성이 추가됨</p>
+  <p id="text"></p>
+
+  <button onclick="createNode()">요소노드생성</button>
+  <button onclick="createAttr()">속성노드생성</button>
+  <button onclick="createText()">텍스트노드생성</button>
+
+  <script>
+    
+    function createNode() {
+      const elNode = document.getElementById('el');
+      const newNode = document.createElement('p'); //<p></p> 생성이 된다
+      newNode.innerHTML = '<b>새로운 요소</b>'
+    // innerHTML => 태그 쓰면 적용이 되서 나온다
+    // innerText => 태그 쓰면 rmeofh skdhsek
+
+      document.body.insertBefore(newNode, elNode);
+    }
+
+    // 기명함수 : 함수에 이름을 지어주고 변수에 대입할 수 있다.
+    const createAttr = function(){
+      const attr = document.getElementById('attr');
+      const newAttr = document.createAttribute('style');
+      newAttr.value = 'color:deepskyblue; background-color:deeppink';
+
+      attr.setAttributeNode(newAttr);
+    }
+
+    // 화살표함수(ArrowFunction)
+    const createText = ()=>{
+      const textNode = document.getElementById('text');
+      const newText = document.createTextNode('🌭🥨🥨🥚🥞');
+
+      textNode.appendChild(newText);
+    }
+
+  </script>
+</body>
+</html>

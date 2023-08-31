@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>배열 - 1</title>
+</head>
+
+<body>
+  <script>
+    let arr = ['apple', '김대연', '김사과', 10];
+    console.log(arr[0]);
+    console.log(arr);
+
+    let a = "A";
+    arr[5] = '서울시 강남구 역삼동';
+    arr[a] = '서울시 용산구 이태원동';
+
+    console.log(arr[5]);
+    console.log(arr[a]);
+    console.log(arr);
+
+    console.log(arr.length);
+    console.log('--------');
+    
+    for (let i = 0; i < arr.length; i++) {
+      console.log(arr[i]);
+    }
+
+
+  </script>
+</body>
+
+</html>

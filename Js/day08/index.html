@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>포틀폴리오</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/portfolio.css">
+</head>
+<body>
+  <div>
+    <section id="wrap">
+      <header><span id="darkMode">DARK</span></header>
+      <div id="smallCircle" class="whiteBackground"></div>
+      <div class="fontsize15rem whiteFont bold subject">HI ,</div>
+
+      <div class="fontsize10rem whiteFont bold subject line80">
+        IM DAE <br/> 
+        YEON </div>
+      <div id="bigCircle" class="whiteBackground"></div>
+    </section>
+
+    <section>
+      <div class="whiteFont fontsize5rem centerTextBox10 bold">
+        DAEYOEN'S PORTFOLIO
+      </div>
+      <div class=" fontsize5rem bold centerTextBox10 whiteBackground">
+        ABOUT ME</div>
+      <div>
+        <p class="fontsize2rem whiteFont bold subject">
+          SKILLS</p>
+        <div class="flexAlignStart">
+          <div class="whiteBoxWidth whiteBox17rem"></div>
+          <div>
+            <div class="whiteBoxWidth whiteBox7rem"></div>
+            <div class="whiteBoxWidth whiteBox13rem"></div>
+          </div>
+          <div class="whiteBoxWidth whiteBox13rem"></div>
+          <div class="whiteBoxWidth whiteBox20rem"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flexCenter">
+      <div id="projectBox" class="flexCenter">
+        PROJECT 01</div>
+    </section>
+
+    <section>
+      <div class="whiteFont fontsize5rem bold subject contact">
+        ContactMe</div>
+      <div class="footer whiteBackground"></div>
+    </section>
+
+  </div>
+
+  <script>
+    window.onload = function(){
+      document.documentElement.setAttribute("color-theme", "pink");
+    };
+
+    let darkMode = document.getElementById('darkMode');
+
+    darkMode.addEventListener('click', (e)=>{
+      //e===>이벤트가 일어난 객체
+      //e.target==> 일어난 객체를 선택
+      //e.target.innerText==> 일어난 객체를 선택해서 innerText 속성을 선택
+
+      if(e.target.innerText === 'DARK'){
+        document.documentElement.setAttribute('color-theme', 'dark');
+        e.target.innerText = "PINK";
+      }else{
+        document.documentElement.setAttribute('color-theme', 'pink');
+        e.target.innerText = "DARK";
+      }
+
+    });
+
+  </script>
+</body>
+</html>

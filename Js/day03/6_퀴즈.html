@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz</title>
+</head>
+<body>
+  <script>
+    /*
+    이름 : 
+    국어70
+    수학80
+    영어50
+    탐구40
+    
+    평균을 구하여
+    90이상면 A학점
+    80이상면 B학점
+    70이상면 C학점
+    60이상면 D학점을 이름과 함께, 콘솔에
+
+    if문과 switch/case문 연산자를 이용
+    */
+
+    let name ='김대연';
+    let kor = 90;
+    let math = 80;
+    let eng = 100;
+    let research = 100;
+
+    let result;
+
+    let avg = (kor+math+eng+research)/4;
+
+    if(avg>=90){
+      result = 'A';
+    }else if(avg>=80){
+      result = 'B';
+    }else if(avg>=70){
+      result = 'C';
+    }else if(avg>=60){
+      result = 'D';
+    }else{
+      result = 'F';
+    }
+
+    switch (result) {
+      case 'A':
+        console.log(`${name}님의 학점은 ${result}입니다`);
+        break;
+        case 'B':
+        console.log(`${name}님의 학점은 ${result}입니다`);
+        break;
+        case 'C':
+        console.log(`${name}님의 학점은 ${result}입니다`);
+        break;
+        case 'D':
+        console.log(`${name}님의 학점은 ${result}입니다`);
+        break;
+        default:
+          console.log(`${name}님의 학점은 ${result}입니다`);
+          break;
+    }
+
+
+
+
+
+  </script>
+</body>
+</html>

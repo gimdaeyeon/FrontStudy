@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문서객체모델 - 1</title>
+</head>
+<body>
+  <h2>문서 객체 모델 -1</h2>
+
+  <ul>
+    <li id="html">html</li>
+    <li>css</li>
+    <li class="js">javascript</li>
+    <li class="js">jquery</li>
+  </ul>
+
+  <script>
+    // window.onload = function(){} =>문서를 먼저 다 읽고 실행하는 함수
+    const tagName = document.getElementsByTagName('li');
+    console.log(tagName);
+
+    const id = document.getElementById('html');
+    console.log(id);
+  </script>
+</body>
+</html>
