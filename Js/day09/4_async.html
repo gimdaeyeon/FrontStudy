@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>어씽크</title>
+</head>
+<body>
+  
+  <script>
+    let number = 5;
+
+    const callback = (number)=>{
+      number +=1;
+      setTimeout(() => {
+        console.log(number);
+      }, 500);
+      return number
+    };
+
+    const async = async (number)=>{
+        try {
+          let result = await callback(number);
+          result = await callback(result);
+          result = await callback(result);
+        } catch {
+          console.log('실패');
+        }
+    }
+
+    async(number);
+
+
+
+
+  </script>
+</body>
+</html>

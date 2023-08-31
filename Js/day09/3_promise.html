@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promise</title>
+</head>
+
+<body>
+
+  <script>
+    let number = 5;
+
+    const callback = (num) => {
+      num += 1;
+      setTimeout(() => {
+        console.log(num);
+      }, 500);
+
+      return num;
+    };
+
+    //  새로운 약속을 만들었다.
+    // 어떠한 실행문이 실행되면
+    // 성공과 실패에 따라 다른
+    // 값을 리턴하는 함수
+    const promise = new Promise((resolve, reject) => {
+      console.log(callback(number));//6
+      //실행부가 성공했는지
+
+      resolve(callback(number));
+      // 성공하면 이 함수의 리턴값이 해당 함수 -->6
+
+      reject('실패');
+      // 실패
+    });
+
+    promise
+      //then = 실행했는지
+      // 이부분의 인자로 전달
+      .then((result) => {
+        return callback(result);  //결과값
+      })
+      .then((result) => {
+        return callback(result);
+      })
+      .then((result) => {
+        return callback(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    let state = false;
+
+    const promiseBoolean = new Promise(
+      (resolve, reject) => {
+        if (state) {
+          resolve('성공');
+        } else {
+          reject('실패');
+        }
+      });
+
+    promiseBoolean
+      .then((message) => {
+        console.log(message);
+      })
+      .catch((err)=>{
+        console.log(err);
+      });
+
+
+
+  </script>
+</body>
+
+</html>

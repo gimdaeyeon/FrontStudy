@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>셋타임</title>
+</head>
+<body>
+  <div id="select">저를 선택해주세요</div>
+  <button onclick="clearSetTime()">셋타임 취소</button>
+  <button onclick="clearSetInterval()">인터벌 취소</button>
+
+
+
+  <script>
+    const select =document.getElementById('select');
+
+    const printSelect = ()=>{
+      console.log(select.innerHTML);
+    };
+    
+    const setTimePrint = setTimeout(printSelect, 3000); // 3초 뒤
+    const setintervalPrint = setInterval(printSelect,3000); // 3초 마다
+
+    // setTimeout(() => {
+    //   console.log(select.innerHTML);
+    // }, 5000);
+
+    const clearSetTime = ()=>{
+      clearTimeout(setTimePrint);
+    }
+
+    const clearSetInterval = ()=>{
+      clearInterval(setintervalPrint);
+    }
+
+
+
+  </script>
+</body>
+</html>
