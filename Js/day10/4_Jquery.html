@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jquery</title>
+</head>
+<body>
+  <h2>제이쿼리</h2>
+  <p id="text">변경될 문자열입니다</p>
+  <button>문자 변경</button>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+  /*
+    jquery
+    2006년 출시
+    짧은 코드로 다양한 기능을 다룰 수 있고
+    특히 DOM을 쉽게 다룰 수 있다는 점에서  Jquery의 인기는 상당했다.
+
+    Jquery는 JS를 대체하는 것이 아닌
+    Dom을 감출 뿐이다. Jquery의 성공은 DOM API가 실패했다는 증거다 - 2015
+
+    그렇다면 요즘 코드도 짧고 편한 Jquey를 사용하지 않는 이유는 무엇일까?
+
+    1. 다양한 라이브러리들의 등장 = 사용할 이유가 딱히 없다.
+    2. JS의 업데이트, TS의 등장 = Jquery로 할 수 있는 대부분 기능은 똑같이 구현 가능
+    3. 무겁다 = 엄청나게 많은 기능이고, 등장부터 이미 당장의 문제를 해결하기 위해 등장
+    설계 자체가 최적화 되어있지 않다.
+
+    4. DOM(x) Virtual DOM(o) 가상돔 --- ReactJs = 더는 DOM을 직접 조작하지 않는다.
+    ...
+
+    사용법
+    Download
+    CDN
+
+  */
+/*
+  기본 사용 문법
+  $가 앞에 붙음
+
+  기본 문법
+  $(선택자).동작함수();
+*/
+$(()=>{
+  alert('제이쿼리 시작');
+
+  $('button').on('click',()=>{
+    $('#text').css('font-size', '25px');
+    $('#text').attr('class', 'change');
+  });
+})
+
+</script>  
+</body>
+</html>

@@ -3,23 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OOP</title>
+  <title>상속</title>
 </head>
 <body>
-  
-  <script>
 
-    // 클래스의 설계도 
-    // interface 자판기기능{
-    //   자판기뽑기();
-    //   자판기onOff();
-    //   자판기청소();
-    // }
-
-
-// 
-
-    class 자판기{ //implements 자판기기능
+<script>
+      class 자판기{ //implements 자판기기능
       // 생성자
       // 객체를 만들어 낼 때 받아야하는 데이터
       constructor(자판기종류){
@@ -57,25 +46,33 @@
           console.log('자판기를 먼저 정지해주세요');
         }
       }
+    }
+
+    class 새로운자판기 extends 자판기{
+      자판기자동청소(){
+        this.자판기OnOff();
+        this.자판기청소();
+        console.log('자판기가 자동으로 청소되었습니다.');
+      }
+
+      /*
+        @오버라이딩
+        자판기(){
+          ...
+        }
+      */  
 
 
     }
 
-    // 객체 생성 중
-    const 자판기1 = new 자판기('drink');
-    const 자판기2 = new 자판기('drink');
 
-    console.log(자판기1.자판기종류);
+    const 신자판기 = new 새로운자판기();
 
-    // 자판기1.자판기OnOff();
-    자판기1.자판기OnOff();
-    자판기2.자판기OnOff();
-
-    자판기1.자판기뽑기(500);
-    자판기2.자판기뽑기(1000);
+    신자판기.자판기OnOff();
+    신자판기.자판기청소();
+    신자판기.자판기자동청소();
 
 
-
-  </script>
+</script>
 </body>
 </html>

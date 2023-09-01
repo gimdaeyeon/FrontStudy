@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Getter,Setter</title>
+</head>
+<body>
+  <script>
+
+    class User{
+      constructor(firstName, lastName){
+        this.firstName =firstName;
+        this.lastName = lastName;
+        this.initialAge = 4;
+      }
+
+      get fullName(){
+        return `${this.firstName} ${this.lastName}`;
+      }
+
+      get age(){
+        return this.initialAge;
+      }
+
+      set age(num){
+        if(num<0){
+          console.log('안 태어났습니다.');
+          return;
+        }
+        //생성자보다 유효성 검사를 할 수 있다는 장점
+        this.initialAge = num;
+      }
+
+    }
+
+    const user = new User('kim','daeyeon');
+    console.log(user.fullName);
+
+    user.age = 19;
+    console.log(user.age);
+
+  </script>
+
+</body>
+</html>

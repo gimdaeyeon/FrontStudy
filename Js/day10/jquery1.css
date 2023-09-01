@@ -1,0 +1,63 @@
+  /* @import url(); */
+
+
+  div.menuWrap{
+    background-color: #333;
+    padding: 5px 0;
+  }
+div.menuWrap menu{
+  display: flex;
+  justify-content: flex-end;
+}
+div.menuWrap menu li{
+  color: #fff;
+  height: 20px;
+  margin-left: 30px;
+  padding: 0 5px;
+  position: relative;
+}
+div.menuWrap menu li::after{
+  display: block;
+  content: "";
+  border-bottom: 2px solid #f00;
+  width: 0%;
+  position: absolute;
+  right: 0;
+  bottom: -3px;
+  left: auto;
+  transition: width 0.3s;
+}
+div.menuWrap menu li:hover::after{
+  width: 100%;
+  left: 0;
+  right: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
