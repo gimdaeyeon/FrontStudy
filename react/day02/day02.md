@@ -104,13 +104,70 @@ React와 같은 SPA에 개발에서 js안에서 html, js를 모두 기술
 ...
 </LoginForm>
 
-const LoginForm = style.div`
+const LoginForm = styled.div`
   ...css 속성
 `
 
 ```
-<!-- 강의 시간 02:30:29 -->
+#### 라이브러리 설치
+```termnal
+npm i styled-components
+(해당 프로젝트 경로에 .../todolist)
 
+잘못 설치했으면 
+npm rm (라이브러리명) 으로 해당 라이브러리를 삭제시켜줘야 의존성이 덜해져서 용량이 줄어든다.
+
+```
+
+
+
+
+---
+
+## 그외의 방법
+### SASS, SCSS
+- css의 상위 버전 문법
+- 복잡한 작업을 쉽게 해주고, 코드의 재활용성을 높여줌
+- css 내에서 변수 사용이 가능 - 확장성이 높음
+- 코드의 가독성을 높여주고 유지보수를 쉽게 해준다
+
+### Emotion
+- styled-components와 대체될 유망주, 그러나 styled-components와 사용법이 똑같다.
+- emotion만의 문법 + styled-components 보다 아주 약간 가볍다
+- 하지만, 아직 시장에선 압도적으로 styled-components를 주로 사용
+
+### 사용법
+
+```js
+
+const LoginForm = css`
+  // ...css 속성
+`
+
+// +styled처럼도 사용할 수 있음
+
+```
+
+### \* 대체
+1. 라이브러리에 대한 의존성이 높기 때문에 내가 기존에 알던 사용법이 새로운 프로젝트에서는 적용이 안되는 경우가 허다함   
+   (라이브러리를 사용할 때 해당 사이트 getStarted(guide)를 읽어보는 습관을 들이자!)
+2. 단, 완전히 대체되는 경우가 존재한다.    
+```text
+예를들면
+
+변수를 전역으로 관리할 수 있는 라이브러리
+contextAPI/useReducer -> redux -> mobx -> recoil/React.Query
+
+=> 원리가 똑같기 때문에 상위호환, 더 편리해진다.
+
+```
+### import
+참조, 불러오는 것   
+ex) 같은 프로젝트 내 설치한 라이브러리, 모듈, 함수, 변수, 객체...
+
+### export
+내보내는거   
+같은 프로젝트 내 다른 파일에서 import 할 수 있게 밖으로 내보내야 한다
 
 
 
