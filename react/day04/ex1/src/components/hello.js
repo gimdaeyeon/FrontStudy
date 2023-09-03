@@ -1,9 +1,10 @@
-const Hello = (props)=>{
-  console.log(props);
+
+const Hello = ({color,name,isLover})=>{
   return (
-    <div>
-      안녕하세요 {props.name}님!
-      {props.isLover ? <span>❤️</span>: "💔" }
+    <div style = {color && {color:color}}>
+      안녕하세요 {name}님!
+      {isLover ? <span>❤️</span>: "💔" }
+      <span style = {{color : "red", fontSize : "50px"} }>반갑습니다</span>
     </div>
   );
 }
