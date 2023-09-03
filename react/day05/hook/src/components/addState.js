@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const AddState = ({onClickEvent,stateId}) => {
+const AddState = ({onClickEvent,stateId,resetEvent}) => {
 
   const [name, setName] = useState('');
 
@@ -17,6 +17,12 @@ const AddState = ({onClickEvent,stateId}) => {
 
   }
 
+const onResetHandler = ()=>{
+  resetEvent();
+  stateId = 0;
+}
+
+
   return (
     <>
       <input 
@@ -27,7 +33,7 @@ const AddState = ({onClickEvent,stateId}) => {
         value={name}
       />
       <button onClick={onAddStateHandler}>추가</button>
-      <button>초기화</button>
+      <button onClick={onResetHandler}>초기화</button>
     </>
   );
 };

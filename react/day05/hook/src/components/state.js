@@ -4,7 +4,7 @@ import AddState from "./addState";
 const State = () => {
   // const[변수명, 변수 값을 바꿔줄 함수명] = useState(변수의 기본값)
   // setState("값")-->변수의 값이 바뀜
-  const[state, setState] = useState(`첫번째 시작하는 state`);
+  // const[state, setState] = useState(`첫번째 시작하는 state`);
 
   // const onChangeText = ()=>{
   //     setState(`두번째 시작하는 state`);
@@ -55,24 +55,9 @@ const State = () => {
         setState(arr);
    */
 
-        const [userList, setUserList] = useState([
-          {
-            id : 1,
-            name : "길동이"
-          },
-          {
-            id : 2,
-            name : "말동이"
-          },
-          {
-            id : 3,
-            name : "개동이"
-          }
-        ]);
+       
 
-        const onClickEvent = (isValue, nameValue) =>{
-          setUserList([...userList,{id:isValue,name:nameValue}])
-        };
+   
 
 /*
 ***
@@ -119,22 +104,51 @@ userList.map((v) =>(
   ex)
   배열명.filter((결과값 변수명)=> 조건식)
 
-
 */
 
+const [userList, setUserList] = useState([
+  {
+    id : 1,
+    name : "길동이"
+  },
+  {
+    id : 2,
+    name : "말동이"
+  },
+  {
+    id : 3,
+    name : "개동이"
+  }
+]);
+
+const onClickEvent = (isValue, nameValue) =>{
+  setUserList([...userList,{id:isValue,name:nameValue}]);
+};
+
+const resetEvent = ()=>{
+  setUserList([]);
+};
+
+// 해당배열요소 삭제하기
+const deleteEvent = ()=>{
+  // setUserList([]);
+};
 
   return (
     <>
       {userList.map((v)=>(
           <div>
               {v.id}.{v.name} 
-              <button>삭제</button>
+              <button 
+              // onClick={deleteEvent}
+              >삭제</button>
             </div>
           ))}
 
           <AddState 
             onClickEvent={onClickEvent}
             stateId = {userList.length>0 && userList[userList.length-1].id}
+            resetEvent={resetEvent}
           />
       </>
   );
