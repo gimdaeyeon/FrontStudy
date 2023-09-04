@@ -150,7 +150,7 @@ const removeButtonArr = useRef([]);
 
 const onPrintRefArr = ()=>{
   console.log(removeButtonArr);
-}
+} 
 
 const onRemoveHandler_3 = (itemId)=>{
   
