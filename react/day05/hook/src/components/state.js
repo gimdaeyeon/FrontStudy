@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import AddState from "./addState";
 
 const State = () => {
@@ -98,7 +98,8 @@ userList.map((v) =>(
   userList[0].name
 
 3. filter
-  [거름망, 조건에 맞는 데이터를 제외하고 읽어오는 것]
+  [거름망, 조건에 맞는 데이터를 거르고
+    맞는 데이터만 읽어오는 것]
   => 삭제 시에 백엔드에서 받아온 데이터가 있음.
 
   ex)
@@ -125,22 +126,54 @@ const onClickEvent = (isValue, nameValue) =>{
   setUserList([...userList,{id:isValue,name:nameValue}]);
 };
 
-const resetEvent = ()=>{
-  setUserList([]);
+// 전체 리셋
+// const resetEvent = ()=>{
+//   setUserList([]);
+// };
+
+// // 해당배열요소 삭제하기
+// const deleteEvent = ()=>{
+//   // setUserList([]);
+// };
+
+const onRemoveHandler =  (e)=>{
+
+  const removeState = userList.filter(
+    (item)=> item.id !== parseInt(e.target.value) );
+    // filter는 제거하라는 명령문이 아니라
+    // 해당 상태가 맞지 않는 데이터를 제외하고 읽어오는 것이므로
+    // 원본 데이터를 훼손한 상태가 아니다.
+    setUserList(removeState);
 };
 
-// 해당배열요소 삭제하기
-const deleteEvent = ()=>{
-  // setUserList([]);
-};
+const removeButtonArr = useRef([]);
+
+const onPrintRefArr = ()=>{
+  console.log(removeButtonArr);
+}
+
+const onRemoveHandler_3 = (itemId)=>{
+  
+  const removeList = userList.filter((i)=>i.id !==itemId);
+  setUserList(removeList);
+
+}
+
+
 
   return (
     <>
-      {userList.map((v)=>(
-          <div>
+    {/* map,find,filter을 실행했을 시 결과값을 받아오는 변수에는
+          index를 가지고 올 수 있다. */}
+      {userList.map((v,index)=>(
+          <div key={v.id}>
               {v.id}.{v.name} 
               <button 
-              // onClick={deleteEvent}
+              value={v.id}
+              //map의 안에서 매게변수로 전달을 하게되면
+              // 해당 객체에 해당하는 모든 정보를 매개변수로 전달받을 수 있다.
+              onClick={()=>onRemoveHandler_3(v.id)}
+              ref={(el)=>removeButtonArr[index] = el}
               >삭제</button>
             </div>
           ))}
@@ -148,7 +181,7 @@ const deleteEvent = ()=>{
           <AddState 
             onClickEvent={onClickEvent}
             stateId = {userList.length>0 && userList[userList.length-1].id}
-            resetEvent={resetEvent}
+            // resetEvent={resetEvent}
           />
       </>
   );

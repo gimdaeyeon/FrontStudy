@@ -1,10 +1,15 @@
+import Callback from "../components/callback";
+import Memo from "../components/memo";
 import State from "../components/state";
 
-const Hook = ()=>{
+const Hook = () => {
   return (
-      <State/>
+    <>
+      <State />
+      <Memo />
+      <Callback/>
+    </>
   );
-}
+};
 
 export default Hook;
-
