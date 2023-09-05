@@ -9,7 +9,7 @@ const initialState = [
   },
   {
     id:3,
-    todo: '리액트 줜나게 공부하기',
+    todo: '리액트 계에속 공부하기',
   },
 ]
 
