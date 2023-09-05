@@ -17,12 +17,16 @@ const initialState = [
   },
 ];
 
+export const ADD_STATE = 'ADD_STATE';
+export const REMOVE_STATE = 'REMOVE_STATE';
+
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_STATE":
       return [...state, { id: action.id, name: action.name }];
     case "REMOVE_STATE":
-      return state.filters((item) => item.id !== action.id);
+      return state.filter((item) => item.id !== action.id);
     default:
       return state;
   }

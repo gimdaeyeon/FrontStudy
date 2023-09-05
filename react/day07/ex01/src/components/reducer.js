@@ -13,7 +13,7 @@ const Reducer = () => {
   
   const onDecrement = useCallback(()=>{
     dispatch({
-      type:'DECREMENT',
+      type:'ADD_STATE',
     })
   },[]);
 
