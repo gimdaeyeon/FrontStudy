@@ -6,7 +6,8 @@ const TodoList  = ({onRemoveHandler, state})=>{
 
   return (
     <div>
-        {state.id}. {state.Todo} <button onClick={onRemoveClick}>완료</button>
+        {state.id}. {state.Todo} 
+        <button onClick={onRemoveClick}>완료</button>
     </div>
   );
 }

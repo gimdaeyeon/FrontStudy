@@ -29,6 +29,8 @@ const reducer = (state, action) => {
 };
 
 const ContextProvider = ({children})=>{
+  // 전역으로 관리될 변수
+  // 현재 state는 id,이름으로된 객체 배열
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
