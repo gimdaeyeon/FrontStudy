@@ -38,6 +38,7 @@ const ContextProvider = ({children})=>{
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
+    // useContext()가 return하는 값이 Context.Provider의 value부분이다
     <Context.Provider value={{state,dispatch}}>
         {children}
     </Context.Provider>

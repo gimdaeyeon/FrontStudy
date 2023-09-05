@@ -8,7 +8,7 @@ const AddState = () => {
 
   const onChangeInput = useCallback((e)=>{
     setName(e.target.value);
-  },[name]);
+  },[setName]);
 
   const onAddState = useCallback(()=>{
     dispatch({
@@ -17,11 +17,11 @@ const AddState = () => {
       name : name? name:'',
     });
     setName('');
-  },[name,state]);
+  },[name,state,dispatch]);
 
   const onReset = useCallback(()=>{
     setName('');
-  },[name,state]);
+  },[setName]);
 
 
   return (
