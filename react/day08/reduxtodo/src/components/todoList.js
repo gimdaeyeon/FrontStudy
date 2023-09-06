@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import {  REMOVE_TODO } from "../reducer/todo";
 import { useCallback } from "react";
+import { styled } from 'styled-components';
 
 
 const TodoList  = ({state})=>{
@@ -26,5 +27,6 @@ const TodoList  = ({state})=>{
     </div>
   );
 }
+
 
 export default TodoList;
