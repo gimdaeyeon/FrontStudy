@@ -1,29 +1,34 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import {useEffect} from 'react';
-import MainPage from './pages/mainPage';
-import LoginPage from './pages/loginPage/index';
-import SignPage from './pages/signPage/index';
-import BlogPage from './pages/blogPage/index';
-import ChatPage from './pages/chatPage';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import MainPage from "./pages/mainPage";
+import LoginPage from "./pages/loginPage/index";
+import SignPage from "./pages/signPage/index";
+import BlogPage from "./pages/blogPage/index";
+import ChatPage from "./pages/chatPage";
+import MyBlogLayOut from "./_layout/myBlogLayOut/index";
+import GlobalStyle from "./style/global";
 
 function App() {
-  useEffect(()=>{
+  useEffect(() => {
     console.log(`기본지원 모드 ${process.env.NODE_ENV}`);
-  },[]);
+  }, []);
   // 개발용인가 배포용인가
   // 리액트에서 자체지원
-  // npm start => development 
+  // npm start => development
   // npm build => production
   return (
     <BrowserRouter>
-        <Routes>
+      <GlobalStyle />
+        <MyBlogLayOut>
+          <Routes>
             <Route path={"/"} element={<MainPage />} />
-            <Route path={"/login"} element={<LoginPage />}/>
-            <Route path={"/sign"} element={<SignPage />}/>
-            <Route path={"/blog/userid=:id"} element={<BlogPage />}/>
-            <Route path={"/chat"} element={<ChatPage />}/>
-        </Routes>
+            <Route path={"/login"} element={<LoginPage />} />
+            <Route path={"/sign"} element={<SignPage />} />
+            <Route path={"/blog/userid=:id"} element={<BlogPage />} />
+            <Route path={"/chat"} element={<ChatPage />} />
+          </Routes>
+        </MyBlogLayOut>
     </BrowserRouter>
   );
 }

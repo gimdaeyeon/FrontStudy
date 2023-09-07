@@ -18,27 +18,27 @@ let counter = 0;
 
 // 1. 처음으로 돌아가기
 
-let banner = setInterval(()=>{
-  if(counter < bannerItem.length-1){
-    counter++;
-    bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-  }else if(counter===bannerItem.length-1){
-    counter = 0;
-    bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-  }
-},5000);
+// let banner = setInterval(()=>{
+//   if(counter < bannerItem.length-1){
+//     counter++;
+//     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+//   }else if(counter===bannerItem.length-1){
+//     counter = 0;
+//     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+//   }
+// },5000);
 
 nextBtn.addEventListener("click", ()=>{
-  clearInterval(banner);
-  setInterval(()=>{
-    if(counter < bannerItem.length-1){
-      counter++;
-      bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-    }else if(counter===bannerItem.length-1){
-      counter = 0;
-      bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-    }
-  },5000);
+  // clearInterval(banner);
+  // setInterval(()=>{
+  //   if(counter < bannerItem.length-1){
+  //     counter++;
+  //     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+  //   }else if(counter===bannerItem.length-1){
+  //     counter = 0;
+  //     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+  //   }
+  // },5000);
 
   if(counter < bannerItem.length -1){
     counter++;
@@ -68,15 +68,15 @@ setInterval(() => {
 }, 반복할 시간);
 */ 
 
-setInterval(() => {
-  if(counter < bannerItem.length -1){
-    counter++;
-    bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-  }else if(counter === bannerItem.length-1){
-    counter = 0;
-    bannerBox.style.transform = "translateX(" + -size*counter + "px)";
-  }
-}, 3000);
+// setInterval(() => {
+//   if(counter < bannerItem.length -1){
+//     counter++;
+//     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+//   }else if(counter === bannerItem.length-1){
+//     counter = 0;
+//     bannerBox.style.transform = "translateX(" + -size*counter + "px)";
+//   }
+// }, 3000);
 
 
 

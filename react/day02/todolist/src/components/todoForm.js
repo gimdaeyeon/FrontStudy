@@ -23,12 +23,19 @@ const TodoForm = ({state,onAddState}) => {
       newTodo.current.focus();
   },[onAddState, state, todo]);
 
+  const onAddKeypress = (e)=>{
+    if(e.code === 'Enter'){
+      
+    }
+  };
+
   return (
     <div>
         <input
           ref={newTodo}
           value={todo}
           onChange={onChangeInput}
+          onKeyUp={onAddKeypress}
         />
         <button onClick={onAddHandler}>등록</button>
         <button onClick={onResetInput}>초기화</button>
