@@ -5,7 +5,6 @@ import Login from './pages/login';
 import Sign from './pages/sign';
 
 
-// 강의 시간 1:33:00
 function App() {
   return (
     <BrowserRouter>
