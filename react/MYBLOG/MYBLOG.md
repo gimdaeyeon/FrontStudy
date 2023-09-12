@@ -37,6 +37,48 @@ npm i redux react-redux-saga
 npm i -D redux-logger redux-devtools-extension
 
 ```
+---
+
+### immer 설치 라이브러리
+
+```text
+
+npm i @faker-js/faker immer
+
+```
+- reducer의 전역 상태의 불변성을 지켜주는 immer를 사용
+- 백엔드 없이 더미데이터를 만들어서 마치 백엔드에게 데이터를 받아온 것 처럼 만들기 위한 `@faker-jsfaker`
+  
+## redux Saga의 함수
+
+### yield
+saga 함수는 아니지만, 제너레이터 함수로 saga에서 동기적 흐름을 진행할 수 있도록 도와주는 명령어
+
+### takeLatest
+가장 보편적으로 사용, 진행중이던 작업 취소, 가장 마지막에 실행된 작업 실행.
+
+### etc) takeEvery(전체)
+
+### delay
+지연 처리 효과를 (1000 =1초) 줄 수 있으며   
+보통은 더미데이터를 이용해서 작업할 때 백엔드의 비동기 통신을 흉내내기 위해 사용.
+
+### put
+특정 액션을 dispatch하여 다시 reducer로 action을 통해 타입과 데이터를 보냄
+
+### call
+함수를 실행, 첫번째 파라미터에는 함수, 두번째에는 인수   
+ex) `const response =
+yield call(로그인로직(백엔드 주소를 실행시키는 함수명),로그인데이터(id,pw))`
+
+### fork
+함수의 비동기적인 호출을 할 때 사용, call과 달리 순서 상관없이 실행할 때 사용   
+보통은 이벤트 리스너 함수를 실행할 때 사용
+
+### all
+보통 fork와 함께 사용, 배열 안의 fork를 병렬적으로 모두 실행   
+그리고 해당 fork가 모두 실행될 때까지 기다리는 역할
+
 
 
 
