@@ -40,7 +40,37 @@ try {
 app.post('/upload', upload.single('image'),(req,res)=>{
   console.log(req.file);
 
+  // DB에 파일 경로 저장하는 로직
+  // 성공했다는 메시지
+  // 게시글 조회할 때 해당 경로를 DB에서 찾아서 보낸다
+
+  const data = {
+    state : 'success',
+    data: {
+      src : `/uploads/${req.file.filename}`,
+    },
+  };
+
+  res.status(200).json(data);
+
+
 });
+
+/*
+upload.single 파일 1개만
+upload.field 파일이 여러개일 때
+  한 input type file에 파일이 여러개일 때와
+  여러개의 input type file이 존재할 때
+
+ 강의시간 00:38:21
+
+*/
+
+
+app.post('/uploads', upload.fields([{name:'image1'}, {name:'image2'}]),
+  (req,res)=>{
+    console.log(req.files);
+  }); 
 
 
 
