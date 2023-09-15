@@ -62,7 +62,6 @@ upload.field 파일이 여러개일 때
   한 input type file에 파일이 여러개일 때와
   여러개의 input type file이 존재할 때
 
- 강의시간 00:38:21
 
 */
 
