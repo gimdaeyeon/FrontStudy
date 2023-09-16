@@ -4,7 +4,7 @@ import config from "../config/config.js";
 
 
 const env = process.env.NODE_ENV || 'development';
-const dbconfig = congif[env];
+const dbconfig = config[env];
 const db ={};
 
 const sequelize = new Sequelize(

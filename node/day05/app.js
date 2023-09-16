@@ -1,20 +1,23 @@
-import express from 'express';
-import db from './models/index.js';
-
+import express from "express";
+import db from "./models/index.js";
+import user from './routes/user.js';
 
 const app = express();
-app.set('port',3000);
+app.set("port", 3000);
 
-
-app.listen(app.get('port'),()=>{
-    console.log(`${app.get('port')}번 서버 실행 중`);
-})
-
-
-
-
-
+db.sequelize
+  .sync()
+  .then(() => {
+    console.log("db연결 성공");
+  })
+  .catch((err) => console.log(err));
 
 
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use('/user',user);
 
+app.listen(app.get("port"), () => {
+  console.log(`${app.get("port")}번 서버 실행 중`);
+});
