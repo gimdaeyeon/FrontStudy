@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../models/user.js';
+import passport from 'passport';
 
 
 export default class UserService{
@@ -34,6 +35,41 @@ export default class UserService{
         next(err)
       }
   }
+
+  static async login(req, res, next){
+    // 인증, 실행("키", "값")
+      passport.authenticate('local',(err, user,message)=>{
+          if(err){
+            console.log(err);
+            return next(err);
+          }
+
+          if(message){
+              return res.status(401).send(message);
+          }
+
+          //login 실행 함수, passport에서 주입
+          return req.login(user, async (loginErr)=>{
+              if(loginErr){
+                console.error(err);
+                return next(err);
+              }
+
+              const fullUser = await User.findOne({
+                where : {id:user.id},
+                attributes:{
+                  exclude:['password'],
+                },
+              });
+              return res.status(200).json(fullUser);
+          });
+
+      })(req,res,next);
+
+  }
+
+
+
 
 }
 
