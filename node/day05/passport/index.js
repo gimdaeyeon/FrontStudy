@@ -1,5 +1,6 @@
 import passport from "passport";
 import local from "./local.js";
+import User from "../models/user.js"; 
 
 export default ()=>{
   // 세션 생성
