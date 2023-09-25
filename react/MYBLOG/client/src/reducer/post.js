@@ -55,10 +55,12 @@ const reducer = (state = initialState, action)=>{
               draft.allPostsDone = false;
               draft.allPostsError = action.error;
             break;
+          default:
+            break;
         }
     });
 };
 
-
+export default reducer;
 
 

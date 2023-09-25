@@ -15,7 +15,7 @@ export const createDummyPost = (number)=>
             id : shortId.generate(),
             User : {
                 id: shortId.generate(),
-                nickname : faker.name.findName(),
+                nickname : faker.name.fullName(),
             },
             content : faker.lorem.paragraph(),
             Comments : [
@@ -23,7 +23,7 @@ export const createDummyPost = (number)=>
                     id : shortId.generate(),
                     User : {
                         id: shortId.generate(),
-                        nickname : faker.name.findName(),
+                        nickname : faker.name.fullName(),
                     },
                     content : faker.lorem.sentence(),
                 },
