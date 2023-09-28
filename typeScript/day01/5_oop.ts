@@ -29,6 +29,5 @@ class Car{
   }
 // 강의시간 03:17:00
   public printerName(){
-
   } 
 }
