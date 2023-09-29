@@ -27,7 +27,18 @@ class Car{
   public Driver(){ 
     console.log(`${this.driver}`);
   }
-// 강의시간 03:17:00
   public printerName(){
+    console.log(`동승자는 ${this.name}입니다`);
+    
   } 
 }
+
+let  car = new Car('김대연');
+let  car2 = new Car('김철수');
+let  car3 = new Car('한경호');
+
+car.printerName();
+car2.printerName();
+car3.printerName();
+
+
