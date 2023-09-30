@@ -1,6 +1,12 @@
+import { Suspense } from "react";
+import { useRoutes } from "react-router-dom";
+import { Path } from "router/Path";
 
 function App() {
-  return <div className="App">:)</div>;
+  const routes = useRoutes([...Path]);
+
+  return <Suspense fallback={<div>...Loading</div>}>{routes}</Suspense>;
+  
 }
 
 export default App;

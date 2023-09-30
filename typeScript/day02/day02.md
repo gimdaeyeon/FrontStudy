@@ -48,10 +48,48 @@ prettier, eslint
 .eslintrc   
 .prettierrc 파일을 생성
 
+---
 
-<!--  강의시간 01:00:00 -->
+script   
+   ` "lint":"eslint --cache",
+    "format":"prettier --cache --write"`
+  
+  npm run 명령어로 포멧팅과 린트검사가 가능
+  ---
 
 
+**git hook** = --> 깃 명령어가 작동되기 전에 실행하는 명령어
+1. 직접 만들 수 있으나 조작법이 까다롭고
+2. 해당 깃훅을 사용하는 모든 팀원이 같은 깃훅을 설정해야하는 단점
+
+###   husky
+1. git hook을 commit과 push이전에 사용할 수 있도록하는 라이브러리
+2. 해당 라이브러리는 설치 파일이기 때문에 한사람이 설정해도 모든 인원이 적용
+3. 라이브러리지만 가볍다
+
+사용법
+
+`npm i -D husky`   
+`npx husky install` // 해당 프로젝트 기초 셋팅
+
+"postinstall":"husky install"   <--추가 (package.json => script)
+
+`npx husky add .husky/pre-commit 'npm run lint'`   
+`npx husky add .husky/pre-push 'npm run format'`
+
+---
+
+styled components with typescript
+
+`npm i styled-components @types/styled-components`
+
++ 초기셋팅 시 `npm i react-router-dom`
+
+
+tsconfig
+
+기본 경로를  src로   
+    `"baseUrl" : "src"`
 
 
 
