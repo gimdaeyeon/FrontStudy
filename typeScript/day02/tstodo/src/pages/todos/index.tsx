@@ -10,16 +10,16 @@ type TodopageProps = {
 
 const TodosPage : FC <TodopageProps>= ({isactive}):JSX.Element => {
 
-  const [todos,setTodos]  = useState<Todo[]>([]);
+  // const [todos,setTodos]  = useState<Todo[]>([]);
 
-  useEffect(()=>{
-    TodoApi.getListAll().then((res)=>{
-        setTodos(res.data.data);
-    }).catch((err)=>{
-        console.error(err);
+  // useEffect(()=>{
+  //   TodoApi.getListAll().then((res)=>{
+  //       setTodos(res.data.data);
+  //   }).catch((err)=>{
+  //       console.error(err);
         
-    })
-  })
+  //   })
+  // })
 
 
 
