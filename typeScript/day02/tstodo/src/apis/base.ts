@@ -9,12 +9,17 @@ export const axiosApiInstance = axios.create({
 });
 
 axiosApiInstance.interceptors.request.use(
-  // async ()=>{},
+  async (config)=>{
+    return config;
+  },
 
-  // (error)=>{
-  //     throw new Error(error);
-  // }
+  (error)=>{
+      throw new Error(error);
+  }
 );
 
+
+
+// 강의시간 01:20:00
 
 
