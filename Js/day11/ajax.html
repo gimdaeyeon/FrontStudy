@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJax</title>
+</head>
+<body>
+  
+  <script>
+      const BACKEND_URL = 'https://jsonplaceholder.typicode.com/posts';
+      const req = new XMLHttpRequest();
+      // req => http request 객체 생성
+      req.open('GET',BACKEND_URL);
+      // http request 객체에 GET으로 BACKEND_URL 등록
+      req.send();
+      // request message 전송 --> bacend URL
+
+      req.addEventListener('load',(res)=>{
+        console.log(res.currentTarget.response);
+      });
+  </script>
+</body>
+</html>
