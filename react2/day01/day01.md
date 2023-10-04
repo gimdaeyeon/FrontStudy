@@ -133,5 +133,14 @@ html, css, js, media
 - package-lock.json
 - README.md
 
+## src의 구조
+- App.css
+- App.js
+- App.test.js
+- index.css
+- index.js
+- reportWebVitals.js
+- setupTest.js
+
 
 
