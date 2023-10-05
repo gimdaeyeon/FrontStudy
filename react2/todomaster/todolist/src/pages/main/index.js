@@ -1,37 +1,52 @@
-import React from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { styled } from 'styled-components';
+import SignInForm from './components/SignIn/SignIn';
+import SignUpForm from './components/SignUp/Signup';
 
-const MainPage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get('todoId'));
+const MainPage = ()=>{
 
-  const navigate = useNavigate();
+  let isFormLogin = true;
 
+  const onClickFormHeader = (e)=>{
+     const {innerText} = e.target;
+     if(innerText === 'LOGIN'){
+      isFormLogin = true
+     }else{
+       isFormLogin = false;
+     }
+     console.log(isFormLogin);
+  }
+  
+  const handleClickFormHeader = (e)=>{
 
-  const onClickNavigateTodo = ()=>{
-    // window.location.href = '/todo/3';
-    // navigate(\-1);   // 이전화면으로 이동
-    // navigate('/todo/3');
-    setSearchParams({
-      todoId:3,
-      page: 5
-    });
   }
 
 
-  return (
-    // <></>
-    <React.Fragment>
-      {/* 태그명이 없는 태그를 Fragment라고 부른다. 
-      만약 해당 Fragment에 속성을 줄 경우 React.Fragment를 명시해준다.*/}
-      <div>main</div>
-      <div>:)</div>
-      <button onClick={onClickNavigateTodo} >TodoPage로 이동</button>
-      <a href="/todo/4">TodoPage</a>
-      <p/>
-      <Link to='/todo/6' >TodoPage</Link>
-    </React.Fragment>
-  );
-};
+    return (
+      <Container>
+          <Header>
+              <div onClick={onClickFormHeader}>LOGIN</div>
+              <div onClick={onClickFormHeader}>SIGN</div>
+          </Header>
+          {isFormLogin?<SignInForm/>:<SignUpForm/>}
+      </Container>
+    );
 
+}
 export default MainPage;
+
+const Container = styled.div`
+    width: 100%;
+    height: calc(100vh-60px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`;
+
+const Header = styled.div`
+    width: 360px;
+    height: 48px;
+    display: flex;
+    background-color: pink;
+`;
+
