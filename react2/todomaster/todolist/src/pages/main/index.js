@@ -1,19 +1,21 @@
 import { styled } from 'styled-components';
 import SignInForm from './components/SignIn/SignIn';
 import SignUpForm from './components/SignUp/Signup';
+import { flexCenter } from '../../styles/global';
+import { useState } from 'react';
 
 const MainPage = ()=>{
 
-  let isFormLogin = true;
+  let [isFormLogin, setIsFormLogin] = useState(true);
 
   const onClickFormHeader = (e)=>{
      const {innerText} = e.target;
+     console.log(innerText);
      if(innerText === 'LOGIN'){
-      isFormLogin = true
+      return setIsFormLogin(true);
      }else{
-       isFormLogin = false;
+      setIsFormLogin(false);
      }
-     console.log(isFormLogin);
   }
   
   const handleClickFormHeader = (e)=>{
@@ -22,13 +24,13 @@ const MainPage = ()=>{
 
 
     return (
-      <Container>
-          <Header>
+      <S.Container>
+          <S.Header>
               <div onClick={onClickFormHeader}>LOGIN</div>
               <div onClick={onClickFormHeader}>SIGN</div>
-          </Header>
+          </S.Header>
           {isFormLogin?<SignInForm/>:<SignUpForm/>}
-      </Container>
+      </S.Container>
     );
 
 }
@@ -37,9 +39,7 @@ export default MainPage;
 const Container = styled.div`
     width: 100%;
     height: calc(100vh-60px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   ${flexCenter}
     flex-direction: column;
 `;
 
@@ -50,3 +50,7 @@ const Header = styled.div`
     background-color: pink;
 `;
 
+const S ={
+  Container,
+  Header
+}
