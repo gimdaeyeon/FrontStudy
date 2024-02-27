@@ -7,6 +7,7 @@ const TodoForm = ({ onAddHandler, id }) => {
   // 추가 버튼을 클릭하면 todo안에 있는 내용과
   // 추가될 id값을 onAddHandler에 넘겨줘
   // 리스트를 추가하고 todo를 다시 빈 값으로 변경해주는 함수
+
   const onAddState = useCallback(() => {
     onAddHandler(++id, todo);
     setTodo("");
