@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import GameBoard from "../obj/gameBoard.js";
+import GameConfig from "../config/gameConfig.js";
 
 export default class MainScene extends Phaser.Scene{
     constructor() {
@@ -8,8 +9,8 @@ export default class MainScene extends Phaser.Scene{
     }
 
     preload(){
-        this.load.spritesheet('block','img/block.png',{frameWidth:64,frameHeight:64});
-        this.load.spritesheet('back','img/back.png',{frameWidth:64,frameHeight:64});
+        this.load.spritesheet(GameConfig.MainScene.RENDER_TILE_SPRITE_SHEET_KEY,'img/block.png',{frameWidth:GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE,frameHeight:GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE});
+        this.load.spritesheet(GameConfig.MainScene.BACKGROUND_TILE_SPRITE_SHEET_KEY,'img/back.png',{frameWidth:GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE,frameHeight:GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE});
     }
     create() {
         // this.add.text(100,100,'Hello World',{fill:'#0f0'})
@@ -18,6 +19,7 @@ export default class MainScene extends Phaser.Scene{
         //
         // this.add.image(300,300,'back',0);
 
+        //  유튜브 강의시간 23:14 https://www.youtube.com/watch?v=_xGETajBA98&t=592s
         this.gameBoard.init();
         this.gameBoard.render();
     }

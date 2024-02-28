@@ -1,3 +1,5 @@
+import GameConfig from "../config/gameConfig.js";
+
 export default class GameBoard {
     constructor(scene) {
         this.scene = scene;
@@ -5,29 +7,32 @@ export default class GameBoard {
     }
 
     init() {
-        this._initBoard(this.board,0);
+        this._initBoard(this.board, 0);
     }
 
     _initBoard(tiles, value) {
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < GameConfig.MainScene.GAME_BOARD_HEIGHT_CNT; i++) {
             let tempArr = [];
-            for (let j = 0; j < 10; j++) {
+            for (let j = 0; j < GameConfig.MainScene.GAME_BOARD_WIDTH_CNT; j++) {
                 tempArr.push(value)
             }
             tiles[i] = tempArr;
         }
     }
 
-    render(){
+    render() {
         this._renderBackgroundGameBoard();
     }
-    _renderBackgroundGameBoard(){
-        for (let i = 0; i < 20; i++) {
-            for (let j = 0; j < 10; j++) {
-                if(this.board[i][j]==0){
-                    this.scene.add.image(j*40,i*40,'back',0)
-                        .setScale(40/64)
-                        .setOrigin(0,0)
+
+    _renderBackgroundGameBoard() {
+        for (let i = 0; i < GameConfig.MainScene.GAME_BOARD_HEIGHT_CNT; i++) {
+            for (let j = 0; j < GameConfig.MainScene.GAME_BOARD_WIDTH_CNT; j++) {
+                if (this.board[i][j] == 0) {
+                    this.scene.add.image(j * GameConfig.MainScene.RENDER_TILE_SIZE,
+                        i * GameConfig.MainScene.RENDER_TILE_SIZE,
+                        GameConfig.MainScene.RENDER_TILE_SIZE, 0)
+                        .setScale(GameConfig.MainScene.RENDER_TILE_SIZE / GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE)
+                        .setOrigin(0, 0)
                     ;
                 }
             }
