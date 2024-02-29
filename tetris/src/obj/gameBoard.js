@@ -11,6 +11,7 @@ export default class GameBoard {
         this.currentTetrisBlock = undefined;
         this.tetrisBlockFactory = new TetrisBlockFactory();
         this.timerManager = new TimerManager();
+        this.gameEnd = false;
     }
 
     init() {
@@ -22,6 +23,9 @@ export default class GameBoard {
     }
 
     handleKeyUp(event) {
+        if (this.currentTetrisBlock === undefined ||
+            this.gameEnd) return;
+
         if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.LEFT && this.canMoveBlock(-1, 0)) {
             this.currentTetrisBlock.move(-1, 0);
         } else if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.RIGHT && this.canMoveBlock(1, 0)) {
@@ -30,7 +34,10 @@ export default class GameBoard {
             this.currentTetrisBlock.move(0, 1);
         } else if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.UP && this.canRotateBlock()) {
             this.currentTetrisBlock.rotate();
+        } else if (event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
+            this.dropBlock();
         }
+
     }
 
     canMoveBlock(offsetX, offsetY) {
@@ -72,6 +79,7 @@ export default class GameBoard {
         const renderInfo = this.currentTetrisBlock.getRenderInfo();
         for (let y = renderInfo.startY, y2 = 0; y < renderInfo.endY; y++, y2++) {
             for (let x = renderInfo.startX, x2 = 0; x < renderInfo.endX; x++, x2++) {
+                if (y < 0 || x < 0) continue;
                 if (renderInfo.tiles[y2][x2] != 0) {
                     this.renderBoard[y][x] = renderInfo.tiles[y2][x2];
                 }
@@ -84,19 +92,43 @@ export default class GameBoard {
         this.currentTetrisBlock.move(offsetX, offsetY);
     }
 
+    dropBlock() {
+        for (let y = 0; y < GameConfig.MainScene.GAME_BOARD_HEIGHT_CNT; y++) {
+            // 만약 이동할 수 없는 위치까지 오게 된면 그 전까지만 가라
+            if (!this.canMoveBlock(0, y)) {
+                this.currentTetrisBlock.move(0, y - 1);
+                break;
+            }
+        }
+        this.placeBlock();
+    }
+
+
     spawnRandomBlock(x, y) {
         const block = this.tetrisBlockFactory.createRandomBlock();
         block.setPosition(x, y);
-        this.currentTetrisBlock = block;
+        return block;
     }
 
     update(time, delta) {
+        if (this.gameEnd) return;
 
         let {isClear, line} = this.checkForClearableLines();
         if (isClear) {
             this.clearLines(line);
             this.lineDown(line);
         } else {
+            if (this.currentTetrisBlock === undefined) {
+                const block = this.spawnRandomBlock(GameConfig.MainScene.GAME_BOARD_WIDTH_CNT / 2, 0);
+                if (this.canSpawnBlock(block)) {
+                    this.currentTetrisBlock = block;
+                } else {
+                    this.currentTetrisBlock = this.setLastBlockPos(block);
+                    this.gameEnd = true;
+                    this.scene.cameras.main.shake(500);
+                }
+            }
+
             if (this.timerManager.checkBlockDropTime()) {
                 if (this.canMoveBlock(0, 1)) {
                     this.currentTetrisBlock.move(0, 1);
@@ -105,6 +137,22 @@ export default class GameBoard {
                 }
             }
         }
+    }
+
+    setLastBlockPos(block) {
+        let blockInfo = block.getRenderInfo();
+        while (checkBlockCollision(blockInfo, this.board)) {
+            block.move(0, -1);
+            blockInfo = block.getRenderInfo;
+        }
+        return block;
+    }
+
+    canSpawnBlock(block) {
+        const blockInfo = block.getRenderInfo();
+        if (!checkBlockWithInArea(blockInfo, this.board)) return false;
+        if (checkBlockCollision(blockInfo, this.board)) return false;
+        return true;
     }
 
     placeBlock() {
@@ -118,8 +166,7 @@ export default class GameBoard {
                 }
             }
         }
-
-        this.spawnRandomBlock(GameConfig.MainScene.GAME_BOARD_WIDTH_CNT / 2, 0);
+        this.currentTetrisBlock = undefined;
     }
 
     checkForClearableLines() {
@@ -174,7 +221,7 @@ export default class GameBoard {
                 } else {
                     this.scene.add.image(j * GameConfig.MainScene.RENDER_TILE_SIZE,
                         i * GameConfig.MainScene.RENDER_TILE_SIZE,
-                        GameConfig.MainScene.RENDER_TILE_SPRITE_SHEET_KEY, this.board[i][j] - 1)
+                        GameConfig.MainScene.RENDER_TILE_SPRITE_SHEET_KEY, this.renderBoard[i][j] - 1)
                         .setScale(GameConfig.MainScene.RENDER_TILE_SIZE / GameConfig.MainScene.RENDER_TILE_SPRITE_ORIGIN_SIZE)
                         .setOrigin(0, 0)
                     ;
