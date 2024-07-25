@@ -1,16 +1,29 @@
-<div id="app"></div>
+<div id="app">
+  <!-- 여기에 설정한 값이 렌더링 된다. -->
+</div>
 
 <script>
   let data ={
-    a: 10
+    message: 'hi'
   }
+
+  function redner(sth){
+    const div = document.querySelector('#app');
+
+    div.textContent = sth;
+
+  }
+
 
   const app = new Proxy(data,{
     get(){
-      console.log('값 접근');
+      console.log('값 접근햣');
     },
-    set(){
+    set(target,prop,newValue){
       console.log('값 갱신');
+      target[prop] = newValue;
+      redner(newValue);
+
     }
   });
 
