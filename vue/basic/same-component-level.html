@@ -1,0 +1,48 @@
+<div id="app">
+  <!-- <app-header v-bind:프롭스이름="데이터이름"></app-header> -->
+  <app-header v-bind:app-title="message"></app-header>
+  <app-contents v-on:login="receive"></app-contents>
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script>
+  const appHeader = {
+    props:['appTitle'],
+    template: '<h1>{{appTitle}}</h1>'
+  }
+
+  const appContents = {
+    template: `
+			<p>
+				<button v-on:click="sendEvent">로그인</button>	
+			</p>
+		`,
+    methods: {
+      sendEvent(){
+        this.$emit('login')
+      }
+    }
+  }
+
+  Vue.createApp({
+    data(){
+      return{
+        message:'로그인 하세요'
+      }
+    }
+    ,
+    methods:{
+      receive(){
+        console.log('받았다.');
+        this.message = '로그인 됨'
+      }
+    },
+    components: {
+      'app-header': appHeader,
+      'app-contents': appContents
+    }
+  }).mount('#app');
+
+
+</script>
+<!--// JavaScript -->
