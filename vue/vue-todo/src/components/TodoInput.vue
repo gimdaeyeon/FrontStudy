@@ -17,6 +17,7 @@
     },
     methods:{
       addTodo(){
+        if(this.newTodoItem=== '') return;
         localStorage.setItem(this.newTodoItem,this.newTodoItem);
         this.clearInput();
       },
