@@ -1,7 +1,7 @@
 <template>
   <div>
     <TodoHeader />
-    <TodoInput />
+    <TodoInput @addTodoItem="addOneItem" />
     <TodoList :propsdata="todoItems" />
     <TodoFooter />
   </div>
@@ -34,6 +34,13 @@ export default {
       );
     }
   },
+  methods:{
+    addOneItem(todoItem){
+      let obj={completed: false, item: todoItem};
+      localStorage.setItem(todoItem,JSON.stringify(obj));
+      this.todoItems.push(obj);
+    }
+  }
 };
 </script>
 
