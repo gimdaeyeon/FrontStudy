@@ -2,7 +2,7 @@
   <div>
     <TodoHeader />
     <TodoInput />
-    <TodoList />
+    <TodoList :propsdata="todoItems" />
     <TodoFooter />
   </div>
 </template>
@@ -19,6 +19,20 @@ export default {
     TodoList,
     TodoInput,
     TodoFooter,
+  },
+  data() {
+    return {
+      todoItems: []
+    }
+  },
+  created() {
+    if (localStorage.length <= 0) return;
+    for (let i = 0; i < localStorage.length; i++) {
+      // this.todoItems.push(localStorage.key(i));
+      this.todoItems.push(
+        JSON.parse(localStorage.getItem(localStorage.key(i)))
+      );
+    }
   },
 };
 </script>
