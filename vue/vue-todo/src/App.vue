@@ -23,7 +23,8 @@ export default {
   },
   data() {
     return {
-      todoItems: []
+      todoItems: [],
+      
     }
   },
   created() {
