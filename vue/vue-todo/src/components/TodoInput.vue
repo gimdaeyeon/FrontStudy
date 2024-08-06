@@ -3,15 +3,17 @@
     <input type="text" v-model="newTodoItem" @keyup.enter="addTodo">
     <!-- <button @click="addTodo">add</button> -->
     <span class="addContainer" @click="addTodo">
-      <i class="fa-solid fa-plus addBtn"></i>
+      <i class="fa-solid fa-plus addBtn"  ></i>
     </span>
 
     <AlertModal v-if="showModal" @close="showModal = false">
       <template v-slot:header>
-        <h3 >경고</h3>
+        <h3 >경고!
+          <i class="fa-solid fa-x closeModalBtn" @click="showModal = false" ></i>
+        </h3>
       </template>
       <template v-slot:body>
-        <h3>내용스</h3>
+        <div>아무것도 입력하지 않으셨습니다.</div>
       </template>
 
       
@@ -78,6 +80,10 @@
   .addBtn{
     color: white;
     vertical-align: middle;
+    cursor: pointer;
+  }
+  .closeModalBtn{
+    color: #42b983;
     cursor: pointer;
   }
 
