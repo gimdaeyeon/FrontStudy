@@ -1,10 +1,9 @@
 <template>
   <div>
     <TodoHeader />
-    <TodoInput @addTodoItem="addOneItem" />
-    <TodoList :propsdata="todoItems" 
-    @removeItem="removeOneItem" @toggleItem="toggleOneItem" />
-    <TodoFooter @clearAll="clearAllItems" />
+    <TodoInput />
+    <TodoList  />
+    <TodoFooter />
   </div>
 </template>
 
@@ -23,39 +22,8 @@ export default {
   },
   data() {
     return {
-      todoItems: [],
-      
     }
   },
-  created() {
-    if (localStorage.length <= 0) return;
-    for (let i = 0; i < localStorage.length; i++) {
-      // this.todoItems.push(localStorage.key(i));
-      this.todoItems.push(
-        JSON.parse(localStorage.getItem(localStorage.key(i)))
-      );
-    }
-  },
-  methods:{
-    addOneItem(todoItem){
-      let obj={completed: false, item: todoItem};
-      localStorage.setItem(todoItem,JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-    removeOneItem(todoItem,index){
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-    },
-    toggleOneItem(todoItem,index){
-      this.todoItems[index].completed = !this.todoItems[index].completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item,JSON.stringify(todoItem)); 
-    },
-    clearAllItems(){
-      localStorage.clear();
-      this.todoItems = [];
-    }
-  }
 };
 </script>
 
