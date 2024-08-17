@@ -9,9 +9,17 @@ import {ref} from "vue";
 
 export default {
   setup(){
-    const items = ref(['애플','삼성','인프런']);
+    const items = ref([]);
 
-    return {items}
+    function fetchTodos(){
+      for (let i = 0; i < localStorage.length; i++) {
+        const todoItem = localStorage.key(i);
+        items.value.push(todoItem);
+      }
+    }
+    fetchTodos();
+
+    return {items,fetchTodos}
   }
 }
 </script>
