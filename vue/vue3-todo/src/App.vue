@@ -1,7 +1,7 @@
 <template>
   <TodoHeader/>
-  <TodoInput/>
-  <TodoList :todoItems="todoItems"  />
+  <TodoInput @add="addTodoItem" />
+  <TodoList :todoItems="todoItems" @remove="removeTodoItem" />
 </template>
 
 <script>
@@ -30,7 +30,18 @@ export default {
     }
     todoItems.value = fetchTodos();
 
-    return {todoItems}
+    function addTodoItem(todo){
+      todoItems.value.push(todo);
+      localStorage.setItem(todo,todo);
+    }
+
+    return {todoItems,addTodoItem}
+  },
+  methods:{
+    removeTodoItem(item,index){
+      this.todoItems.splice(index,1);
+      localStorage.removeItem(item);
+    }
   }
 
 }
