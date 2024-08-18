@@ -9,13 +9,18 @@
 
 <script>
 
+import {watch} from "vue";
+
 export default {
   props:['todoItems'],
-  setup(props,context){
+  setup(props,{emit}){
     function removeTodo(item,index){
-      context.emit('remove',item,index);
+      emit('remove',item,index);
     }
 
+    watch(props.todoItems,(newValue)=>{
+      console.log(newValue);
+    })
     return {removeTodo}
   }
 }
