@@ -1,12 +1,24 @@
 <template>
   <div>
-    ask
+    <div v-for="ask in asks" :key="ask.id" >{{ask.title}}</div>
   </div>
 </template>
 
 <script>
-export default {
+import {ref} from "vue";
+import {fetchAskList} from "@/api";
 
+export default {
+  setup(){
+    const asks = ref([]);
+
+    fetchAskList()
+        .then(resp=>asks.value=resp.data)
+        .catch(console.log);
+    return {
+      asks
+    }
+  }
 }
 </script>
 

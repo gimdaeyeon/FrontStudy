@@ -1,12 +1,23 @@
 <template>
   <div>
-    jobs
+    <div v-for="job in jobs" :key="job.id" >{{job.title}}</div>
   </div>
 </template>
 
 <script>
-export default {
+import {ref} from "vue";
+import {fetchJobsList} from "@/api";
 
+export default {
+  setup(){
+    const jobs = ref([]);
+
+    fetchJobsList()
+        .then(resp=>jobs.value=resp.data)
+        .catch(console.log);
+
+    return{jobs}
+  }
 }
 </script>
 
