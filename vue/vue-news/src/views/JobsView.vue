@@ -5,18 +5,16 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import {fetchJobsList} from "@/api";
+
+import {mapState, useStore} from "vuex";
 
 export default {
   setup(){
-    const jobs = ref([]);
-
-    fetchJobsList()
-        .then(resp=>jobs.value=resp.data)
-        .catch(console.log);
-
-    return{jobs}
+    const store = useStore();
+    store.dispatch('fetchJobs');
+  },
+  computed:{
+    ...mapState(['jobs'])
   }
 }
 </script>

@@ -1,23 +1,20 @@
 <template>
   <div>
-    <div v-for="item in ask" :key="item.id" >{{item.title}}</div>
+    <div v-for="ask in asks" :key="ask.id" >{{ask.title}}</div>
   </div>
 </template>
 
 <script>
-import {ref} from "vue";
-import {fetchAskList} from "@/api";
+
+import {mapState, useStore} from "vuex";
 
 export default {
   setup(){
-    const ask = ref([]);
-
-    fetchAskList()
-        .then(resp=>ask.value=resp.data)
-        .catch(console.log);
-    return {
-      ask
-    }
+    const store = useStore();
+    store.dispatch('fetchAsks');
+  },
+  computed:{
+    ...mapState(['asks']),
   }
 }
 </script>
