@@ -10,5 +10,8 @@ export default {
     },
     setUser(state,user){
         state.user = user;
+    },
+    setItem(state,item){
+        state.item = item;
     }
 }

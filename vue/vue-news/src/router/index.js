@@ -22,6 +22,7 @@ export const router = createRouter({
         {
             path: '/ask',
             component: AskView,
+
         },
         {
             path: '/jobs',
