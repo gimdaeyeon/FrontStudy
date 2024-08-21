@@ -1,11 +1,20 @@
 <template>
   <div>
-    <div v-for="item in news" :key="item.id">{{ item.title }}</div>
+    <p v-for="item in news" :key="item.id">
+      <a :href="item.url">
+        {{ item.title }}
+      </a>
+      <small>{{ item.time_ago }} by
+        <router-link :to="`/user/${item.user}`">
+          {{ item.user }}
+        </router-link>
+      </small>
+    </p>
   </div>
 </template>
 
 <script>
-import { useStore, mapState} from "vuex";
+import {mapState, useStore} from "vuex";
 
 export default {
   setup() {
@@ -13,7 +22,7 @@ export default {
     store.dispatch('fetchNews');
 
   },
-  computed:{
+  computed: {
     ...mapState(['news']),
   },
 }
