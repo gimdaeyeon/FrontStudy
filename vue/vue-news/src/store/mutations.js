@@ -7,5 +7,8 @@ export default {
     },
     setAsks(state, asks) {
         state.asks = asks;
+    },
+    setUser(state,user){
+        state.user = user;
     }
 }
