@@ -1,20 +1,30 @@
 <template>
-  <ToolBar></ToolBar>
-  <router-view/>
+  <ToolBar/>
+  <transition name="page">
+    <router-view/>
+  </transition>
 </template>
 
 <script>
 import ToolBar from './components/ToolBar'
+
 export default {
-  components:{
+  components: {
     ToolBar,
   }
 }
 </script>
 
 <style>
-  body{
-    margin: 0;
-    padding: 0;
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
+/*Router Trasition*/
+.page-enter-active, .page-leave-active {
+  transition: opacity 0.5s ease;
+}
+.page-enter-from, .page-leave-to {
+  opacity: 0;
+}
 </style>
