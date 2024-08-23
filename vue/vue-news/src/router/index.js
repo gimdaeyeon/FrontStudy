@@ -16,24 +16,28 @@ export const router = createRouter({
         {
             // url 주소
             path: '/news',
-            // url 주소로 갔을 때 표시될  컴포넌트
+            name: 'news',
             component: NewsView,
         },
         {
             path: '/ask',
+            name: 'ask',
             component: AskView,
 
         },
         {
             path: '/jobs',
+            name: 'jobs',
             component: JobsView,
         },
         {
             path: '/user/:id',
+            name: 'user',
             component: UserView,
         },
         {
             path: '/item',
+            name:'item',
             component: ItemView,
         },
     ]
