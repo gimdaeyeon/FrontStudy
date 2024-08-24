@@ -1,7 +1,4 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import NewsView from '../views/NewsView.vue';
-import AskView from '../views/AskView.vue';
-import JobsView from '../views/JobsView.vue';
 import UserView from "@/views/UserView.vue";
 import ItemView from "@/views/ItemView.vue";
 import createListView from "@/views/CreateListView";
@@ -18,18 +15,18 @@ export const router = createRouter({
             // url 주소
             path: '/news',
             name: 'news',
-            component: createListView('NewsView') ,
+            component: createListView('news') ,
         },
         {
             path: '/ask',
             name: 'ask',
-            component: createListView('AskView'),
+            component: createListView('ask'),
 
         },
         {
             path: '/jobs',
             name: 'jobs',
-            component: JobsView,
+            component: createListView('jobs'),
         },
         {
             path: '/user/:id',

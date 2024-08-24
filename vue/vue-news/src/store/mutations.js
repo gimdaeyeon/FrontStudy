@@ -19,5 +19,8 @@ export default {
     },
     endSpinner(state){
         state.loadingStatus = false;
+    },
+    setList(state,list){
+        state.list = list;
     }
 }

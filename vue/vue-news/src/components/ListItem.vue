@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="news-list">
-      <li v-for="item in listItems" :key="item.id" class="post">
+      <li v-for="item in list" :key="item.id" class="post">
         <div class="points">{{ item.points || 0 }}</div>
 
         <div>
@@ -36,8 +36,12 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
-  props:['listItems']
+  computed:{
+    ...mapState(['list']),
+  }
 }
 </script>
 
