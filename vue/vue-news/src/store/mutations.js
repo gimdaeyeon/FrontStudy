@@ -13,5 +13,11 @@ export default {
     },
     setItem(state,item){
         state.item = item;
+    },
+    startSpinner(state){
+        state.loadingStatus = true;
+    },
+    endSpinner(state){
+        state.loadingStatus = false;
     }
 }

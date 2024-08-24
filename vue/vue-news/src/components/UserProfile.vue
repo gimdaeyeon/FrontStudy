@@ -7,11 +7,10 @@
       <div>
         {{ item.id }}
       </div>
-<!--      <router-link :to="`/user/${item.id}`">-->
-<!--      </router-link>-->
       <div class="time">
         {{ item.created }}
       </div>
+      <div>{{item.karma}}</div>
     </div>
   </div>
 </template>
@@ -21,9 +20,6 @@
 import {mapState} from "vuex";
 
 export default {
-  setup() {
-
-  },
   computed: {
     ...mapState({item: 'user'}),
   }

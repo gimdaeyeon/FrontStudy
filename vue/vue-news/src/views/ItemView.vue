@@ -1,20 +1,10 @@
 <template>
   <div>
     <section>
-      <!--      질문 상세정보-->
-      <div class="user-container">
-        <div>
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <div class="user-description">
-          <router-link :to="`/user/${item.user}`">
-            {{ item.user }}
-          </router-link>
-          <div class="time">
-            {{ item.time_ago }}
-          </div>
-        </div>
-      </div>
+      <!-- 사용자 정보-->
+      <UserProfile/>
+    </section>
+    <section>
       <h2>{{ item.title }}</h2>
     </section>
     <section>
@@ -26,13 +16,23 @@
 <script>
 import {mapState, useStore} from "vuex";
 import {useRoute} from "vue-router";
+import UserProfile from "@/components/UserProfile.vue";
+import {computed, watch} from "vue";
 
 export default {
+  components: {
+    UserProfile,
+  },
   setup() {
     const store = useStore();
     const route = useRoute();
 
     const itemId = route.query.id;
+    const item = computed(()=>store.state.item);
+
+    watch(item,(value)=>{
+      store.dispatch('fetchUser',value.user);
+    });
     store.dispatch('fetchItem', itemId);
   },
   computed: {

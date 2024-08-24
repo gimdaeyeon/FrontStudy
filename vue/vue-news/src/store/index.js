@@ -9,6 +9,7 @@ export const store = createStore({
         asks: [],
         user:{},
         item:{},
+        loadingStatus: false,
     },
     mutations,
     actions,

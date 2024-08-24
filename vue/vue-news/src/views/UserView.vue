@@ -7,7 +7,7 @@
 <script>
 
 import {useRoute} from "vue-router";
-import { useStore} from "vuex";
+import {mapState, useStore} from "vuex";
 import UserProfile from "@/components/UserProfile.vue";
 
 export default {
@@ -18,6 +18,9 @@ export default {
     const userName = route.params.id;
     store.dispatch('fetchUser',userName);
   },
+  computed:{
+    ...mapState(['user']),
+  }
 }
 </script>
 

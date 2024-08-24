@@ -36,39 +36,8 @@
 </template>
 
 <script>
-import {useStore} from "vuex";
-import {useRoute} from "vue-router";
-import {computed} from "vue";
-
 export default {
-  setup() {
-    const route = useRoute();
-    const store = useStore();
-    const routeName = route.name;
-    let listItems;
-
-    switch (routeName) {
-      case 'news':
-        store.dispatch('fetchNews');
-        listItems = computed(() => {
-          return store.state.news;
-        });
-        break;
-      case 'ask':
-        store.dispatch('fetchAsks');
-        listItems = computed(() => {
-          return store.state.asks;
-        });
-        break;
-      case 'jobs':
-        store.dispatch('fetchJobs');
-        listItems = computed(() => {
-          return store.state.jobs;
-        });
-        break;
-    }
-    return {store, listItems}
-  },
+  props:['listItems']
 }
 </script>
 
