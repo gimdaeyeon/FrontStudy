@@ -3,17 +3,31 @@
     <ul class="news-list">
       <li v-for="item in listItems" :key="item.id" class="post">
         <div class="points">{{ item.points || 0 }}</div>
+
         <div>
           <p class="news-title">
-            <a :href="item.url">
-              {{ item.title }}
-            </a>
+            <template v-if="item.domain">
+              <a :href="item.url">
+                {{ item.title }}
+              </a>
+            </template>
+            <template v-else>
+              <router-link :to="{path:'/item',query:{id:item.id}}">-->
+                {{ item.title }}-->
+              </router-link>
+              -->
+            </template>
           </p>
           <small class="link-text">
             {{ item.time_ago }} by
-            <router-link :to="`/user/${item.user}`" class="link-text">
-              {{ item.user }}
+
+            <router-link
+                v-if="item.user"
+                :to="`/user/${item.user}`" class="link-text">{{ item.user }}
             </router-link>
+            <a v-else :href="item.url" class="link-text">
+              {{ item.domain }}
+            </a>
           </small>
         </div>
       </li>
@@ -22,7 +36,7 @@
 </template>
 
 <script>
-import { useStore} from "vuex";
+import {useStore} from "vuex";
 import {useRoute} from "vue-router";
 import {computed} from "vue";
 
@@ -30,30 +44,30 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    const routeName =route.name;
+    const routeName = route.name;
     let listItems;
 
-    switch (routeName){
+    switch (routeName) {
       case 'news':
-          store.dispatch('fetchNews');
-          listItems = computed(()=>{
-            return store.state.news;
-          });
-          break;
+        store.dispatch('fetchNews');
+        listItems = computed(() => {
+          return store.state.news;
+        });
+        break;
       case 'ask':
         store.dispatch('fetchAsks');
-        listItems = computed(()=>{
+        listItems = computed(() => {
           return store.state.asks;
         });
         break;
       case 'jobs':
         store.dispatch('fetchJobs');
-        listItems = computed(()=>{
+        listItems = computed(() => {
           return store.state.jobs;
         });
         break;
     }
-    return {store,listItems}
+    return {store, listItems}
   },
 }
 </script>
