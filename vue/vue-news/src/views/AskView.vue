@@ -6,17 +6,14 @@
 
 <script>
 import ListItem from '../components/ListItem.vue'
-import {mapState, useStore} from "vuex";
+import {mapState} from "vuex";
+import ListMixin from "@/mixins/ListMixin";
 export default {
   components:{
     ListItem
   },
-  setup(){
-    const store = useStore();
-    store.commit('startSpinner');
-    store.dispatch('fetchAsks')
-        .then(() => store.commit('endSpinner'));
-  },
+  mixins:[ListMixin]
+ ,
   computed:{
     ...mapState(['asks']),
   }

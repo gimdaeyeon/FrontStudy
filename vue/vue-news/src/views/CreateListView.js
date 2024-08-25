@@ -1,15 +1,15 @@
 import ListView from "@/views/ListView.vue";
 import {useStore} from "vuex";
 import {h} from "vue";
+import {useRoute} from "vue-router";
 
-export default function createListView(name){
+export default function createListView(){
     return {
     //     재사용할 인스턴스(컴포넌트) 욥션들이 들어갈 자리
-        name,
-        created() {
+        setup() {
             const store = useStore();
             store.commit('startSpinner');
-            store.dispatch('fetchList',name)
+            store.dispatch('fetchList',useRoute().name)
                 .then(() => store.commit('endSpinner'));
         },
         render(){
