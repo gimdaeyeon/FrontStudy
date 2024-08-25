@@ -5,6 +5,7 @@ import ItemView from "@/views/ItemView.vue";
 import NewsView from "@/views/NewsView.vue";
 import AskView from "@/views/AskView.vue";
 import JobsView from "@/views/JobsView.vue";
+import {listNavigator} from "@/router/listNavigator";
 
 
 export const router = createRouter({
@@ -20,18 +21,21 @@ export const router = createRouter({
             name: 'news',
             // component: createListView() ,
             component: NewsView ,
+            beforeEnter: listNavigator,
         },
         {
             path: '/ask',
             name: 'ask',
             // component: createListView(),
             component: AskView,
+            beforeEnter:listNavigator
         },
         {
             path: '/jobs',
             name: 'jobs',
             // component: createListView(),
             component: JobsView,
+            beforeEnter:listNavigator
         },
         {
             path: '/user/:id',

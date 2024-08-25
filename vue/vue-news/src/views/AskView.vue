@@ -7,13 +7,10 @@
 <script>
 import ListItem from '../components/ListItem.vue'
 import {mapState} from "vuex";
-import ListMixin from "@/mixins/ListMixin";
 export default {
   components:{
     ListItem
   },
-  mixins:[ListMixin]
- ,
   computed:{
     ...mapState(['asks']),
   }
