@@ -6,6 +6,7 @@ import NewsView from "@/views/NewsView.vue";
 import AskView from "@/views/AskView.vue";
 import JobsView from "@/views/JobsView.vue";
 import {listNavigator} from "@/router/listNavigator";
+import {useStore} from "vuex";
 
 
 export const router = createRouter({
@@ -41,6 +42,13 @@ export const router = createRouter({
             path: '/user/:id',
             name: 'user',
             component: UserView,
+            beforeEnter:(to,from,next)=>{
+                const store = useStore();
+                store.commit('startSpinner');
+                store.dispatch('fetchUser',to.params.id)
+                    .then(()=>store.commit('endSpinner'));
+                next();
+            }
         },
         {
             path: '/item',
