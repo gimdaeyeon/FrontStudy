@@ -1,18 +1,17 @@
 <template>
   <div>
-    <canvas ref="barChart" id="barChart" width="400" height="400"></canvas>
+    <canvas ref="lineChart" id="lineChart" width="400" height="400"></canvas>
 
   </div>
 </template>
 
 <script>
-
 export default {
   mounted() {
-    const ctx = this.$refs.barChart
+    const ctx = this.$refs.lineChart;
 
     new this.$_Chart(ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
