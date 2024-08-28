@@ -1,0 +1,24 @@
+server:
+  port: 10000
+
+spring:
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:XE
+#    username: test
+#    password: 1234
+  jpa:
+    hibernate:
+      #                  ddl-auto: create
+      #            ddl-auto: create-drop
+                  ddl-auto: update
+#      ddl-auto: validate
+  security:
+    user:
+      name: aaa
+      password: 1234
+
+jwt:
+  header: Authorization
+  #HS512 ????? ??? ??? ??? 512bit, ? 64byte ??? secret key? ???? ??.
+  accessSecret: a2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbXRva2FyaW10b2thcmltdG9rYXJpbQ==
