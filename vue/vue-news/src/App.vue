@@ -16,6 +16,7 @@ export default {
     ToolBar, WaitSpinner
   },
   setup() {
+    console.log(process.env.VUE_APP_TITLE);
     const store = useStore();
     store.commit('startSpinner');
 
