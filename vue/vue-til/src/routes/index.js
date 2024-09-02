@@ -2,18 +2,22 @@ import {createRouter, createWebHistory} from "vue-router";
 
 export const router = createRouter({
     history: createWebHistory(),
-    routes:[
+    routes: [
         {
-          path: '/',
-          redirect: '/login'
+            path: '/',
+            redirect: '/login'
         },
         {
-            path:'/login',
-            component: ()=>import('@/view/LoginPage.vue'),
+            path: '/login',
+            component: () => import('@/views/LoginPage.vue'),
         },
         {
-            path:'/signup',
-            component: ()=>import('@/view/SignupPage.vue'),
+            path: '/signup',
+            component: () => import('@/views/SignupPage.vue'),
+        },
+        {
+            path: '/:pathMatch(.*)*',
+            component: () => import('@/views/NotFoundPage.vue'),
         },
     ]
 });
