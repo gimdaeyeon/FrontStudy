@@ -1,10 +1,11 @@
 import axios from "axios";
 
+const instance = axios.create({
+    baseURL: process.env.VUE_APP_API_URL,
+});
 
 function registerUser(userData){
-    const url = `http://localhost:10000/api/users/signup`
-    console.log(userData)
-    return axios.post(url, userData)
+    return instance.post('users/signup',userData)
 }
 
 
