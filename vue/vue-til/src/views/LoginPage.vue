@@ -1,13 +1,13 @@
 <template>
   <div>
-    Login
+    <h1>로그인 페이지</h1>
+    <LogiunForm/>
   </div>
 </template>
 
-<script>
-export default {
+<script setup>
 
-}
+import LogiunForm from "@/components/LoginForm.vue";
 </script>
 
 <style lang="scss" scoped>
