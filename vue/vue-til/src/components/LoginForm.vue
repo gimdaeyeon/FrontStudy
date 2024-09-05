@@ -8,18 +8,22 @@
       <label for="password">pw: </label>
       <input id="password" type="text" v-model="password">
     </div>
-    <button>로그인</button>
+    <button :disabled="!isUserValid">로그인</button>
     <p>{{ logMessage }}</p>
   </form>
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {loginUser} from "@/api";
 
 const loginId = ref('');
 const password = ref('');
 const logMessage = ref('');
+
+const isUserValid = computed(()=>{
+  return loginId.value && password.value;
+})
 
 async function submitLoginForm() {
   try {
