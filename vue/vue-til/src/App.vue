@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="app">
     <AppHeader/>
-    <router-view/>
+    <div class="app-contents">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -9,12 +11,13 @@
 import AppHeader from "@/components/common/AppHeader.vue";
 
 export default {
-  components:{
+  components: {
     AppHeader
   }
 }
 </script>
 
-<style scoped>
-
+<style>
+@import './css/reset.css';
+@import './css/common.css';
 </style>

@@ -1,16 +1,26 @@
 <template>
-  <form @submit.prevent="submitLoginForm">
-    <div>
-      <label for="loginId">id: </label>
-      <input id="loginId" type="text" v-model="loginId">
+  <div class="contents">
+    <div class="form-wrapper form-wrapper-sm">
+      <form @submit.prevent="submitLoginForm" class="form">
+        <div>
+          <label for="loginId">id: </label>
+          <input id="loginId" type="text" v-model="loginId">
+          <p class="validation-text">
+            <span class="warning" v-if="!isLoginIdValid &&loginId">
+              Please enter an email address
+            </span>
+          </p>
+        </div>
+        <div>
+          <label for="password">pw: </label>
+          <input id="password" type="text" v-model="password">
+        </div>
+        <button :disabled="!isLoginIdValid ||!password" class="btn">로그인</button>
+      </form>
+      <p class="log">{{ logMessage }}</p>
     </div>
-    <div>
-      <label for="password">pw: </label>
-      <input id="password" type="text" v-model="password">
-    </div>
-    <button :disabled="!isUserValid">로그인</button>
-    <p>{{ logMessage }}</p>
-  </form>
+  </div>
+
 </template>
 
 <script setup>
@@ -21,8 +31,8 @@ const loginId = ref('');
 const password = ref('');
 const logMessage = ref('');
 
-const isUserValid = computed(()=>{
-  return loginId.value && password.value;
+const isLoginIdValid = computed(() => {
+  return loginId.value;
 })
 
 async function submitLoginForm() {
@@ -48,6 +58,8 @@ function initForm() {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style>
+.btn {
+  color: white;
+}
 </style>
