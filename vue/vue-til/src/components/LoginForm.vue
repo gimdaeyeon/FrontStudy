@@ -9,7 +9,7 @@
       <input id="password" type="text" v-model="password">
     </div>
     <button>로그인</button>
-    <p>{{logMessage}}</p>
+    <p>{{ logMessage }}</p>
   </form>
 </template>
 
@@ -22,18 +22,23 @@ const password = ref('');
 const logMessage = ref('');
 
 async function submitLoginForm() {
-  const userData = {
-    loginId: loginId.value,
-    password: password.value
-  }
+  try {
+    const userData = {
+      loginId: loginId.value,
+      password: password.value
+    }
 
-  const {data} = await loginUser(userData);
-  console.log(data.user.loginId);
-  logMessage.value = `${data.user.loginId}님 환영합니다.`
-  initForm();
+    const {data} = await loginUser(userData);
+    console.log(data.user.loginId);
+    logMessage.value = `${data.user.loginId}님 환영합니다.`
+  } catch (error) {
+    logMessage.value = error.response.data.message;
+  } finally {
+    initForm();
+  }
 }
 
-function initForm(){
+function initForm() {
   loginId.value = '';
   password.value = '';
 }
