@@ -3,6 +3,17 @@ import {createStore} from "vuex";
 
 export const store = createStore({
     state:{
-        loginId:'',
+        username:'',
+    },
+
+    getters:{
+      isLogin(state){
+          return state.username!=='';
+      }
+    },
+    mutations:{
+        setUserName(state,username){
+            state.username = username;
+        }
     }
 })

@@ -27,11 +27,13 @@
 import {computed, ref} from "vue";
 import {loginUser} from "@/api";
 import {useRouter} from "vue-router";
+import {useStore} from "vuex";
 
 const loginId = ref('');
 const password = ref('');
 const logMessage = ref('');
 const router = useRouter();
+const store = useStore();
 
 const isLoginIdValid = computed(() => {
   return loginId.value;
@@ -45,7 +47,7 @@ async function submitLoginForm() {
     }
 
     const {data} = await loginUser(userData);
-    console.log(data.user.loginId);
+    store.commit('setUserName',data.user.loginId);
     router.push('/main');
   } catch (error) {
     logMessage.value = error.response.data.message;
