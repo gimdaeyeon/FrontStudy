@@ -8,6 +8,7 @@
     <div class="navigations">
       <template v-if="store.getters.isLogin">
         <span class="username">{{ username }}</span>
+        <a href="javascript:;" type="button" @click="logoutUser" >LogOut</a>
       </template>
       <template v-else>
         <router-link to="/login">로그인</router-link>
@@ -21,11 +22,18 @@
 
 import {computed} from "vue";
 import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 const username = computed(() => {
   return store.state.username;
 });
+
+function logoutUser(){
+  store.commit('clearUserName');
+  router.push('/login');
+}
 </script>
 
 <style scoped>

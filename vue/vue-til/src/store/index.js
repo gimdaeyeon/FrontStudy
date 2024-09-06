@@ -14,6 +14,9 @@ export const store = createStore({
     mutations:{
         setUserName(state,username){
             state.username = username;
+        },
+        clearUserName(state){
+            state.username='';
         }
     }
 })
