@@ -16,6 +16,10 @@ export const router = createRouter({
             component: () => import('@/views/SignupPage.vue'),
         },
         {
+            path: '/main',
+            component: () => import('@/views/MainPage.vue'),
+        },
+        {
             path: '/:pathMatch(.*)*',
             component: () => import('@/views/NotFoundPage.vue'),
         },

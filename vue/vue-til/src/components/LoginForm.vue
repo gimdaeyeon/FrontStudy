@@ -26,14 +26,16 @@
 <script setup>
 import {computed, ref} from "vue";
 import {loginUser} from "@/api";
+import {useRouter} from "vue-router";
 
 const loginId = ref('');
 const password = ref('');
 const logMessage = ref('');
+const router = useRouter();
 
 const isLoginIdValid = computed(() => {
   return loginId.value;
-})
+});
 
 async function submitLoginForm() {
   try {
@@ -44,7 +46,7 @@ async function submitLoginForm() {
 
     const {data} = await loginUser(userData);
     console.log(data.user.loginId);
-    logMessage.value = `${data.user.loginId}님 환영합니다.`
+    router.push('/main');
   } catch (error) {
     logMessage.value = error.response.data.message;
   } finally {
