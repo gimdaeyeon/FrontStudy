@@ -3,12 +3,14 @@
     <div>
       <router-link to="/" class="logo">
         TIL
+        <span v-if="store.getters.isLogin">by {{ store.state.username }}</span>
       </router-link>
     </div>
     <div class="navigations">
       <template v-if="store.getters.isLogin">
-        <span class="username">{{ username }}</span>
-        <a href="javascript:;" type="button" @click="logoutUser" >LogOut</a>
+        <a href="javascript:;" type="button" @click="logoutUser" >
+          LogOut
+        </a>
       </template>
       <template v-else>
         <router-link to="/login">로그인</router-link>
@@ -20,15 +22,11 @@
 
 <script setup>
 
-import {computed} from "vue";
 import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 
 const store = useStore();
 const router = useRouter();
-const username = computed(() => {
-  return store.state.username;
-});
 
 function logoutUser(){
   store.commit('clearUserName');
@@ -71,6 +69,10 @@ a.logo {
   position: fixed;
   top: 0;
   width: 100%;
+}
+
+.logout-button {
+  font-size: 14px;
 }
 
 a.router-link-exact-active {

@@ -47,9 +47,12 @@ async function submitLoginForm() {
     }
 
     const {data} = await loginUser(userData);
+    console.log(data);
+    store.commit('setToken',data.token);
     store.commit('setUserName',data.user.loginId);
     router.push('/main');
   } catch (error) {
+    console.log(error)
     logMessage.value = error.response.data.message;
   } finally {
     initForm();

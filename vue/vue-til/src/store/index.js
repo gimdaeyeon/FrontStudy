@@ -4,6 +4,7 @@ import {createStore} from "vuex";
 export const store = createStore({
     state:{
         username:'',
+        token:'',
     },
 
     getters:{
@@ -17,6 +18,10 @@ export const store = createStore({
         },
         clearUserName(state){
             state.username='';
+        },
+        setToken(state,token){
+            state.token = token;
         }
+
     }
 })
