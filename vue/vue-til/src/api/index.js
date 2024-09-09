@@ -18,8 +18,11 @@ function loginUser(userData){
     return instance.post('users/login',userData)
 }
 
+function fetchPosts(){
+    return instance.get('posts');
+}
 
-export {registerUser, loginUser}
+export {registerUser, loginUser,fetchPosts}
 
 
 
