@@ -20,6 +20,10 @@ export const router = createRouter({
             component: () => import('@/views/MainPage.vue'),
         },
         {
+            path: '/add',
+            component: () => import('@/views/PostAddPage.vue'),
+        },
+        {
             path: '/:pathMatch(.*)*',
             component: () => import('@/views/NotFoundPage.vue'),
         },

@@ -25,10 +25,8 @@
 
 <script setup>
 import {computed, ref} from "vue";
-import {loginUser} from "@/api";
 import {useRouter} from "vue-router";
 import {useStore} from "vuex";
-import {saveAuthToCookie, saveUserToCookie} from "@/utils/cookies";
 
 const loginId = ref('');
 const password = ref('');
@@ -47,12 +45,7 @@ async function submitLoginForm() {
       password: password.value
     }
 
-    const {data} = await loginUser(userData);
-    store.commit('setToken',data.token);
-    store.commit('setUserName',data.user.loginId);
-    console.log(data)
-    saveAuthToCookie(data.token);
-    saveUserToCookie(data.user.loginId);
+    await store.dispatch('login',userData);
     router.push('/main');
   } catch (error) {
     console.log(error)
