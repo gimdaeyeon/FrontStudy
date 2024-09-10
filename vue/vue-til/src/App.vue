@@ -7,14 +7,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import AppHeader from "@/components/common/AppHeader.vue";
 
-export default {
-  components: {
-    AppHeader
-  }
-}
 </script>
 
 <style>
