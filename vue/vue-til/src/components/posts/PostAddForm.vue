@@ -5,14 +5,15 @@
       <form class="form" @submit.prevent="submitForm">
         <div>
           <label for="title">Title: </label>
-          <input id="title" type="text" v-model="title" />
+          <input id="title" type="text" v-model="title"/>
         </div>
         <div>
           <label for="contents">Contents</label>
-          <textarea id="contents" type="text" rows="5" v-model="content" />
+          <textarea id="contents" type="text" rows="5" v-model="content"/>
         </div>
         <button class="btn">Create</button>
       </form>
+      <p class="log">{{ logMessage }}</p>
     </div>
   </div>
 </template>
@@ -24,23 +25,29 @@ import {createPost} from "@/api";
 
 const title = ref('');
 const content = ref('');
+const logMessage = ref('');
 
-async function submitForm(){
-  const resp = await createPost({
-    title: title.value,
-    content: content.value
-  });
-  console.log(resp);
+async function submitForm() {
+  try {
+    const resp = await createPost({
+      title: title.value,
+      content: content.value
+    });
+    console.log(resp)
+  } catch (error) {
+    logMessage.value=error.message;
+  }
 }
 
 
 </script>
 
 <style scoped>
-.form-wrapper .form{
+.form-wrapper .form {
   width: 100%;
 }
-.btn{
+
+.btn {
   color: white;
 }
 

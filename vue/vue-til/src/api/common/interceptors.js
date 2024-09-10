@@ -7,7 +7,7 @@ export function setInterceptors(instance){
             return config;
         },
         function (error){
-            return error;
+            return Promise.reject(error);
         }
     );
 
@@ -16,10 +16,9 @@ export function setInterceptors(instance){
             return response;
         },
         function (error){
-            return error;
+            return Promise.reject(error);
         }
     );
 
     return instance;
 }
-// instance.interceptors.request.use();
