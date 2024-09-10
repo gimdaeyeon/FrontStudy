@@ -1,10 +1,11 @@
 import {createStore} from "vuex";
+import {getAuthFromCookie, getUserFromCookie} from "@/utils/cookies";
 
 
 export const store = createStore({
     state:{
-        username:'',
-        token:'',
+        username:getUserFromCookie()||'',
+        token:getAuthFromCookie()||'',
     },
 
     getters:{
