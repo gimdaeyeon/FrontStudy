@@ -10,6 +10,9 @@
         <div>
           <label for="contents">Contents</label>
           <textarea id="contents" type="text" rows="5" v-model="content"/>
+          <p v-if="!isContentValid" class="validation-text warning">
+             Contents length must be less than 250
+          </p>
         </div>
         <button class="btn">Create</button>
       </form>
@@ -20,12 +23,16 @@
 
 <script setup>
 
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {createPost} from "@/api";
 
 const title = ref('');
 const content = ref('');
 const logMessage = ref('');
+
+const isContentValid = computed(() => {
+  return content.value.length <= 250;
+});
 
 async function submitForm() {
   try {
@@ -35,7 +42,7 @@ async function submitForm() {
     });
     console.log(resp)
   } catch (error) {
-    logMessage.value=error.message;
+    logMessage.value = error.message;
   }
 }
 
