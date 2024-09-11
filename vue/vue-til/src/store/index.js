@@ -1,6 +1,6 @@
 import {createStore} from "vuex";
 import {getAuthFromCookie, getUserFromCookie, saveAuthToCookie, saveUserToCookie} from "@/utils/cookies";
-import {loginUser} from "@/api";
+import {loginUser} from "@/api/auth";
 
 
 export const store = createStore({
@@ -26,10 +26,10 @@ export const store = createStore({
         }
     },
     actions:{
-        async login({commit},userData){
+        login: async function ({commit}, userData) {
             const {data} = await loginUser(userData);
-            commit('setToken',data.token);
-            commit('setUserName',data.user.loginId);
+            commit('setToken', data.token);
+            commit('setUserName', data.user.loginId);
             saveAuthToCookie(data.token);
             saveUserToCookie(data.user.loginId);
             return data;

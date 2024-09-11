@@ -23,7 +23,7 @@
 
 <script setup>
 import {computed, ref} from "vue";
-import {registerUser} from "@/api";
+import {registerUser} from "@/api/auth";
 
 const loginId = ref('');
 const password = ref('');

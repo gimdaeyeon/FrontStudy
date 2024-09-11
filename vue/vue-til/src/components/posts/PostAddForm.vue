@@ -24,7 +24,7 @@
 <script setup>
 
 import {computed, ref} from "vue";
-import {createPost} from "@/api";
+import {createPost} from "@/api/post";
 
 const title = ref('');
 const content = ref('');

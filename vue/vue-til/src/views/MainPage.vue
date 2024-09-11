@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
-import {fetchPosts} from "@/api";
 import {ref} from "vue";
 import PostListItem from "@/components/posts/PostListItem.vue";
 import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
+import {fetchPosts} from "@/api/post";
 
 const postItems = ref([]);
 const isLoading = ref(false);
