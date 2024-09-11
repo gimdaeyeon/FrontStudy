@@ -25,10 +25,12 @@
 
 import {computed, ref} from "vue";
 import {createPost} from "@/api/post";
+import {useRouter} from "vue-router";
 
 const title = ref('');
 const content = ref('');
 const logMessage = ref('');
+const router = useRouter();
 
 const isContentValid = computed(() => {
   return content.value.length <= 250;
@@ -40,7 +42,8 @@ async function submitForm() {
       title: title.value,
       content: content.value
     });
-    console.log(resp)
+    console.log(resp);
+    router.push('/main');
   } catch (error) {
     logMessage.value = error.message;
   }
