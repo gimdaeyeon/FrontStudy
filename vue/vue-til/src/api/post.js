@@ -19,6 +19,7 @@ function fetchPost(postId){
 }
 
 function editPost(postId,postData){
+    console.log(postData)
     return posts.put(`/${postId}`,postData);
 }
 
