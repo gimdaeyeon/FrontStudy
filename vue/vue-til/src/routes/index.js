@@ -5,7 +5,7 @@ export const router = createRouter({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/main'
         },
         {
             path: '/login',
@@ -22,6 +22,10 @@ export const router = createRouter({
         {
             path: '/add',
             component: () => import('@/views/PostAddPage.vue'),
+        },
+        {
+            path: '/post/:id',
+            component: () => import('@/views/PostEditPage.vue'),
         },
         {
             path: '/:pathMatch(.*)*',

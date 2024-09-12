@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">Create post</h1>
+    <h1 class="page-header">Edit post</h1>
     <div class="form-wrapper">
       <form class="form" @submit.prevent="submitForm">
         <div>
@@ -11,10 +11,10 @@
           <label for="contents">Contents</label>
           <textarea id="contents" type="text" rows="5" v-model="content"/>
           <p v-if="!isContentValid" class="validation-text warning">
-             Contents length must be less than 250
+            Contents length must be less than 250
           </p>
         </div>
-        <button class="btn">Create</button>
+        <button class="btn">Edit</button>
       </form>
       <p class="log">{{ logMessage }}</p>
     </div>
@@ -22,15 +22,18 @@
 </template>
 
 <script setup>
-
 import {computed, ref} from "vue";
-import {createPost} from "@/api/post";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import {editPost, fetchPost} from "@/api/post";
 
 const title = ref('');
 const content = ref('');
 const logMessage = ref('');
+const route = useRoute();
 const router = useRouter();
+const postId = route.params.id;
+created();
+
 
 const isContentValid = computed(() => {
   return content.value.length <= 250;
@@ -38,19 +41,23 @@ const isContentValid = computed(() => {
 
 async function submitForm() {
   try {
-    const resp = await createPost({
+    await editPost(postId, {
       title: title.value,
       content: content.value
     });
-    console.log(resp);
     router.push('/main');
   } catch (error) {
     console.log(error);
     logMessage.value = error.message;
   }
+
 }
 
-
+async function created() {
+  const {data} = await fetchPost(postId);
+  title.value = data.title;
+  content.value = data.content;
+}
 </script>
 
 <style scoped>
@@ -61,5 +68,4 @@ async function submitForm() {
 .btn {
   color: white;
 }
-
 </style>

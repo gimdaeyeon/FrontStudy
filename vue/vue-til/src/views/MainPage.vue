@@ -6,7 +6,8 @@
       <ul v-else>
         <PostListItem v-for="postItem in postItems"
                       :key="postItem.id"
-                      :postItem="postItem"/>
+                      :postItem="postItem"
+                      @remove="removePostItem"/>
       </ul>
     </div>
     <router-link to="/add" class="create-button">
@@ -30,8 +31,11 @@ async function fetchData() {
   isLoading.value = false;
   postItems.value = data;
 }
-
 fetchData();
+
+function removePostItem(itemId){
+  postItems.value = postItems.value.filter(item=>item.id!==itemId);
+}
 </script>
 
 <style lang="scss" scoped>

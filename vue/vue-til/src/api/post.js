@@ -14,9 +14,18 @@ function createPost(postData){
 function deletePost(postId){
     return posts.delete(`/${postId}`);
 }
+function fetchPost(postId){
+    return posts.get(`/${postId}`)
+}
+
+function editPost(postId,postData){
+    return posts.put(`/${postId}`,postData);
+}
 
 export {
     fetchPosts,
     createPost,
     deletePost,
+    fetchPost,
+    editPost,
 }
