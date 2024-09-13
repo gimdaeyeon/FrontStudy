@@ -23,6 +23,9 @@ export const store = createStore({
         },
         setToken(state,token){
             state.token = token;
+        },
+        clearToken(state){
+            state.token = '';
         }
     },
     actions:{

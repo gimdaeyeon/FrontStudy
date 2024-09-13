@@ -34,6 +34,7 @@ const logoLink = computed(()=>store.getters.isLogin?'/main':'/login');
 
 function logoutUser(){
   store.commit('clearUserName');
+  store.commit('clearToken');
   deleteCookie('til_auth');
   deleteCookie('til_user');
   router.push('/login');
