@@ -3,11 +3,12 @@
     <div>
       <router-link :to="logoLink" class="logo">
         TIL
-        <span v-if="store.getters.isLogin">by {{ store.state.username }}</span>
+<!--        <span v-if="store.getters.isLogin">by {{ store.state.username }}</span>-->
+        <span v-if="auth.isLogin">by {{ auth.username }}</span>
       </router-link>
     </div>
     <div class="navigations">
-      <template v-if="store.getters.isLogin">
+      <template v-if="auth.isLogin">
         <a href="javascript:;" type="button" @click="logoutUser" >
           LogOut
         </a>
@@ -22,19 +23,24 @@
 
 <script setup>
 
-import {useStore} from "vuex";
+// import {useStore} from "vuex";
 import {useRouter} from "vue-router";
 import {deleteCookie} from "@/utils/cookies";
 import {computed} from "vue";
+import {useAuth} from "@/store/pinia/auth";
 
-const store = useStore();
+// const store = useStore();
+const auth = useAuth();
 const router = useRouter();
 
-const logoLink = computed(()=>store.getters.isLogin?'/main':'/login');
+// const logoLink = computed(()=>store.getters.isLogin?'/main':'/login');
+const logoLink = computed(()=>auth.isLogin?'/main':'/login');
 
 function logoutUser(){
-  store.commit('clearUserName');
-  store.commit('clearToken');
+  // store.commit('clearUserName');
+  // store.commit('clearToken');
+  auth.username = '';
+  auth.token = '';
   deleteCookie('til_auth');
   deleteCookie('til_user');
   router.push('/login');

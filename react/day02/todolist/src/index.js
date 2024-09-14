@@ -10,7 +10,7 @@ import App from './App';  //App도 컴포넌트구나
 return () --> render()
  */
 
-//index.js = 최상위 파일
+//vuex.js = 최상위 파일
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode> {/*엄격 검사 */}

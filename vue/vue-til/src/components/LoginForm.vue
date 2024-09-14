@@ -26,13 +26,15 @@
 <script setup>
 import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
-import {useStore} from "vuex";
+// import {useStore} from "vuex";
+import {useAuth} from "@/store/pinia/auth";
 
 const loginId = ref('');
 const password = ref('');
 const logMessage = ref('');
 const router = useRouter();
-const store = useStore();
+const auth = useAuth();
+// const store = useStore();
 
 const isLoginIdValid = computed(() => {
   return loginId.value;
@@ -45,7 +47,8 @@ async function submitLoginForm() {
       password: password.value
     }
 
-    await store.dispatch('login',userData);
+    // await store.dispatch('login',userData);
+    await auth.login(userData);
     router.push('/main');
   } catch (error) {
     console.log(error)

@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from "vue-router";
-import {store} from "@/store";
+import {useAuth} from "@/store/pinia/auth";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -39,7 +39,8 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.auth && !store.getters.isLogin) {
+    const auth = useAuth();
+    if (to.meta.auth && !auth.isLogin) {
         console.log('인증이 필요합니다.');
         next('/login');
         return;

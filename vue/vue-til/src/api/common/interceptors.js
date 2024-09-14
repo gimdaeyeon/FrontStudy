@@ -1,9 +1,9 @@
-import {store} from "@/store";
+import {useAuth} from "@/store/pinia/auth";
 
 export function setInterceptors(instance){
     instance.interceptors.request.use(
         function (config){
-            config.headers.Authorization = `Bearer ${store.state.token}`;
+            config.headers.Authorization = `Bearer ${useAuth().token}`;
             return config;
         },
         function (error){

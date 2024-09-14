@@ -138,7 +138,7 @@ html, css, js, media
 - App.js
 - App.test.js
 - index.css
-- index.js
+- vuex.js
 - reportWebVitals.js
 - setupTest.js
 
