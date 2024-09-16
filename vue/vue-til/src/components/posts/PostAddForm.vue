@@ -26,11 +26,13 @@
 import {computed, ref} from "vue";
 import {createPost} from "@/api/post";
 import {useRouter} from "vue-router";
+import {useAuth} from "@/store/pinia/auth";
 
 const title = ref('');
 const content = ref('');
 const logMessage = ref('');
 const router = useRouter();
+const auth = useAuth();
 
 const isContentValid = computed(() => {
   return content.value.length <= 250;
@@ -40,7 +42,8 @@ async function submitForm() {
   try {
     const resp = await createPost({
       title: title.value,
-      content: content.value
+      content: content.value,
+      loginId: auth.username
     });
     console.log(resp);
     router.push('/main');

@@ -7,9 +7,11 @@
       {{ props.postItem.content }}
     </div>
     <div class="post-time">
-      {{ formatDate }}
-      <i class="icon ion-md-create" @click="routeEditPage"></i>
-      <i class="icon ion-md-trash" @click="deleteItem"></i>
+      <span>{{ formatDate }}</span>
+      <span v-if="isAuthor" @click.stop>
+        <i class="icon ion-md-create" @click="routeEditPage"></i>
+        <i class="icon ion-md-trash" @click="deleteItem"></i>
+      </span>
     </div>
   </li>
 </template>
@@ -18,6 +20,7 @@
 import {deletePost} from "@/api/post";
 import {useRouter} from "vue-router";
 import {computed} from "vue";
+import {useAuth} from "@/store/pinia/auth";
 
 // eslint-disable-next-line no-undef
 const props = defineProps({
@@ -30,6 +33,7 @@ const props = defineProps({
 // eslint-disable-next-line no-undef
 const emit = defineEmits(['remove']);
 const router = useRouter();
+const auth = useAuth();
 
 
 async function deleteItem() {
@@ -41,17 +45,20 @@ async function deleteItem() {
 function routeEditPage() {
   router.push(`/post/${props.postItem.id}`);
 }
-const formatDate = computed(()=> {
+
+const formatDate = computed(() => {
   const date = new Date(props.postItem.createdDate);
   const year = date.getFullYear();
-  let month = date.getMonth()+1;
-  month = month>9?month:`0${month}`;
+  let month = date.getMonth() + 1;
+  month = month > 9 ? month : `0${month}`;
   const day = date.getDate();
-  let hours= date.getHours();
-  hours = hours>9?hours:`0${hours}`;
+  let hours = date.getHours();
+  hours = hours > 9 ? hours : `0${hours}`;
   const minutes = date.getMinutes();
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 });
+
+const isAuthor = computed(()=>auth.username === props.postItem.loginId);
 
 </script>
 
