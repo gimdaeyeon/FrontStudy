@@ -1,4 +1,3 @@
-// @ts-check
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -66,14 +65,7 @@ function createSpinnerElement(id) {
 // state
 var isDeathLoading = false;
 var isRecoveredLoading = false;
-/**
- * @typedef {object} CovidSummary
- * @property {Array<object>} Country
- */
 // api
-/**
- * @returns {Promise<>}
- */
 function fetchCovidSummary() {
     var url = 'https://ts-covid-api.vercel.app/api/summary';
     return axios.get(url);
