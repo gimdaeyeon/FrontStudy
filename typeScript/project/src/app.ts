@@ -1,8 +1,8 @@
 // utils
-function $(selector: any) {
+function $(selector:string) {
   return document.querySelector(selector);
 }
-function getUnixTimestamp(date: any) {
+function getUnixTimestamp(date: Date) {
   return new Date(date).getTime();
 }
 
@@ -17,7 +17,7 @@ const recoveredList = $('.recovered-list');
 const deathSpinner = createSpinnerElement('deaths-spinner');
 const recoveredSpinner = createSpinnerElement('recovered-spinner');
 
-function createSpinnerElement(id: any) {
+function createSpinnerElement(id: string) {
   const wrapperDiv = document.createElement('div');
   wrapperDiv.setAttribute('id', id);
   wrapperDiv.setAttribute(
@@ -42,13 +42,20 @@ function fetchCovidSummary() {
   return axios.get(url);
 }
 
+enum CovidStatus{
+  Confirmed = 'confirmed',
+  Recovered = 'recovered',
+  Deaths = 'deaths'
+}
+
 /**
  * 
  * @param {'spain' | 'switzerland'} countryCode 스페인과 스위스만 지원됩니다.
  * @returns 
  */
-function fetchCountryInfo(countryCode:any, status:any) {
+function fetchCountryInfo(countryCode:string, status:CovidStatus) {
   // params: confirmed, recovered, deaths
+  console.log(status);
   const url = `https://ts-covid-api.vercel.app/api/country/${countryCode}`;
   return axios.get(url);
 }
@@ -89,14 +96,14 @@ async function handleListClick(event:any) {
    * NOTE: 코로나 종식으로 오픈 API 지원이 끝나서 death, recover 데이터는 지원되지 않습니다.
    *       그리고 국가별 상세 정보는 "스페인"과 "스위스"만 지원됩니다.
    */
-  // const { data: deathResponse } = await fetchCountryInfo(selectedId, 'deaths');
+  // const { data: deathResponse } = await fetchCountryInfo(selectedId, CovidStatus.Deaths);
   // const { data: recoveredResponse } = await fetchCountryInfo(
   //   selectedId,
   //   'recovered',
   // );
   const { data: confirmedResponse } = await fetchCountryInfo(
     selectedId,
-    'confirmed',
+    CovidStatus.Confirmed,
   );
   endLoadingAnimation();
   // NOTE: 코로나 종식으로 오픈 API 지원이 끝나서 death, recover 데이터는 지원되지 않습니다.
@@ -110,9 +117,9 @@ async function handleListClick(event:any) {
 
 function setDeathsList(data:any) {
   const sorted = data.sort(
-    (a, b) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
+    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
   );
-  sorted.forEach(value => {
+  sorted.forEach((value: any) => {
     const li = document.createElement('li');
     li.setAttribute('class', 'list-item-b flex align-center');
     const span = document.createElement('span');
@@ -136,7 +143,7 @@ function setTotalDeathsByCountry(data:any) {
 
 function setRecoveredList(data:any) {
   const sorted = data.sort(
-    (a, b) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
+    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
   );
   sorted.forEach(value => {
     const li = document.createElement('li');
@@ -229,7 +236,7 @@ function setTotalRecoveredByWorld(data:any) {
 
 function setCountryRanksByConfirmedCases(data:any) {
   const sorted = data.Countries.sort(
-    (a, b) => b.TotalConfirmed - a.TotalConfirmed,
+    (a: any, b:any) => b.TotalConfirmed - a.TotalConfirmed,
   );
   sorted.forEach(value => {
     const li = document.createElement('li');
