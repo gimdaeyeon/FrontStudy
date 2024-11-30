@@ -1,6 +1,7 @@
 // utils
-import axios from "axios";
-import Chart from "chart.js";
+import axios, {AxiosResponse} from "axios";
+import * as Chart from "chart.js";
+import {CovidSummaryResponse} from "./covid";
 
 function $(selector: string) {
     return document.querySelector(selector);
@@ -9,8 +10,6 @@ function $(selector: string) {
 function getUnixTimestamp(date: Date) {
     return new Date(date).getTime();
 }
-
-const a = 10
 
 // DOM
 const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
@@ -42,11 +41,13 @@ function createSpinnerElement(id: string) {
 let isDeathLoading = false;
 let isRecoveredLoading = false;
 
+
 // api
-function fetchCovidSummary() {
+function fetchCovidSummary() :Promise<AxiosResponse<CovidSummaryResponse>>{
     const url = 'https://ts-covid-api.vercel.app/api/summary';
     return axios.get(url);
 }
+
 
 enum CovidStatus {
     Confirmed = 'confirmed',
@@ -193,7 +194,7 @@ async function setupData() {
 }
 
 function renderChart(data: any, labels: any) {
-    var ctx = $('#lineChart').getContext('2d');
+    const ctx = $('#lineChart').getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
