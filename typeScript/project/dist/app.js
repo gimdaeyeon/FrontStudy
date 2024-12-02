@@ -82,13 +82,13 @@ var CovidStatus;
 })(CovidStatus || (CovidStatus = {}));
 /**
  *
- * @param {'spain' | 'switzerland'} countryCode 스페인과 스위스만 지원됩니다.
+ * @param {'spain' | 'switzerland'} countryName 스페인과 스위스만 지원됩니다.
  * @returns
  */
-function fetchCountryInfo(countryCode, status) {
+function fetchCountryInfo(countryName, status) {
     // params: confirmed, recovered, deaths
     console.log(status);
-    var url = "https://ts-covid-api.vercel.app/api/country/".concat(countryCode);
+    var url = "https://ts-covid-api.vercel.app/api/country/".concat(countryName);
     return axios_1.default.get(url);
 }
 // methods
@@ -98,17 +98,20 @@ function startApp() {
 }
 // events
 function initEvents() {
+    if (!rankList)
+        return;
     rankList.addEventListener('click', handleListClick);
 }
 function handleListClick(event) {
     return __awaiter(this, void 0, void 0, function () {
         var selectedId, confirmedResponse;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var _a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     if (event.target instanceof HTMLParagraphElement ||
                         event.target instanceof HTMLSpanElement) {
-                        selectedId = event.target.parentElement.id;
+                        selectedId = (_a = event.target.parentElement) === null || _a === void 0 ? void 0 : _a.id;
                     }
                     if (event.target instanceof HTMLLIElement) {
                         selectedId = event.target.id;
@@ -123,7 +126,7 @@ function handleListClick(event) {
                     console.log({ selectedId: selectedId });
                     return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Confirmed)];
                 case 1:
-                    confirmedResponse = (_a.sent()).data;
+                    confirmedResponse = (_b.sent()).data;
                     endLoadingAnimation();
                     // NOTE: 코로나 종식으로 오픈 API 지원이 끝나서 death, recover 데이터는 지원되지 않습니다.
                     // setDeathsList(deathResponse);
@@ -138,12 +141,14 @@ function handleListClick(event) {
     });
 }
 function setDeathsList(data) {
-    var sorted = data.sort(function (a, b) { return getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date); });
+    var sorted = data.sort(function (a, b) {
+        return getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date);
+    });
     sorted.forEach(function (value) {
         var li = document.createElement('li');
         li.setAttribute('class', 'list-item-b flex align-center');
         var span = document.createElement('span');
-        span.textContent = value.Cases;
+        span.textContent = value.Cases.toString();
         span.setAttribute('class', 'deaths');
         var p = document.createElement('p');
         p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
@@ -153,10 +158,10 @@ function setDeathsList(data) {
     });
 }
 function clearDeathList() {
-    deathsList.innerHTML = null;
+    deathsList.innerHTML = "";
 }
 function setTotalDeathsByCountry(data) {
-    deathsTotal.innerText = data[0].Cases;
+    deathsTotal.innerText = data[0].Cases.toString();
 }
 function setRecoveredList(data) {
     var sorted = data.sort(function (a, b) { return getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date); });
@@ -164,7 +169,7 @@ function setRecoveredList(data) {
         var li = document.createElement('li');
         li.setAttribute('class', 'list-item-b flex align-center');
         var span = document.createElement('span');
-        span.textContent = value.Cases;
+        span.textContent = value.Cases.toString();
         span.setAttribute('class', 'recovered');
         var p = document.createElement('p');
         p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
@@ -174,10 +179,10 @@ function setRecoveredList(data) {
     });
 }
 function clearRecoveredList() {
-    recoveredList.innerHTML = null;
+    recoveredList.innerHTML = "";
 }
 function setTotalRecoveredByCountry(data) {
-    recoveredTotal.innerText = data[0].Cases;
+    recoveredTotal.innerText = data[0].Cases.toString();
 }
 function startLoadingAnimation() {
     deathsList.appendChild(deathSpinner);
@@ -206,7 +211,8 @@ function setupData() {
     });
 }
 function renderChart(data, labels) {
-    var ctx = $('#lineChart').getContext('2d');
+    var lineChart = $('#lineChart');
+    var ctx = lineChart.getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -231,13 +237,13 @@ function setChartData(data) {
     renderChart(chartData, chartLabel);
 }
 function setTotalConfirmedNumber(data) {
-    confirmedTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalConfirmed); }, 0);
+    confirmedTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalConfirmed); }, 0).toString();
 }
 function setTotalDeathsByWorld(data) {
-    deathsTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalDeaths); }, 0);
+    deathsTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalDeaths); }, 0).toString();
 }
 function setTotalRecoveredByWorld(data) {
-    recoveredTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalRecovered); }, 0);
+    recoveredTotal.innerText = data.Countries.reduce(function (total, current) { return (total += current.TotalRecovered); }, 0).toString();
 }
 function setCountryRanksByConfirmedCases(data) {
     var sorted = data.Countries.sort(function (a, b) { return b.TotalConfirmed - a.TotalConfirmed; });
@@ -246,7 +252,7 @@ function setCountryRanksByConfirmedCases(data) {
         li.setAttribute('class', 'list-item flex align-center');
         li.setAttribute('id', value.Slug);
         var span = document.createElement('span');
-        span.textContent = value.TotalConfirmed;
+        span.textContent = value.TotalConfirmed.toString();
         span.setAttribute('class', 'cases');
         var p = document.createElement('p');
         p.setAttribute('class', 'country');

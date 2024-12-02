@@ -3,22 +3,22 @@ import axios, {AxiosResponse} from "axios";
 import * as Chart from "chart.js";
 import {Country, CountrySummaryInfo, CountrySummaryResponse, CovidSummaryResponse} from "./covid";
 
-function $(selector: string) {
-    return document.querySelector(selector);
+function $<T extends HTMLElement = HTMLDivElement>(selector: string) {
+    return document.querySelector(selector) as T;
 }
 
-function getUnixTimestamp(date: Date |string) {
+function getUnixTimestamp(date: Date | string) {
     return new Date(date).getTime();
 }
 
 // DOM
-const confirmedTotal = $('.confirmed-total') as HTMLSpanElement;
-const deathsTotal = $('.deaths') as HTMLParagraphElement;
-const recoveredTotal = $('.recovered') as HTMLParagraphElement;
-const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
-const rankList = $('.rank-list');
-const deathsList = $('.deaths-list');
-const recoveredList = $('.recovered-list');
+const confirmedTotal = $<HTMLSpanElement>('.confirmed-total');
+const deathsTotal = $<HTMLParagraphElement>('.deaths');
+const recoveredTotal = $<HTMLParagraphElement>('.recovered');
+const lastUpdatedTime = $<HTMLParagraphElement>('.last-updated-time');
+const rankList = $<HTMLOListElement>('.rank-list');
+const deathsList = $<HTMLOListElement>('.deaths-list');
+const recoveredList = $<HTMLOListElement>('.recovered-list');
 const deathSpinner = createSpinnerElement('deaths-spinner');
 const recoveredSpinner = createSpinnerElement('recovered-spinner');
 
@@ -43,7 +43,7 @@ let isRecoveredLoading = false;
 
 
 // api
-function fetchCovidSummary() :Promise<AxiosResponse<CovidSummaryResponse>>{
+function fetchCovidSummary(): Promise<AxiosResponse<CovidSummaryResponse>> {
     const url = 'https://ts-covid-api.vercel.app/api/summary';
     return axios.get(url);
 }
@@ -60,7 +60,7 @@ enum CovidStatus {
  * @param {'spain' | 'switzerland'} countryName 스페인과 스위스만 지원됩니다.
  * @returns
  */
-function fetchCountryInfo(countryName: string, status: CovidStatus):Promise<AxiosResponse<CovidSummaryResponse>>{
+function fetchCountryInfo(countryName: string, status: CovidStatus): Promise<AxiosResponse<CovidSummaryResponse>> {
     // params: confirmed, recovered, deaths
     console.log(status);
     const url = `https://ts-covid-api.vercel.app/api/country/${countryName}`;
@@ -75,16 +75,17 @@ function startApp() {
 
 // events
 function initEvents() {
+    if (!rankList) return;
     rankList.addEventListener('click', handleListClick);
 }
 
-async function handleListClick(event: MouseEvent) {
+async function handleListClick(event: Event) {
     let selectedId;
     if (
         event.target instanceof HTMLParagraphElement ||
         event.target instanceof HTMLSpanElement
     ) {
-        selectedId = event.target.parentElement.id;
+        selectedId = event.target.parentElement?.id;
     }
     if (event.target instanceof HTMLLIElement) {
         selectedId = event.target.id;
@@ -135,12 +136,14 @@ function setDeathsList(data: CountrySummaryResponse) {
         p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
         li.appendChild(span);
         li.appendChild(p);
-        deathsList.appendChild(li);
+
+        deathsList!.appendChild(li);
     });
 }
 
 function clearDeathList() {
-    deathsList.innerHTML = null;
+    if (!deathsList) return;
+    deathsList.innerHTML = "";
 }
 
 function setTotalDeathsByCountry(data: CountrySummaryInfo) {
@@ -151,7 +154,7 @@ function setRecoveredList(data: CountrySummaryResponse) {
     const sorted = data.sort(
         (a: CountrySummaryInfo, b: CountrySummaryInfo) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
     );
-    sorted.forEach((value:CountrySummaryInfo) => {
+    sorted.forEach((value: CountrySummaryInfo) => {
         const li = document.createElement('li');
         li.setAttribute('class', 'list-item-b flex align-center');
         const span = document.createElement('span');
@@ -161,12 +164,18 @@ function setRecoveredList(data: CountrySummaryResponse) {
         p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
         li.appendChild(span);
         li.appendChild(p);
-        recoveredList.appendChild(li);
+        recoveredList?.appendChild(li);
+        // 옵셔널 체이닝
+        // if(recoveredList === null || recoveredList === undefined){
+        //     return;
+        // }else{
+        //     recoveredList.appendChild(li);
+        // }
     });
 }
 
 function clearRecoveredList() {
-    recoveredList.innerHTML = null;
+    recoveredList.innerHTML = "";
 }
 
 function setTotalRecoveredByCountry(data: CountrySummaryResponse) {
@@ -192,8 +201,9 @@ async function setupData() {
     setLastUpdatedTimestamp(data);
 }
 
-function renderChart(data: any, labels: any) {
-    const ctx = $('#lineChart').getContext('2d');
+function renderChart(data: number[], labels: string[]) {
+    const lineChart = $('#lineChart') as HTMLCanvasElement;
+    const ctx = lineChart.getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -211,40 +221,40 @@ function renderChart(data: any, labels: any) {
     });
 }
 
-function setChartData(data: any) {
-    const chartData = data.slice(-14).map(value => value.Cases);
+function setChartData(data: CountrySummaryResponse) {
+    const chartData = data.slice(-14).map((value: CountrySummaryInfo) => value.Cases);
     const chartLabel = data
         .slice(-14)
-        .map(value => new Date(value.Date).toLocaleDateString().slice(5, -1));
+        .map((value: CountrySummaryInfo) => new Date(value.Date).toLocaleDateString().slice(5, -1));
     renderChart(chartData, chartLabel);
 }
 
 function setTotalConfirmedNumber(data: CovidSummaryResponse) {
     confirmedTotal.innerText = data.Countries.reduce(
-        (total:number, current: Country) => (total += current.TotalConfirmed),
+        (total: number, current: Country) => (total += current.TotalConfirmed),
         0,
     ).toString();
 }
 
 function setTotalDeathsByWorld(data: CovidSummaryResponse) {
     deathsTotal.innerText = data.Countries.reduce(
-        (total:number, current:Country) => (total += current.TotalDeaths),
+        (total: number, current: Country) => (total += current.TotalDeaths),
         0,
     ).toString();
 }
 
 function setTotalRecoveredByWorld(data: CovidSummaryResponse) {
     recoveredTotal.innerText = data.Countries.reduce(
-        (total:number, current:Country) => (total += current.TotalRecovered),
+        (total: number, current: Country) => (total += current.TotalRecovered),
         0,
     ).toString();
 }
 
 function setCountryRanksByConfirmedCases(data: CovidSummaryResponse) {
     const sorted = data.Countries.sort(
-        (a:Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
+        (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed,
     );
-    sorted.forEach((value :Country)=> {
+    sorted.forEach((value: Country) => {
         const li = document.createElement('li');
         li.setAttribute('class', 'list-item flex align-center');
         li.setAttribute('id', value.Slug);
