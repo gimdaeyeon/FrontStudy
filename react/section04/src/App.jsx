@@ -1,18 +1,14 @@
 import './App.css'
 
-import React, {useState} from 'react';
-import Bulb from "./components/Bulb.jsx";
-import Counter from "./components/Counter.jsx";
-
-
+import React from 'react';
+import Register from "./components/Register.jsx";
 
 
 function App() {
 
     return (
         <>
-            <Bulb/>
-            <Counter/>
+            <Register/>
         </>
     )
 }
