@@ -1,14 +1,14 @@
 import './App.css'
 
 import React from 'react';
-import Register from "./components/Register.jsx";
+import HookExam from "./components/HookExam.jsx";
 
 
 function App() {
 
     return (
         <>
-            <Register/>
+            <HookExam/>
         </>
     )
 }
