@@ -1,22 +1,30 @@
 <template>
   <div>
-    <label for="todo-input"></label>
-    <input id="todo-input" type="text" :value="item" @input="handleInput" />
-    <button @clcik="addTodo" type="button">add</button>
+    <label for="todo-input">
+      <input id="todo-input" @keydown.enter="addTodo" type="text" :value="item" @input="handleInput" />
+    </label>
+    <button @click="addTodo" type="button">add</button>
   </div>
 </template>
 
 <script setup lang="ts">
 
-const props = defineProps(['item']);
-const emit = defineEmits(['input']);
+const props = defineProps({
+  item:{
+    type:String,
+    required: true
+  }
+});
+const emit = defineEmits(['input','add']);
 
 function addTodo(){
-  console.log(props.item);
+  console.log('클릭');
+  emit('add');
 }
 
-function handleInput(e:any){
-  emit('input',e.target.value);
+function handleInput(e:InputEvent){
+  const eventTarget = e.target as HTMLInputElement
+  emit('input',eventTarget.value);
 }
 
 </script>
