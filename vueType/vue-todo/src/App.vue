@@ -12,6 +12,9 @@
         <ul>
           <TodoListItem v-for="(todoItem,i) in todoItems" :key="i"
                         :todoItem="todoItem"
+                        :index="i"
+                        @remove="removeItem"
+                        @complete="toggleComplete"
           />
         </ul>
       </div>
@@ -21,36 +24,55 @@
 
 <script setup lang="ts">
 import TodoInput from "@/components/TodoInput.vue";
-import {onMounted, ref} from "vue";
+import {ref} from "vue";
 import TodoListItem from "@/components/TodoListItem.vue";
 import storage from "@/api/todoStorage";
 
+export interface Todo {
+  title: string;
+  done: boolean;
+}
+
 const todoText = ref('');
-const todoItems = ref<any>([]) ;
+const todoItems = ref<Todo[]>([]);
 
-// onMounted(()=>{
-//
-// });
-
+fetchTodoItems();
 
 function updateTodoText(text: string) {
   todoText.value = text;
 }
 
 function addTodoItem() {
-  const value = todoText.value;
-  // localStorage.setItem(value, value);
-  todoItems.value.push(value);
+  const todo: Todo = {
+    title: todoText.value,
+    done: false,
+  };
+
+  todoItems.value.push(todo);
   storage.save(todoItems.value);
   initTodoText();
 }
 
-function initTodoText(){
+function initTodoText() {
   todoText.value = '';
 }
 
-function fetchTodoItems(){
+function fetchTodoItems() {
   todoItems.value = storage.fetch();
+}
+
+function removeItem(index: number) {
+  todoItems.value.splice(index, 1);
+  storage.save(todoItems.value);
+}
+
+function toggleComplete(index: number) {
+  todoItems.value.forEach((todo, i) => {
+    if (i === index) {
+      todo.done = !todo.done;
+    }
+  });
+  storage.save(todoItems.value);
 }
 
 </script>
