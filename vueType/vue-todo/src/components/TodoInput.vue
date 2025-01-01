@@ -1,7 +1,7 @@
 <template>
   <div>
     <label for="todo-input">
-      <input id="todo-input" @keydown.enter="addTodo" type="text" :value="item" @input="handleInput" />
+      <input id="todo-input" :value="item" type="text" @input="handleInput" @keydown.enter="addTodo"/>
     </label>
     <button @click="addTodo" type="button">add</button>
   </div>
@@ -18,7 +18,6 @@ const props = defineProps({
 const emit = defineEmits(['input','add']);
 
 function addTodo(){
-  console.log('클릭');
   emit('add');
 }
 

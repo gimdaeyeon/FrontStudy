@@ -14,7 +14,7 @@
                         :todoItem="todoItem"
                         :index="i"
                         @remove="removeItem"
-                        @complete="toggleComplete"
+                        @toggle="toggleTodoItemComplete"
           />
         </ul>
       </div>
@@ -27,11 +27,7 @@ import TodoInput from "@/components/TodoInput.vue";
 import {ref} from "vue";
 import TodoListItem from "@/components/TodoListItem.vue";
 import storage from "@/api/todoStorage";
-
-export interface Todo {
-  title: string;
-  done: boolean;
-}
+import {Todo} from "@/types/todoTypes";
 
 const todoText = ref('');
 const todoItems = ref<Todo[]>([]);
@@ -57,8 +53,12 @@ function initTodoText() {
   todoText.value = '';
 }
 
-function fetchTodoItems() {
-  todoItems.value = storage.fetch();
+function fetchTodoItems(){
+  todoItems.value = storage.fetch().sort((a,b)=>{
+    if(a.title<b.title) return -1;
+    if(a.title>b.title) return 1;
+    return 0;
+  });
 }
 
 function removeItem(index: number) {
@@ -66,11 +66,10 @@ function removeItem(index: number) {
   storage.save(todoItems.value);
 }
 
-function toggleComplete(index: number) {
-  todoItems.value.forEach((todo, i) => {
-    if (i === index) {
-      todo.done = !todo.done;
-    }
+function toggleTodoItemComplete(todoItem:Todo,index: number) {
+  todoItems.value.splice(index,1,{
+    ...todoItem,
+    done: !todoItem.done,
   });
   storage.save(todoItems.value);
 }
