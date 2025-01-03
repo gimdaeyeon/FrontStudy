@@ -15,13 +15,14 @@ const props = defineProps({
     required: true
   }
 });
+console.log(props);
 const emit = defineEmits(['input','add']);
 
 function addTodo(){
   emit('add');
 }
 
-function handleInput(e:InputEvent){
+function handleInput(e:Event){
   const eventTarget = e.target as HTMLInputElement
   emit('input',eventTarget.value);
 }
