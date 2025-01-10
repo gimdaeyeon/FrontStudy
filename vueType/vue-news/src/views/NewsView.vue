@@ -1,14 +1,16 @@
 <template>
-  <h1>vue-news</h1>
+  <ListItem :list="newsList" />
 </template>
 
 <script setup lang="ts">
 
 import {useNewsStore} from "@/store/news.ts";
-
-const {fetchNews} = useNewsStore();
+import ListItem from "@/components/ListItem.vue";
+const {fetchNews, newsList} = useNewsStore();
 
 fetchNews();
+
+
 </script>
 
 <style scoped>

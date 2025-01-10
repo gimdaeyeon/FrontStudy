@@ -1,47 +1,47 @@
 <template>
   <div>
-<!--    <ul class="news-list">-->
-<!--      <li v-for="item in list" :key="item.id" class="post">-->
-<!--        <div class="points">{{ item.points || 0 }}</div>-->
+    <ul class="news-list">
+      <li v-for="item in list" :key="item.id" class="post">
+        <div class="points">{{ item.points || 0 }}</div>
 
-<!--        <div>-->
-<!--          <p class="news-title">-->
-<!--            <template v-if="item.domain">-->
-<!--              <a :href="item.url">-->
-<!--                {{ item.title }}-->
-<!--              </a>-->
-<!--            </template>-->
-<!--            <template v-else>-->
-<!--              <router-link :to="{path:'/item',query:{id:item.id}}">&ndash;&gt;-->
-<!--                {{ item.title }}&ndash;&gt;-->
-<!--              </router-link>-->
-<!--              &ndash;&gt;-->
-<!--            </template>-->
-<!--          </p>-->
-<!--          <small class="link-text">-->
-<!--            {{ item.time_ago }} by-->
+        <div>
+          <p class="news-title">
+            <template v-if="item.domain">
+              <a :href="item.url">
+                {{ item.title }}
+              </a>
+            </template>
+            <template v-else>
+              <router-link :to="{path:'/item',query:{id:item.id}}">-->
+                {{ item.title }}-->
+              </router-link>
+              -->
+            </template>
+          </p>
+          <small class="link-text">
+            {{ item.time_ago }} by
 
-<!--            <router-link-->
-<!--                v-if="item.user"-->
-<!--                :to="`/user/${item.user}`" class="link-text">{{ item.user }}-->
-<!--            </router-link>-->
-<!--            <a v-else :href="item.url" class="link-text">-->
-<!--              {{ item.domain }}-->
-<!--            </a>-->
-<!--          </small>-->
-<!--        </div>-->
-<!--      </li>-->
-<!--    </ul>-->
+            <router-link
+                v-if="item.user"
+                :to="`/user/${item.user}`" class="link-text">{{ item.user }}
+            </router-link>
+            <a v-else :href="item.url" class="link-text">
+              {{ item.domain }}
+            </a>
+          </small>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup lang="ts">
 
-import {useNewsStore} from "@/store/news.ts";
+import type {News, Test} from "@/types.ts";
 
-const newsStore = useNewsStore();
-
-newsStore.fetchNews();
+const props = defineProps<{
+  list: News[]
+}>();
 
 </script>
 

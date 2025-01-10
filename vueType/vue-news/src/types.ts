@@ -13,5 +13,10 @@ export interface News {
     domain: string;
 }
 
+export interface Test {
+    id: number;
+    title: string;
+    test: string;
+}
 
-// export type {News}
+
