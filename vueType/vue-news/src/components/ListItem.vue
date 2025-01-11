@@ -37,10 +37,10 @@
 
 <script setup lang="ts">
 
-import type {News, Test} from "@/types.ts";
+import type {Asks, Jobs, News} from "@/types.ts";
 
-const props = defineProps<{
-  list: News[]
+defineProps<{
+  list: News[] | Jobs[] | Asks[]
 }>();
 
 </script>

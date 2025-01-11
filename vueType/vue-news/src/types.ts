@@ -1,5 +1,3 @@
-
-
 export interface News {
     id: number;
     title: string;
@@ -13,10 +11,30 @@ export interface News {
     domain: string;
 }
 
-export interface Test {
-    id: number;
+export interface Jobs {
+    id: number
+    comments_count: number;
+    domain: string;
+    time: number;
+    time_ago: string;
     title: string;
-    test: string;
+    type: string;
+    url: string;
+    user: string;
+    points: number;
 }
+
+export interface Asks {
+    id: number;
+    points: number;
+    time: number;
+    comments_count: number;
+    time_ago: string;
+    title: string;
+    type: string;
+    url: string;
+    user: string;
+}
+
 
 

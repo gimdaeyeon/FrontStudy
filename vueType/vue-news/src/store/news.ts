@@ -4,7 +4,7 @@ import {fetchNewsList} from "@/api";
 import type {News} from "@/types.ts";
 
 export const useNewsStore = defineStore('news', () => {
-    const newsList: News[] = reactive([]);
+    const newsList = reactive<News[]>([]);
 
     async function fetchNews() {
         try {
