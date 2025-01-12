@@ -37,4 +37,24 @@ export interface Asks {
 }
 
 
+export interface User {
+    about: string;
+    created: string;
+    created_time: number;
+    id: string;
+    karma: number;
+}
+
+export interface Item {
+    comments_count: number;
+    content:string;
+    id:number;
+    points:number;
+    time:number;
+    time_ago: string;
+    title: string;
+    type: string;
+    url: string;
+    user: string;
+}
 
