@@ -2,11 +2,18 @@ import {defineStore} from "pinia";
 import {reactive} from "vue";
 import {fetchUserInfo} from "@/api";
 import type {User} from "@/types.ts";
+import type {RouteParamValue} from "vue-router";
 
 export const useUserStore = defineStore('user', () => {
-    const user = reactive<User>({});
+    const user = reactive<User>({
+        about: "",
+        created: "",
+        created_time: 0,
+        id: "",
+        karma: 0
+    });
 
-    async function fetchUser(userName:string) {
+    async function fetchUser(userName: string | RouteParamValue[]) {
         try {
             const {data} = await fetchUserInfo(userName);
 

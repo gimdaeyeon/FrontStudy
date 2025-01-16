@@ -4,9 +4,20 @@ import {fetchItemInfo} from "@/api";
 import type {Item} from "@/types.ts";
 
 export const useItemStore = defineStore('item', () => {
-    const item = reactive<Item>({});
+    const item = reactive<Item>({
+        comments_count: 0,
+        content: "",
+        id: 0,
+        points: 0,
+        time: 0,
+        time_ago: "",
+        title: "",
+        type: "",
+        url: "",
+        user: ""
+    });
 
-    async function fetchItem(itemId: number) {
+    async function fetchItem(itemId: string) {
         try {
             const {data} = await fetchItemInfo(itemId);
             console.log(data);
