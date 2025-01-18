@@ -9,6 +9,8 @@
 
 <script setup lang="ts">
 
+import {VueEvent} from "@/types";
+
 const props = defineProps({
   item:{
     type:String,
@@ -22,9 +24,13 @@ function addTodo(){
   emit('add');
 }
 
-function handleInput(e:Event){
-  const eventTarget = e.target as HTMLInputElement
-  emit('input',eventTarget.value);
+function handleInput(e:VueEvent.Input<HTMLInputElement>){
+  // const a : VueEvent.Input = {
+  //   target
+  // };
+
+  // const eventTarget = e.target as HTMLInputElement
+  emit('input',e.target.value);
 }
 
 </script>
