@@ -37,12 +37,29 @@ function App() {
         }
         setTodos([newTodo,...todos]);
     }
+    const onChangeDone = (id,isDone)=>{
+        setTodos(todos.map(todo=>{
+            if(todo.id===id){
+                todo.isDone = isDone;
+            }
+            return todo;
+        }));
+    }
+
+    const onRemoveTodo = (id)=>{
+        setTodos(todos.filter(todo=>todo.id!==id))
+    }
 
     return (
         <div className="App">
             <Header/>
-            <Editor onCreate={onCreate}/>
-            <List/>
+            <Editor
+                onCreate={onCreate}
+            />
+            <List todos={todos}
+                  onChangeDone={onChangeDone}
+                  onRemoveTodo={onRemoveTodo}
+            />
         </div>
     )
 }
