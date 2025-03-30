@@ -1,21 +1,21 @@
 import React from 'react';
 import './TodoItem.css'
 
-const TodoItem = ({todo, onChangeDone, onRemoveTodo}) => {
+const TodoItem = ({id,isDone,date, content, onChangeDone, onRemoveTodo}) => {
 
     const changeDone = ()=>{
-        onChangeDone(todo.id,!todo.isDone);
+        onChangeDone(id,!isDone);
     }
 
     const onRemove = ()=>{
-        onRemoveTodo(todo.id);
+        onRemoveTodo(id);
     }
 
     return (
         <div className="TodoItem">
-            <input type="checkbox" checked={todo.isDone} onChange={changeDone}/>
-            <div className="content">{todo.content}</div>
-            <div className="date">{todo.date}</div>
+            <input type="checkbox" checked={isDone} onChange={changeDone}/>
+            <div className="content">{content}</div>
+            <div className="date">{new Date(date).toLocaleDateString()}</div>
             <button onClick={onRemove}>삭제</button>
         </div>
     );
