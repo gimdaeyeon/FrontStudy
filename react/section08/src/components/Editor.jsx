@@ -1,11 +1,11 @@
 import React, {useContext, useRef, useState} from 'react';
 import './Editor.css'
-import {TodoContext} from "../App.jsx";
+import {TodoDispatchContext} from "../App.jsx";
 
 const Editor = () => {
     const [content, setContent] = useState('');
     const contentRef = useRef(null);
-    const {onCreate} = useContext(TodoContext);
+    const {onCreate} = useContext(TodoDispatchContext);
 
     const onSubmit = () => {
         if (!content) {
