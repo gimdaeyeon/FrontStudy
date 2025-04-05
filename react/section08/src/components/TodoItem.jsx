@@ -1,7 +1,9 @@
-import React, {memo} from 'react';
+import React, {memo, useContext} from 'react';
 import './TodoItem.css'
+import {TodoContext} from "../App.jsx";
 
-const TodoItem = ({id,isDone,date, content, onUpdate, onDelete}) => {
+const TodoItem = ({id,isDone,date, content,}) => {
+    const {onUpdate, onDelete} = useContext(TodoContext);
 
     const onChangeCheck = ()=>{
         onUpdate(id);

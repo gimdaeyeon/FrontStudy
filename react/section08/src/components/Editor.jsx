@@ -1,9 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import './Editor.css'
+import {TodoContext} from "../App.jsx";
 
-const Editor = ({onCreate}) => {
+const Editor = () => {
     const [content, setContent] = useState('');
     const contentRef = useRef(null);
+    const {onCreate} = useContext(TodoContext);
+
     const onSubmit = () => {
         if (!content) {
             alert('값을 입력해 주세요');

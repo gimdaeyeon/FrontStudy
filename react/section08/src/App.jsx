@@ -2,7 +2,7 @@ import './App.css'
 import Header from "./components/Header.jsx";
 import Editor from "./components/Editor.jsx";
 import List from "./components/List.jsx";
-import {useCallback, useReducer, useRef, useState} from "react";
+import {createContext, useCallback, useReducer, useRef} from "react";
 
 const mockData = [
     {
@@ -25,45 +25,47 @@ const mockData = [
     }
 ]
 
-function reducer(state, action){
+function reducer(state, action) {
     switch (action.type) {
         case 'CREATE':
             return [action.data, ...state];
         case 'UPDATE':
-            return state.map(i=>i.id!==action.targetId?i:{...i,isDone: !i.isDone});
+            return state.map(i => i.id !== action.targetId ? i : {...i, isDone: !i.isDone});
         case 'DELETE':
-            return state.filter(i=>i.id!==action.targetId);
+            return state.filter(i => i.id !== action.targetId);
         default:
             return state;
     }
 }
 
+export const TodoContext = createContext();
+
 function App() {
-    const [todos, dispatch] = useReducer(reducer,mockData);
+    const [todos, dispatch] = useReducer(reducer, mockData);
     const idRef = useRef(3);
 
-    const onCreate = useCallback( (content) => {
-       dispatch({
-           type:'CREATE',
-           data:{
-               id: idRef.current++,
-               isDone: false,
-               content,
-               date: new Date().getTime(),
-           }
-       })
-    },[]);
+    const onCreate = useCallback((content) => {
+        dispatch({
+            type: 'CREATE',
+            data: {
+                id: idRef.current++,
+                isDone: false,
+                content,
+                date: new Date().getTime(),
+            }
+        })
+    }, []);
 
     const onUpdate = useCallback((targetId) => {
         dispatch({
-            type:'UPDATE',
+            type: 'UPDATE',
             targetId,
         });
-    },[]);
+    }, []);
 
     const onDelete = useCallback((targetId) => {
         dispatch({
-            type:'DELETE',
+            type: 'DELETE',
             targetId,
         });
     }, []);
@@ -71,13 +73,15 @@ function App() {
     return (
         <div className="App">
             <Header/>
-            <Editor
-                onCreate={onCreate}
-            />
-            <List todos={todos}
-                  onUpdate={onUpdate}
-                  onDelete={onDelete}
-            />
+            <TodoContext.Provider value={{
+                todos,
+                onCreate,
+                onUpdate,
+                onDelete,
+            }}>
+                <Editor />
+                <List />
+            </TodoContext.Provider>
         </div>
     )
 }
