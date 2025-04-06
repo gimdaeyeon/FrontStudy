@@ -1,13 +1,13 @@
 import React from 'react';
 import {useParams} from "react-router-dom";
 
-const Diary = () => {
+const Edit = () => {
     const {id} = useParams();
     return (
         <div>
-           Diary
+            {id}번 일기 수정페이지 입니다.
         </div>
     );
 };
 
-export default Diary;
+export default Edit;
