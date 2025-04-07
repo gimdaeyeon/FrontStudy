@@ -105,6 +105,7 @@ fabric.properties
 # CodeStream plugin
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
+.idea/inspectionProfiles
 
 ### Java ###
 # Compiled class file
