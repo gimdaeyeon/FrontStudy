@@ -5,8 +5,6 @@ import New from "./pages/New";
 import Diary from "./pages/Diary";
 import React, {createContext, useReducer, useRef} from "react";
 import Notfound from "./pages/Notfound";
-import Button from "./components/Button";
-import Header from "./components/Header";
 import Edit from "./pages/Edit";
 
 const mockData = [
@@ -55,7 +53,7 @@ function App() {
     const idRef = useRef(4);
 
     // 새로운 일기 추가
-    const onCreate = (createdDate,emotionId, content) => {
+    const onCreate = (createdDate, emotionId, content) => {
         dispatch({
             type: 'CREATE',
             data: {
@@ -68,11 +66,13 @@ function App() {
     }
 
     // 기존 일기 수정
-    const onUpdate = (id, emotionId, content) => {
+    const onUpdate = (id, createdDate, emotionId, content) => {
         dispatch({
             type: 'UPDATE',
-            id, emotionId, content,
-            createdDate: new Date().getTime(),
+            data: {
+                id, emotionId, content,
+                createdDate,
+            }
         })
     }
     // 기존 일기 삭제
@@ -85,7 +85,7 @@ function App() {
     return (
         <>
             <DiaryStateContext.Provider value={data}>
-                <DiaryDispatchContext.Provider value={{onCreate,onUpdate,onDelete}}>
+                <DiaryDispatchContext.Provider value={{onCreate, onUpdate, onDelete}}>
                     <Routes>
                         <Route path="/" element={<Home/>}/>
                         <Route path="/new" element={<New/>}/>
