@@ -15,7 +15,7 @@ const Diary = () => {
         return <div>데이터 로딩중...!</div>;
     }
 
-    const title = getStringedDate(new Date(curDiaryItem.createdDate))
+    const title = getStringedDate(new Date(curDiaryItem.createdDate));
 
     return (
         <div>
