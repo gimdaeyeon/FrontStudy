@@ -6,11 +6,13 @@ import Viewer from "../components/Viewer.jsx";
 import {DiaryStateContext} from "../App.jsx";
 import useDiary from "../hooks/useDiary.jsx";
 import {getStringedDate} from "../util/get-stringed-date.js";
+import usePageTitle from "../hooks/usePageTitle.jsx";
 
 const Diary = () => {
     const {id} = useParams();
     const nav = useNavigate();
     const curDiaryItem = useDiary(id);
+    usePageTitle(`${id}번 일기`);
     if(!curDiaryItem) {
         return <div>데이터 로딩중...!</div>;
     }
