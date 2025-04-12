@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useContext} from 'react';
 import Header from "../components/Header.jsx";
 import Button from "../components/Button.jsx";
 import Editor from "../components/Editor.jsx";

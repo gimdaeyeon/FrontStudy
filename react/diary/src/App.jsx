@@ -32,11 +32,11 @@ function reducer(state, action) {
             break;
         }
         default: {
-            nextState =  state;
+            nextState = state;
             break;
         }
     }
-    localStorage.setItem('diary',JSON.stringify(nextState));
+    localStorage.setItem('diary', JSON.stringify(nextState));
     return nextState;
 }
 
@@ -50,26 +50,26 @@ function App() {
 
     useEffect(() => {
         const storedData = localStorage.getItem('diary');
-        if(!storedData) {
+        if (!storedData) {
             setIsLoading(false);
             return;
         }
         const parsedData = JSON.parse(storedData);
-        if(!Array.isArray(parsedData)) {
+        if (!Array.isArray(parsedData)) {
             setIsLoading(false);
             return;
         }
 
         let maxId = 0;
-        parsedData.forEach(item=>{
-            if(Number(item.id)>maxId){
+        parsedData.forEach(item => {
+            if (Number(item.id) > maxId) {
                 maxId = Number(item.id);
             }
         });
 
-        idRef.current = maxId +1;
+        idRef.current = maxId + 1;
 
-        dispatch({type:'INIT', data: parsedData,});
+        dispatch({type: 'INIT', data: parsedData,});
         setIsLoading(false);
     }, []);
 
@@ -102,7 +102,7 @@ function App() {
             type: 'DELETE', id
         })
     }
-    if(isLoading){
+    if (isLoading) {
         return <div>데이터 로딩중입니다 ...</div>;
     }
 
