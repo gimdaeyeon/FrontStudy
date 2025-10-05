@@ -4,8 +4,6 @@
       <NuxtPage />
     </NuxtLayout>
 
-<!--    <NuxtRouteAnnouncer />-->
-<!--    <NuxtWelcome />-->
   </div>
 </template>
 <script setup lang="ts">

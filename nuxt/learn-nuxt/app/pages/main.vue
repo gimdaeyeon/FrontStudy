@@ -5,6 +5,13 @@
 </template>
 
 <script setup>
+import axios from "axios";
+import {onMounted} from "vue";
+
+onMounted(async ()=>{
+  const response = await axios.get('http://localhost:3000/products');
+  console.log(response);
+})
 
 </script>
 
