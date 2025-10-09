@@ -7,7 +7,8 @@ module.exports = function () {
         id: n,
         name: faker.commerce.productName(),
         price: faker.commerce.price(),
-        imageUrl: faker.image.food(),
+        imageUrl: `https://picsum.photos/id/${n}/640/480`,
+        // imageUrl: `https://picsum.photos/id/${Math.floor(Math.random() * 30)}/640/480`,
       }
     }),
   }
