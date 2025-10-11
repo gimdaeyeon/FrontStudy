@@ -27,9 +27,7 @@ const {data: products} = await useAsyncData('products', async () => {
   console.log(response);
   return response.data.map(item => ({
     ...item,
-    imageUrl: `https://picsum.photos/id/${Math.floor(
-        Math.random() * 30
-    )}/640/480`,
+    imageUrl: `https://picsum.photos/id/${item.id}/640/480`,
   }));
 });
 
