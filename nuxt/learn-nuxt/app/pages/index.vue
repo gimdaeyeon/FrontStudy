@@ -5,7 +5,9 @@
         <input type="text">
       </div>
       <ul>
-        <li v-for="product in products" :key="product.id" class="item flex">
+        <li v-for="product in products" :key="product.id" class="item flex"
+            @click="moveToDetailPage(product.id)"
+        >
           <img class="product-image" :src="product.imageUrl" :alt="product.name">
           <p>{{ product.name }}</p>
           <span>{{ product.price }}</span>
@@ -17,7 +19,9 @@
 
 <script setup>
 import axios from "axios";
+import {useRouter} from "nuxt/app";
 
+const router = useRouter();
 const {data: products} = await useAsyncData('products', async () => {
   const response = await axios.get('http://localhost:3000/products');
   console.log(response);
@@ -28,6 +32,10 @@ const {data: products} = await useAsyncData('products', async () => {
     )}/640/480`,
   }));
 });
+
+function moveToDetailPage(id){
+  router.push(`/detail/${id}`);
+}
 
 
 </script>

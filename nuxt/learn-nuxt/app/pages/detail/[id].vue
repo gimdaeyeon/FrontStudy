@@ -1,11 +1,12 @@
 <template>
   <div>
-    <h1>hello my message is {{ $route.params.slug }}</h1>
+    <h1>상세 페이지</h1>
   </div>
 </template>
 
 <script setup>
-
+const route = useRoute();
+console.log(route);
 </script>
 
 <style scoped>
