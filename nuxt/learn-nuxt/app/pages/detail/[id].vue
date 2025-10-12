@@ -1,11 +1,18 @@
 <template>
   <div>
-    <h1>상세 페이지</h1>
-    <div>
-      {{product}}
-      <img :src="`https://picsum.photos/id/${id}/640/480`" :alt="product.name">
-      <p>name: {{product.name}}</p>
-      <p>price: {{product.price}}</p>
+    <div class="container">
+      <div class="main-panel">
+        <img
+            class="product-image"
+            :src="product.imageUrl"
+            :alt="product.name"
+        />
+      </div>
+      <div class="side-panel">
+        <p class="name">{{ product.name }}</p>
+        <p class="price">{{ product.price }}</p>
+<!--        <button type="button" @click="addToCart">Add to Cart</button>-->
+      </div>
     </div>
   </div>
 </template>
@@ -19,11 +26,32 @@ const {id} = route.params;
 
 const {data:product} = await useAsyncData(`product:${id}`, async () => {
   const result = await fetchProductById(id);
+  result.data.imageUrl = `https://picsum.photos/id/${id}/640/480`
   return result.data;
 });
+
+function addToCart(){
+
+}
 
 </script>
 
 <style scoped>
-
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+.product-image {
+  width: 500px;
+  height: 375px;
+}
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 220px;
+  text-align: center;
+  padding: 0 1rem;
+}
 </style>

@@ -5,5 +5,6 @@ export default defineNuxtConfig({
   // server setup
   devServer:{
     port: 3001
-  }
+  },
+  css: ['@/assets/css/reset.css'],
 })
