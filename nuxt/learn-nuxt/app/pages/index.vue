@@ -1,7 +1,9 @@
 <template>
   <div class="app">
     <main>
-      <SearchInput v-model="searchKeyword"/>
+      <SearchInput v-model="searchKeyword"
+                   @search="searchProducts"
+      />
       <ul>
         <li v-for="product in products" :key="product.id" class="item flex"
             @click="moveToDetailPage(product.id)"
@@ -19,6 +21,8 @@
 import axios from "axios";
 import {useRouter} from "nuxt/app";
 import {ref} from "vue";
+import {fetchProductsByKeyword} from "../api/index.js";
+import {getImageUrl} from "../util/index.js";
 
 const router = useRouter();
 const {data: products} = await useAsyncData('products', async () => {
@@ -26,7 +30,7 @@ const {data: products} = await useAsyncData('products', async () => {
   console.log(response);
   return response.data.map(item => ({
     ...item,
-    imageUrl: `https://picsum.photos/id/${item.id}/640/480`,
+    imageUrl: getImageUrl(item.id),
   }));
 });
 
@@ -34,6 +38,14 @@ const searchKeyword = ref();
 
 function moveToDetailPage(id){
   router.push(`/detail/${id}`);
+}
+
+async function searchProducts(){
+  const response = await fetchProductsByKeyword(searchKeyword.value);
+  products.value = response.data.map(item => ({
+    ...item,
+    imageUrl: getImageUrl(item.id),
+  }));
 }
 
 </script>

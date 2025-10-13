@@ -11,7 +11,6 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
-<!--        <button type="button" @click="addToCart">Add to Cart</button>-->
       </div>
     </div>
   </div>
@@ -19,6 +18,7 @@
 
 <script setup>
 import {fetchProductById} from "../../api/index.js";
+import {getImageUrl} from "../../util/index.js";
 
 const route = useRoute();
 
@@ -26,13 +26,10 @@ const {id} = route.params;
 
 const {data:product} = await useAsyncData(`product:${id}`, async () => {
   const result = await fetchProductById(id);
-  result.data.imageUrl = `https://picsum.photos/id/${id}/640/480`
+  result.data.imageUrl = getImageUrl(id);
   return result.data;
 });
 
-function addToCart(){
-
-}
 
 </script>
 
