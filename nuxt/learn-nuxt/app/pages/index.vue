@@ -1,9 +1,7 @@
 <template>
   <div class="app">
     <main>
-      <div>
-        <input type="text">
-      </div>
+      <SearchInput v-model="searchKeyword"/>
       <ul>
         <li v-for="product in products" :key="product.id" class="item flex"
             @click="moveToDetailPage(product.id)"
@@ -20,6 +18,7 @@
 <script setup>
 import axios from "axios";
 import {useRouter} from "nuxt/app";
+import {ref} from "vue";
 
 const router = useRouter();
 const {data: products} = await useAsyncData('products', async () => {
@@ -31,10 +30,11 @@ const {data: products} = await useAsyncData('products', async () => {
   }));
 });
 
+const searchKeyword = ref();
+
 function moveToDetailPage(id){
   router.push(`/detail/${id}`);
 }
-
 
 </script>
 
