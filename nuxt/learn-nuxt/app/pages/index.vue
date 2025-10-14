@@ -13,6 +13,9 @@
           <span>{{ product.price }}</span>
         </li>
       </ul>
+      <div class="cart-wrapper">
+        <button class="btn" @click="moveToCart">장바구니 바로가기</button>
+      </div>
     </main>
   </div>
 </template>
@@ -46,6 +49,10 @@ async function searchProducts(){
     ...item,
     imageUrl: getImageUrl(item.id),
   }));
+}
+
+function moveToCart(){
+  router.push('/cart');
 }
 
 </script>

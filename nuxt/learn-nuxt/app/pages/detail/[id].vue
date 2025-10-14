@@ -11,6 +11,7 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
+        <button @click="addToCart">Add To Cart</button>
       </div>
     </div>
   </div>
@@ -19,8 +20,10 @@
 <script setup>
 import {fetchProductById} from "../../api/index.js";
 import {getImageUrl} from "../../util/index.js";
+import {useRouter, useRoute} from "nuxt/app";
 
 const route = useRoute();
+const router = useRouter();
 
 const {id} = route.params;
 
@@ -29,6 +32,10 @@ const {data:product} = await useAsyncData(`product:${id}`, async () => {
   result.data.imageUrl = getImageUrl(id);
   return result.data;
 });
+
+function addToCart(){
+  router.push(`/cart`);
+}
 
 
 </script>
