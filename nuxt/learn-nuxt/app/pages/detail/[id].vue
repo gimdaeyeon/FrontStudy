@@ -21,9 +21,11 @@
 import {fetchProductById} from "../../api/index.js";
 import {getImageUrl} from "../../util/index.js";
 import {useRouter, useRoute} from "nuxt/app";
+import {useCartStore} from "../../stores/cart.js";
 
 const route = useRoute();
 const router = useRouter();
+const cartStore = useCartStore();
 
 const {id} = route.params;
 
@@ -34,6 +36,7 @@ const {data:product} = await useAsyncData(`product:${id}`, async () => {
 });
 
 function addToCart(){
+  cartStore.addCartItem(product.value);
   router.push(`/cart`);
 }
 
