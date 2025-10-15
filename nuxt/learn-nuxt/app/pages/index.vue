@@ -28,6 +28,7 @@ import {fetchProductsByKeyword} from "../api/index.js";
 import {getImageUrl} from "../util/index.js";
 
 const router = useRouter();
+const cartStore = useCartStore();
 const {data: products} = await useAsyncData('products', async () => {
   const response = await axios.get('http://localhost:3000/products');
   console.log(response);
