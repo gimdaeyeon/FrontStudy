@@ -1,16 +1,24 @@
 <template>
   <div>
     <h2>카트 페이지 입니다.</h2>
+    <div>
+      <ul>
+        <li v-for="cartItem in cartItems" :key="cartItem.id">
+          <img :src="cartItem.imageUrl" alt="">
+          <p>{{cartItem.name}}</p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script setup>
-import {fetchProductById} from "../api/index.js";
-import {getImageUrl} from "../util/index.js";
+import {storeToRefs} from "pinia";
 
 const route = useRoute();
-
 const {id} = route.params;
+const cartStore = useCartStore();
+const {cartItems} = storeToRefs(cartStore);
 
 </script>
 
