@@ -1,13 +1,21 @@
 <template>
-  <div>
-    <h2>카트 페이지 입니다.</h2>
-    <div>
+  <div class="container">
+    <h2 class="list-title">카트 페이지 입니다.</h2>
+    <div class="list-wrapper">
       <ul>
-        <li v-for="cartItem in cartItems" :key="cartItem.id">
-          <img :src="cartItem.imageUrl" alt="">
-          <p>{{cartItem.name}}</p>
+        <li v-for="cartItem in cartItems" :key="cartItem.id" class="list-item">
+          <img class="thumbnail"
+               :src="cartItem.imageUrl" alt=""
+          >
+          <div class="description">
+            <p>{{cartItem.name}}</p>
+            <span>{{cartItem.price}}</span>
+          </div>
         </li>
       </ul>
+    </div>
+    <div>
+      <button class="extra-panel">구매하기</button>
     </div>
   </div>
 </template>
@@ -24,20 +32,27 @@ const {cartItems} = storeToRefs(cartStore);
 
 <style scoped>
 .container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
+  margin: 2rem 10rem;
 }
-.product-image {
-  width: 500px;
-  height: 375px;
+.list-title {
+  font-weight: 700;
+  font-size: 1.4rem;
 }
-.side-panel {
+.list-wrapper {
+  margin: 0.4rem 0;
+}
+.list-item {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 220px;
-  text-align: center;
-  padding: 0 1rem;
+}
+.thumbnail {
+  width: 100px;
+  height: 100px;
+}
+.description {
+  padding: 2rem 1rem;
+}
+.extra-panel {
+  text-align: right;
+  padding: 0.2rem 0;
 }
 </style>
