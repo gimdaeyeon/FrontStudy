@@ -193,6 +193,18 @@
       "name": "Awesome Concrete Shirt",
       "price": "165.00",
       "imageUrl": "http://placeimg.com/640/480/fashion"
+    },
+    {
+      "id": 8,
+      "name": "Refined Fresh Chicken",
+      "price": "209.00",
+      "imageUrl": "https://picsum.photos/id/0/640/480"
+    },
+    {
+      "id": 13,
+      "name": "Refined Soft Towels",
+      "price": "723.00",
+      "imageUrl": "https://picsum.photos/id/13/640/480"
     }
   ]
 }

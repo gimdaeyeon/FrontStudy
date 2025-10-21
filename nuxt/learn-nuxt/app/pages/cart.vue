@@ -28,6 +28,10 @@ const {id} = route.params;
 const cartStore = useCartStore();
 const {cartItems} = storeToRefs(cartStore);
 
+useAsyncData(async ()=>{
+  await cartStore.FETCH_CART_ITEMS();
+});
+
 </script>
 
 <style scoped>

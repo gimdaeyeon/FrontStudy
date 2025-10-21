@@ -11,14 +11,14 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
-        <button @click="addToCart">Add To Cart</button>
+        <button @click="addToCart">카트에 담기</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {fetchProductById} from "../../api/index.js";
+import {createCartItem, fetchProductById} from "../../api/index.js";
 import {getImageUrl} from "../../util/index.js";
 import {useRouter, useRoute} from "nuxt/app";
 import {useCartStore} from "../../stores/cart.js";
@@ -35,9 +35,11 @@ const {data:product} = await useAsyncData(`product:${id}`, async () => {
   return result.data;
 });
 
-function addToCart(){
+async function addToCart(){
+  const response = await createCartItem(product.value);
+  console.log(response);
   cartStore.addCartItem(product.value);
-  router.push(`/cart`);
+  await router.push(`/cart`);
 }
 
 

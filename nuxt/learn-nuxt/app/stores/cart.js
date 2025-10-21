@@ -1,3 +1,6 @@
+import {fetchCartItems} from "../api/index.js";
+import {getImageUrl} from "../util/index.js";
+
 export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([]);
 
@@ -7,7 +10,15 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
+    async function FETCH_CART_ITEMS() {
+        const {data} = await fetchCartItems();
+        cartItems.value = data.map(i => ({
+            ...i,
+            imageUrl: getImageUrl(i.id)
+        }));
+    }
+
     return {
-        cartItems, addCartItem,
+        cartItems, addCartItem, FETCH_CART_ITEMS
     }
 });
