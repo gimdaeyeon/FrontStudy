@@ -28,9 +28,10 @@ const {id} = route.params;
 const cartStore = useCartStore();
 const {cartItems} = storeToRefs(cartStore);
 
-useAsyncData(async ()=>{
-  await cartStore.FETCH_CART_ITEMS();
-});
+// callOnce로 app.vue에서 호출
+// useAsyncData(async ()=>{
+//   await cartStore.FETCH_CART_ITEMS();
+// });
 
 </script>
 

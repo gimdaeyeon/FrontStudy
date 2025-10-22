@@ -10,7 +10,7 @@ export const useCartStore = defineStore('cart', () => {
         }
     }
 
-    async function FETCH_CART_ITEMS() {
+    async function initCarts() {
         const {data} = await fetchCartItems();
         cartItems.value = data.map(i => ({
             ...i,
@@ -18,7 +18,8 @@ export const useCartStore = defineStore('cart', () => {
         }));
     }
 
+
     return {
-        cartItems, addCartItem, FETCH_CART_ITEMS
+        cartItems, addCartItem, initCarts,
     }
 });
