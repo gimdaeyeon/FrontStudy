@@ -1,25 +1,24 @@
 <template>
-  <div class="container">
-    <h2 class="list-title">카트 페이지 입니다.</h2>
-    <CartList/>
-    <div>
-      <button class="extra-panel">구매하기</button>
-    </div>
+  <div class="list-wrapper">
+    <ul>
+      <li v-for="cartItem in cartItems" :key="cartItem.id" class="list-item">
+        <img class="thumbnail"
+             :src="cartItem.imageUrl" alt=""
+        >
+        <div class="description">
+          <p>{{cartItem.name}}</p>
+          <span>{{cartItem.price}}</span>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script setup>
 import {storeToRefs} from "pinia";
 
-const route = useRoute();
-const {id} = route.params;
-
-
-// callOnce로 app.vue에서 호출
-// useAsyncData(async ()=>{
-//   await cartStore.FETCH_CART_ITEMS();
-// });
-
+const cartStore = useCartStore();
+const {cartItems} = storeToRefs(cartStore);
 </script>
 
 <style scoped>

@@ -7,7 +7,6 @@
   </div>
 </template>
 <script setup lang="ts">
-import {useCartStore} from "../.nuxt/imports";
 import {callOnce} from "nuxt/app";
 
 
