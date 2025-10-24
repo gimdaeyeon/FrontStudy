@@ -9,4 +9,5 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/reset.css'],
   modules: ['@pinia/nuxt'],
+
 })
