@@ -21,17 +21,14 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import {useRouter} from "nuxt/app";
 import {ref} from "vue";
 import {fetchProductsByKeyword} from "../api/index.js";
 import {getImageUrl} from "../util/index.js";
 
 const router = useRouter();
-const cartStore = useCartStore();
 const {data: products} = await useAsyncData('products', async () => {
-  const response = await axios.get('http://localhost:3000/products');
-  console.log(response);
+  const response = await fetchProductsByKeyword();
   return response.data.map(item => ({
     ...item,
     imageUrl: getImageUrl(item.id),

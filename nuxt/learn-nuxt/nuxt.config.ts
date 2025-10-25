@@ -9,5 +9,12 @@ export default defineNuxtConfig({
   },
   css: ['@/assets/css/reset.css'],
   modules: ['@pinia/nuxt'],
-
+  app:{
+    head:{
+      title:'Nuxt Shopping',
+      meta:[
+        {name:'description',content: 'Nuxt Shopping Example'}
+      ],
+    }
+  }
 })
