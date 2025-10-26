@@ -23,10 +23,11 @@
 <script setup>
 import {useRouter} from "nuxt/app";
 import {ref} from "vue";
-import {fetchProductsByKeyword} from "../api/index.js";
 import {getImageUrl} from "../util/index.js";
+import {useApi} from "../composables/useApi.js";
 
 const router = useRouter();
+const {fetchProductsByKeyword} = useApi();
 const {data: products} = await useAsyncData('products', async () => {
   const response = await fetchProductsByKeyword();
   return response.data.map(item => ({

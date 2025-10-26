@@ -18,10 +18,10 @@
 </template>
 
 <script setup>
-import {createCartItem, fetchProductById} from "../../api/index.js";
 import {getImageUrl} from "../../util/index.js";
 import {useRoute, useRouter} from "nuxt/app";
 import {useCartStore} from "../../stores/cart.js";
+import {useApi} from "../../composables/useApi.js";
 
 useHead({
   title: 'Shopping Item Detail',
@@ -29,6 +29,7 @@ useHead({
     {name: 'description', content: '이 상품은 ~~입니다.'}
   ],
 })
+const {createCartItem, fetchProductById} = useApi();
 const route = useRoute();
 const router = useRouter();
 const cartStore = useCartStore();

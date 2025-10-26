@@ -1,8 +1,9 @@
-import {fetchCartItems} from "../api/index.js";
 import {getImageUrl} from "../util/index.js";
+import {useApi} from "../composables/useApi.js";
 
 export const useCartStore = defineStore('cart', () => {
     const cartItems = ref([]);
+    const {fetchCartItems} = useApi();
 
     function addCartItem(cartItem) {
         if (!cartItems.value.some(i => i.id === cartItem.id)) {
