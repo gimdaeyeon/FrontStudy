@@ -20,22 +20,27 @@
 <script setup>
 import {createCartItem, fetchProductById} from "../../api/index.js";
 import {getImageUrl} from "../../util/index.js";
-import {useRouter, useRoute} from "nuxt/app";
+import {useRoute, useRouter} from "nuxt/app";
 import {useCartStore} from "../../stores/cart.js";
 
+useHead({
+  title: 'Shopping Item Detail',
+  meta: [
+    {name: 'description', content: '이 상품은 ~~입니다.'}
+  ],
+})
 const route = useRoute();
 const router = useRouter();
 const cartStore = useCartStore();
-
 const {id} = route.params;
 
-const {data:product} = await useAsyncData(`product:${id}`, async () => {
+const {data: product} = await useAsyncData(`product:${id}`, async () => {
   const result = await fetchProductById(id);
   result.data.imageUrl = getImageUrl(id);
   return result.data;
 });
 
-async function addToCart(){
+async function addToCart() {
   const response = await createCartItem(product.value);
   console.log(response);
   cartStore.addCartItem(product.value);
@@ -51,10 +56,12 @@ async function addToCart(){
   justify-content: center;
   margin: 2rem 0;
 }
+
 .product-image {
   width: 500px;
   height: 375px;
 }
+
 .side-panel {
   display: flex;
   flex-direction: column;
