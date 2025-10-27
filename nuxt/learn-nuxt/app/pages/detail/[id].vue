@@ -23,12 +23,7 @@ import {useRoute, useRouter} from "nuxt/app";
 import {useCartStore} from "../../stores/cart.js";
 import {useApi} from "../../composables/useApi.js";
 
-useHead({
-  title: 'Shopping Item Detail',
-  meta: [
-    {name: 'description', content: '이 상품은 ~~입니다.'}
-  ],
-})
+
 const {createCartItem, fetchProductById} = useApi();
 const route = useRoute();
 const router = useRouter();
@@ -40,6 +35,13 @@ const {data: product} = await useAsyncData(`product:${id}`, async () => {
   result.data.imageUrl = getImageUrl(id);
   return result.data;
 });
+
+useHead({
+  title: `Shopping Item Detail - ${product.value.name}`,
+  meta: [
+    {name: 'description', content: `이 상품은 ${product.value.name}입니다.`}
+  ],
+})
 
 async function addToCart() {
   const response = await createCartItem(product.value);
