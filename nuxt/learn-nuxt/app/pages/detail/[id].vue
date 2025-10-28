@@ -39,7 +39,10 @@ const {data: product} = await useAsyncData(`product:${id}`, async () => {
 useHead({
   title: `Shopping Item Detail - ${product.value.name}`,
   meta: [
-    {name: 'description', content: `이 상품은 ${product.value.name}입니다.`}
+    {name: 'description', content: `이 상품은 ${product.value.name}입니다.`},
+    {property: 'og:title', content: '상품 상세 페이지'},
+    {property: 'og:description', content: '상품의 상세 정보를 확인해보세요'},
+    {property: 'og:image', content: product.value.imageUrl},
   ],
 })
 
