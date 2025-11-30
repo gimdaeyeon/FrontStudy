@@ -1,12 +1,15 @@
 import style from './index.module.css';
 import SearchableLayout from "@/components/searchable-layout";
-import {ReactNode, } from "react";
+import {ReactNode,} from "react";
 import BookItem from "@/components/book-item";
-import {InferGetServerSidePropsType} from "next";
+import {InferGetStaticPropsType} from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
 
-export const getServerSideProps = async () => {
+// SSR 방식
+// export const getServerSideProps = async () => {
+// SSG 방식
+export const getStaticProps = async () => {
   // 병렬로 API 요청
   const [allBooks,recoBooks] = await Promise.all([
     fetchBooks(),
@@ -21,9 +24,10 @@ export const getServerSideProps = async () => {
 };
 
 export default function Home({
-    allBooks,recoBooks
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
+    allBooks,
+                               recoBooks,
+// }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
       <div className={style.container}>
