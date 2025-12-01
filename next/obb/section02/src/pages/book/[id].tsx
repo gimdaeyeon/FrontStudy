@@ -1,5 +1,10 @@
 import style from './[id].module.css'
-import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
+import {
+  GetServerSidePropsContext,
+  GetStaticPropsContext,
+  InferGetServerSidePropsType,
+  InferGetStaticPropsType
+} from "next";
 import fetchOneBook from "@/lib/fetch-one-book";
 
 // const mockData = {
@@ -12,7 +17,31 @@ import fetchOneBook from "@/lib/fetch-one-book";
 //   coverImgUrl: "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 // };
 
-export const getServerSideProps = async (context:GetServerSidePropsContext)=>{
+// export const getServerSideProps = async (context:GetServerSidePropsContext)=>{
+//   const id = context.params!.id;
+//
+//   const book = await fetchOneBook(Number(id));
+//
+//   return {
+//     props:{
+//       book
+//     }
+//   }
+// }
+
+// 동적 경로를 가진 페이지에 SSG 적용
+export const getStaticPaths = ()=>{
+  return {
+    paths:[
+      {params:{id:'1'}},
+      {params:{id:'2'}},
+      {params:{id:'3'}},
+    ],
+    fallback:false,  // 설정한 paths가 아닌 페이지로 접속할 경우 어떻게 할지에 대한 설정
+  }
+}
+
+export const getStaticProps = async (context:GetStaticPropsContext)=>{
   const id = context.params!.id;
 
   const book = await fetchOneBook(Number(id));
@@ -24,7 +53,7 @@ export const getServerSideProps = async (context:GetServerSidePropsContext)=>{
   }
 }
 
-export default function Page({book}:InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Page({book}:InferGetStaticPropsType<typeof getStaticProps>) {
 
   if (!book) return "문제가 발생했습니다. 다시 시도하세요"
 
