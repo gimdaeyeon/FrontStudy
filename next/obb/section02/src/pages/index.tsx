@@ -19,7 +19,8 @@ export const getStaticProps = async () => {
     props: {
       allBooks,
       recoBooks,
-    }
+    },
+    // revalidate :3,// 3초 주기로 재검증 (ISR 설정) 시간을 기반으로 페이지 재생성
   }
 };
 
