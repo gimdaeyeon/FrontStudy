@@ -7,6 +7,7 @@ import {
 } from "next";
 import fetchOneBook from "@/lib/fetch-one-book";
 import {useRouter} from "next/router";
+import Head from "next/head";
 
 // const mockData = {
 //   id: 1,
@@ -39,6 +40,9 @@ export const getStaticPaths = ()=>{
       {params:{id:'3'}},
     ],
     fallback: true,  // 설정한 paths가 아닌 페이지로 접속할 경우 어떻게 할지에 대한 설정
+  //   false : 404 Notfound
+  //   blocking : SSR 방식
+  //   true : SSR 방식 + 데이터가 없는 풀백 상태의 페이지부터 반환
   }
 }
 
@@ -63,7 +67,20 @@ export const getStaticProps = async (context:GetStaticPropsContext)=>{
 export default function Page({book}:InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
-  if(router.isFallback) return "로딩중입니다.";
+  if(router.isFallback) {
+    return <>
+      <Head>
+        <title>한입북스</title>
+        <meta property="og:image" content="/thumbnail.png" />
+        <meta property="og:title" content="한입북스" />
+        <meta
+            property="og:description"
+            content="한입 북스에 등록된 도서들을 만나보세요"
+        />
+      </Head>
+      <div>로딩중입니다</div>
+    </>
+  }
   if (!book) return "문제가 발생했습니다. 다시 시도하세요";
 
   const {
@@ -75,6 +92,16 @@ export default function Page({book}:InferGetStaticPropsType<typeof getStaticProp
     coverImgUrl,
   } = book;
   return (
+      <>
+        <Head>
+          <title>{title}</title>
+          <meta property="og:image" content={coverImgUrl} />
+          <meta property="og:title" content={title} />
+          <meta
+              property="og:description"
+              content={description}
+          />
+        </Head>
       <div className={style.container}>
         <div style={{backgroundImage: `url('${coverImgUrl}')`}}
             className={style.cover_img_container}
@@ -87,5 +114,5 @@ export default function Page({book}:InferGetStaticPropsType<typeof getStaticProp
 
         <div className={style.description}>{description}</div>
       </div>
-  );
+      </>);
 }
