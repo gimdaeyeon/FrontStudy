@@ -1,8 +1,11 @@
 import {ReactNode} from "react";
+import SearchBar from "@/app/(with-searchbar)/search/searchbar";
 
-export default function Layout({children,}:{children:ReactNode}){
-    return <div>
-        <div>임시 서치바</div>
-        {children}
-    </div>;
+export default function Layout({children,}: { children: ReactNode }) {
+    return (
+        <div>
+            <SearchBar/>
+            {children}
+        </div>
+    );
 }
