@@ -1,6 +1,7 @@
 import BookItem from "@/components/book-item";
 import {BookData} from "@/types";
 import {delay} from "@/util/delay";
+import {Suspense} from "react";
 
 // export const dynamic = 'error';
 
@@ -10,30 +11,37 @@ import {delay} from "@/util/delay";
 // 3. force-static : 페이지를 강제로 Static 페이지로 설정
 // 4. error : 페이지를 강제로 Static 페이지로 설정(설정하면 안되는 이유->빌드오류)
 
+async function SearchResult({q}: { q: string }) {
+    await delay(500);
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`,
+        {cache: "force-cache"}
+    );
+
+    if (!response.ok) {
+        return <div>오류가 발생했습니다...</div>;
+    }
+
+    const books: BookData[] = await response.json();
+
+    return (
+        <div>
+            {books.map((book) => (
+                <BookItem key={book.id} {...book} />
+            ))}
+        </div>
+    );
+}
+
 export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<{ q?: string }>;
+                                       searchParams,
+                                   }: {
+    searchParams: Promise<{ q?: string }>;
 }) {
-  const { q } = await searchParams;
+    const {q} = await searchParams;
 
-  await delay(1500);
-  const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`,
-      {cache:"force-cache"}
-  );
-
-  if(!response.ok){
-      return <div>오류가 발생했습니다...</div>;
-  }
-
-  const books:BookData[] = await response.json();
-
-  return (
-    <div>
-      {books.map((book) => (
-        <BookItem key={book.id} {...book} />
-      ))}
-    </div>
-  );
+    return (
+        <Suspense key={q||''} fallback={<div>Loading...</div>} >
+            <SearchResult q={q || ''}/>
+        </Suspense>);
 }

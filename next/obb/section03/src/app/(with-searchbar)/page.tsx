@@ -1,45 +1,50 @@
 import BookItem from "@/components/book-item";
 import style from "./page.module.css";
 import {BookData} from "@/types";
-
+import {delay} from "@/util/delay";
+import {Suspense} from "react";
 
 
 async function AllBooks() {
+    await delay(500);
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
         {
-            cache:'force-cache',
+            cache: 'force-cache',
         });
-    const allBooks :BookData[] = await response.json();
+    const allBooks: BookData[] = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
         return <div>오류가 발생했습니다 ...</div>
     }
 
     return <div>
-        {allBooks.map(book=> (
+        {allBooks.map(book => (
             <BookItem key={book.id} {...book} />
         ))}
     </div>
 }
 
 async function RecoBooks() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,{
+    await delay(1500);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`, {
         // cache:'force-cache',
         // next:{tags:['a',]},
-        next:{revalidate:3},
+        next: {revalidate: 3},
     });
-    const recoBooks :BookData[] = await response.json();
+    const recoBooks: BookData[] = await response.json();
 
-    if(!response.ok){
+    if (!response.ok) {
         return <div>오류가 발생했습니다 ...</div>
     }
 
     return <div>
-        {recoBooks.map(book=> (
+        {recoBooks.map(book => (
             <BookItem key={book.id} {...book} />
         ))}
     </div>
 }
+
+export const dynamic = 'force-dynamic';
 
 export default function Home() {
 
@@ -47,11 +52,15 @@ export default function Home() {
         <div className={style.container}>
             <section>
                 <h3>지금 추천하는 도서</h3>
-                <RecoBooks/>
+                <Suspense fallback={<div>도서를 불러오는 중입니다...</div>}>
+                    <RecoBooks/>
+                </Suspense>
             </section>
             <section>
                 <h3>등록된 모든 도서</h3>
-                <AllBooks />
+                <Suspense fallback={<div>도서를 불러오는 중입니다...</div>}>
+                    <AllBooks/>
+                </Suspense>
             </section>
         </div>
     );
