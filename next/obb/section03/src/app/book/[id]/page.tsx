@@ -1,5 +1,14 @@
 import style from "./page.module.css";
 import {BookData} from "@/types";
+import {notFound} from "next/navigation";
+
+// generateStaticParams 로 반환된 url이외의 페이지를 동적으로 생성하지 않고 404페이지로 이동
+// export const dynamicParams = false;
+
+// return 되는 params id에 해당하는 페이지가 필드타임에 생성된다
+export function generateStaticParams(){
+    return [{id:'1'},{id:'2'},{id:'3'}, ];
+}
 
 export default async function Page({
   params,
@@ -7,9 +16,14 @@ export default async function Page({
   params: Promise<{ id: string | string[] }>;
 }) {
   const { id } = await params;
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`);
+  const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`,
+      );
 
   if(!response.ok){
+      if(response.status===404){
+          notFound();
+      }
       return <div>오류가 발생했습니다...</div>
   }
 
