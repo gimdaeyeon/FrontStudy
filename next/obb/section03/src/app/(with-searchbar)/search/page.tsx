@@ -1,4 +1,4 @@
-import BookItem from "@/components/book-item";
+import BookItem from "@/components/book/book-item";
 import {BookData} from "@/types";
 import {delay} from "@/util/delay";
 import {Suspense} from "react";
