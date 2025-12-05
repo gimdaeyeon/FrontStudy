@@ -1,11 +1,11 @@
 'use server';
 
+import {revalidatePath} from "next/cache";
+
 export async function createReviewAction(formData: FormData) {
     const bookId = formData.get('bookId')?.toString();
     const content = formData.get('content')?.toString();
     const author = formData.get('author')?.toString();
-
-
 
     if (!bookId|| !content || !author) return;
 
@@ -16,6 +16,7 @@ export async function createReviewAction(formData: FormData) {
                 body: JSON.stringify({bookId, content, author}),
             });
         console.log(response.status);
+        revalidatePath(`/book/${bookId}`); // 서버쪽에서만 동작하는 메서드
     } catch (e) {
         console.error(e);
         return;
