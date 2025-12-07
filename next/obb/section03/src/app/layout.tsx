@@ -25,8 +25,10 @@ import {ReactNode} from "react";
 
 export default function RootLayout({
   children,
+    modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -39,6 +41,7 @@ export default function RootLayout({
           <footer>제작 @winterlood</footer>
           {/*<Footer/>*/}
         </div>
+        {modal}
       <div id="modal-root"></div>
       </body>
     </html>
