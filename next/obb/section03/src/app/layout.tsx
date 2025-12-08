@@ -1,7 +1,6 @@
 import "./globals.css";
 import Link from "next/link";
 import style from "./layout.module.css";
-import {BookData} from "@/types";
 import {ReactNode} from "react";
 
 // async function Footer(){
@@ -24,7 +23,7 @@ import {ReactNode} from "react";
 
 
 export default function RootLayout({
-  children,
+    children,
     modal,
 }: Readonly<{
   children: ReactNode;

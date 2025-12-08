@@ -9,9 +9,17 @@ import Image from "next/image";
 // export const dynamicParams = false;
 
 // return 되는 params id에 해당하는 페이지가 필드타임에 생성된다
-// export function generateStaticParams(){
-//     return [{id:'1'},{id:'2'},{id:'3'}, ];
-// }
+export async function generateStaticParams(){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`);
+    if(!response.ok){
+        throw new Error(response.statusText);
+    }
+
+    const books:BookData[] = await response.json();
+    return books.map(book=>({
+        id: book.id.toString(),
+    }));
+}
 
 async function BookDetail({bookId}: { bookId: string }) {
     const response = await fetch(

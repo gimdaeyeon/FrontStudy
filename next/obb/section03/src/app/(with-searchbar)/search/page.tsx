@@ -1,6 +1,5 @@
 import BookItem from "@/components/book/book-item";
 import {BookData} from "@/types";
-import {delay} from "@/util/delay";
 import {Suspense} from "react";
 import BookListSkeleton from "@/components/skeleton/book-list-skeleton";
 import {Metadata} from "next";
@@ -14,7 +13,6 @@ import {Metadata} from "next";
 // 4. error : 페이지를 강제로 Static 페이지로 설정(설정하면 안되는 이유->빌드오류)
 
 async function SearchResult({q}: { q: string }) {
-    await delay(500);
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/search?q=${q}`,
         {cache: "force-cache"}
