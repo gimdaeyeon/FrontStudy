@@ -1,10 +1,28 @@
 import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
+import {useState} from "react";
+import {useCreateTodo} from "@/store/todos.ts";
 
 export default function TodoEditor() {
+    const createTodo = useCreateTodo();
+    const [content, setContent] = useState('');
+
+    const handleAddTodo = ()=>{
+        if(content.trim() === '') return;
+        createTodo(content);
+        setContent('');
+    }
+
     return (
         <div className="flex gap-2">
-            <Input placeholder="새로운 할 일을 입력하세요..."/>
-            <Button className="cursor-pointer">추가</Button>
+            <Input value={content} placeholder="새로운 할 일을 입력하세요..."
+                   onChange={(e) => setContent(e.target.value)}
+                   onKeyDown={(e) => e.key === 'Enter' && handleAddTodo() }
+            />
+            <Button className="cursor-pointer"
+                    onClick={handleAddTodo}
+            >
+                추가
+            </Button>
         </div>)
 }
