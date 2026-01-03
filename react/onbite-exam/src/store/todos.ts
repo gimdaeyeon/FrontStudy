@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {combine, createJSONStorage, devtools, persist, subscribeWithSelector} from "zustand/middleware";
+import {combine} from "zustand/middleware";
 import {immer} from "zustand/middleware/immer";
 import type {Todo} from "@/types.ts";
 
@@ -21,11 +21,18 @@ const useTodosStore = create(
                     set(state=>{
                         state.todos = state.todos.filter((todo)=>todo.id !== targetId);
                     });
+                },
+                updateTodo:(targetId: number, updateContent: string)=>{
+                    set(state=>{
+                        state.todos = state.todos.map(todo=>(todo.id!==targetId?todo:{
+                            ...todo,content:updateContent
+                        }))
+                    })
                 }
             }
         }))
     )
-)
+);
 
 export const useTodos = ()=>{
     return useTodosStore((store)=>store.todos);
@@ -39,4 +46,6 @@ export const useDeleteTodo = ()=>{
     return useTodosStore((store)=>store.actions.deleteTodo);
 }
 
-
+export const useUpdateTodo = ()=>{
+    return useTodosStore((store)=>store.actions.updateTodo);
+}
