@@ -1,45 +1,57 @@
 import {Button} from "@/components/ui/button.tsx";
-import {useDeleteTodo, useUpdateTodo} from "@/store/todos.ts";
+import {useUpdateTodo} from "@/store/todos.ts";
 import {Check, Pencil} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/input.tsx";
 import {Link} from "react-router";
+import type {Todo} from "@/types.ts";
+import {useUpdateTodoMutation} from "@/hooks/mutations/use-update-todo-mutation.ts";
 
-export default function TodoItem({id, content}:{id:number, content:string}) {
-    const deleteTodo = useDeleteTodo();
-    const updateTodo = useUpdateTodo();
+export default function TodoItem({id, content, isDone}:Todo) {
+    const {mutate} = useUpdateTodoMutation();
     const [isEdit, setIsEdit] = useState(false);
     const [editContent, setEditContent] = useState(content);
     const editInputRef = useRef<HTMLInputElement>(null);
 
     const handleDeleteClick = ()=>{
-        deleteTodo(id);
+
     }
 
-    const handleUpdateTodo = ()=>{
-        updateTodo(id, editContent);
-        setIsEdit(false);
+    const handleCheckboxClick = ()=>{
+        mutate({
+            id,
+            isDone:!isDone
+        });
     }
 
-    useEffect(()=>{
-        if(isEdit) editInputRef.current?.focus();
-    },[isEdit])
+    // const handleUpdateTodo = ()=>{
+    //     updateTodo(id, editContent);
+    //     setIsEdit(false);
+    // }
+
+    // useEffect(()=>{
+    //     if(isEdit) editInputRef.current?.focus();
+    // },[isEdit]);
 
     return (
         <div className="flex items-center justify-between border p-2 gap-2">
-            {isEdit?
-                <Input value={editContent}
-                       onChange={(e)=>setEditContent(e.target.value)}
-                       onKeyDown={(e)=>{if(e.key === 'Enter') handleUpdateTodo()}}
-                       ref={editInputRef}
-                />
-                :<Link to={`/todo/${id}`}>{content}</Link>
-            }
+            {/*{isEdit?*/}
+            {/*    <Input value={editContent}*/}
+            {/*           onChange={(e)=>setEditContent(e.target.value)}*/}
+            {/*           onKeyDown={(e)=>{if(e.key === 'Enter') handleUpdateTodo()}}*/}
+            {/*           ref={editInputRef}*/}
+            {/*    />*/}
+            {/*    :*/}
+                <div className="flex gap-5">
+                    <input type="checkbox" checked={isDone} onClick={handleCheckboxClick} />
+                    <Link to={`/todo/${id}`}>{content}</Link>
+                </div>
+            {/*}*/}
             <div className="flex flex-row justify-center items-center gap-2">
-                {isEdit?
-                    <Check className="cursor-pointer hover:text-green-500 transition" onClick={handleUpdateTodo}/>
-                    :<Pencil className="cursor-pointer" onClick={()=>setIsEdit(true)} />
-                }
+                {/*{isEdit?*/}
+                {/*    <Check className="cursor-pointer hover:text-green-500 transition" onClick={handleUpdateTodo}/>*/}
+                {/*    :<Pencil className="cursor-pointer" onClick={()=>setIsEdit(true)} />*/}
+                {/*}*/}
                 <Button className="cursor-pointer" variant={"destructive"}
                         onClick={handleDeleteClick}
                 >
