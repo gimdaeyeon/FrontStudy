@@ -3,6 +3,7 @@ import {useDeleteTodo, useUpdateTodo} from "@/store/todos.ts";
 import {Check, Pencil} from "lucide-react";
 import {useEffect, useRef, useState} from "react";
 import {Input} from "@/components/ui/input.tsx";
+import {Link} from "react-router";
 
 export default function TodoItem({id, content}:{id:number, content:string}) {
     const deleteTodo = useDeleteTodo();
@@ -32,7 +33,7 @@ export default function TodoItem({id, content}:{id:number, content:string}) {
                        onKeyDown={(e)=>{if(e.key === 'Enter') handleUpdateTodo()}}
                        ref={editInputRef}
                 />
-                :content
+                :<Link to={`/todo/${id}`}>{content}</Link>
             }
             <div className="flex flex-row justify-center items-center gap-2">
                 {isEdit?

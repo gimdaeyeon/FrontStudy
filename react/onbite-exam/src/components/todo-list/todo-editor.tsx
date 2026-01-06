@@ -2,14 +2,17 @@ import {Input} from "@/components/ui/input.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {useState} from "react";
 import {useCreateTodo} from "@/store/todos.ts";
+import {useMutation} from "@tanstack/react-query";
+import {createTodo} from "@/api/create-todo.ts";
+import {useCreateTodoMutation} from "@/hooks/mutations/use-create-todo-mutation.ts";
 
 export default function TodoEditor() {
-    const createTodo = useCreateTodo();
+    const {mutate,isPending} = useCreateTodoMutation();
     const [content, setContent] = useState('');
 
     const handleAddTodo = ()=>{
         if(content.trim() === '') return;
-        createTodo(content);
+        mutate(content);
         setContent('');
     }
 
@@ -18,9 +21,11 @@ export default function TodoEditor() {
             <Input value={content} placeholder="새로운 할 일을 입력하세요..."
                    onChange={(e) => setContent(e.target.value)}
                    onKeyDown={(e) => e.key === 'Enter' && handleAddTodo() }
+                   disabled={isPending}
             />
             <Button className="cursor-pointer"
                     onClick={handleAddTodo}
+                    disabled={isPending}
             >
                 추가
             </Button>
