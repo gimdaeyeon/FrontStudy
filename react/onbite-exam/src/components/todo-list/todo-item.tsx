@@ -6,19 +6,21 @@ import {Input} from "@/components/ui/input.tsx";
 import {Link} from "react-router";
 import type {Todo} from "@/types.ts";
 import {useUpdateTodoMutation} from "@/hooks/mutations/use-update-todo-mutation.ts";
+import {useDeleteTodoMutation} from "@/hooks/mutations/use-delete-todo-mutation.ts";
 
 export default function TodoItem({id, content, isDone}:Todo) {
-    const {mutate} = useUpdateTodoMutation();
+    const {mutate:updateTodo} = useUpdateTodoMutation();
+    const {mutate:deleteTodo, isPending:isDeleteTodoPending} = useDeleteTodoMutation();
     const [isEdit, setIsEdit] = useState(false);
     const [editContent, setEditContent] = useState(content);
     const editInputRef = useRef<HTMLInputElement>(null);
 
     const handleDeleteClick = ()=>{
-
+        deleteTodo(id);
     }
 
     const handleCheckboxClick = ()=>{
-        mutate({
+        updateTodo({
             id,
             isDone:!isDone
         });
@@ -43,7 +45,12 @@ export default function TodoItem({id, content, isDone}:Todo) {
             {/*    />*/}
             {/*    :*/}
                 <div className="flex gap-5">
-                    <input type="checkbox" checked={isDone} onClick={handleCheckboxClick} />
+                    <input
+                        disabled={isDeleteTodoPending}
+                        type="checkbox"
+                        checked={isDone}
+                        onClick={handleCheckboxClick}
+                    />
                     <Link to={`/todo/${id}`}>{content}</Link>
                 </div>
             {/*}*/}
@@ -52,8 +59,10 @@ export default function TodoItem({id, content, isDone}:Todo) {
                 {/*    <Check className="cursor-pointer hover:text-green-500 transition" onClick={handleUpdateTodo}/>*/}
                 {/*    :<Pencil className="cursor-pointer" onClick={()=>setIsEdit(true)} />*/}
                 {/*}*/}
-                <Button className="cursor-pointer" variant={"destructive"}
-                        onClick={handleDeleteClick}
+                <Button
+                    disabled={isDeleteTodoPending}
+                    className="cursor-pointer" variant={"destructive"}
+                    onClick={handleDeleteClick}
                 >
                     삭제
                 </Button>
