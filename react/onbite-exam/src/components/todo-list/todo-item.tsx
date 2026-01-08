@@ -30,24 +30,27 @@ export default function TodoItem({id}:{id:string}) {
         });
     }
 
-    // const handleUpdateTodo = ()=>{
-    //     updateTodo(id, editContent);
-    //     setIsEdit(false);
-    // }
+    const handleUpdateTodo = ()=>{
+        updateTodo({
+            id,
+            content: editContent,
+        });
+        setIsEdit(false);
+    }
 
-    // useEffect(()=>{
-    //     if(isEdit) editInputRef.current?.focus();
-    // },[isEdit]);
+    useEffect(()=>{
+        if(isEdit) editInputRef.current?.focus();
+    },[isEdit]);
 
     return (
         <div className="flex items-center justify-between border p-2 gap-2">
-            {/*{isEdit?*/}
-            {/*    <Input value={editContent}*/}
-            {/*           onChange={(e)=>setEditContent(e.target.value)}*/}
-            {/*           onKeyDown={(e)=>{if(e.key === 'Enter') handleUpdateTodo()}}*/}
-            {/*           ref={editInputRef}*/}
-            {/*    />*/}
-            {/*    :*/}
+            {isEdit?
+                <Input value={editContent}
+                       onChange={(e)=>setEditContent(e.target.value)}
+                       onKeyDown={(e)=>{if(e.key === 'Enter') handleUpdateTodo()}}
+                       ref={editInputRef}
+                />
+                :
                 <div className="flex gap-5">
                     <input
                         disabled={isDeleteTodoPending}
@@ -57,12 +60,12 @@ export default function TodoItem({id}:{id:string}) {
                     />
                     <Link to={`/todo/${id}`}>{content}</Link>
                 </div>
-            {/*}*/}
+            }
             <div className="flex flex-row justify-center items-center gap-2">
-                {/*{isEdit?*/}
-                {/*    <Check className="cursor-pointer hover:text-green-500 transition" onClick={handleUpdateTodo}/>*/}
-                {/*    :<Pencil className="cursor-pointer" onClick={()=>setIsEdit(true)} />*/}
-                {/*}*/}
+                {isEdit?
+                    <Check className="cursor-pointer hover:text-green-500 transition" onClick={handleUpdateTodo}/>
+                    :<Pencil className="cursor-pointer" onClick={()=>setIsEdit(true)} />
+                }
                 <Button
                     disabled={isDeleteTodoPending}
                     className="cursor-pointer" variant={"destructive"}
