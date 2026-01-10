@@ -40,7 +40,7 @@ export default function SignUpPage() {
                 />
             </div>
             <div>
-                <Button onClick={handleSignUpClick} className="w-full">회원가입</Button>
+                <Button onClick={handleSignUpClick} className="w-full cursor-pointer">회원가입</Button>
             </div>
             <div>
                 <Link className="text-muted-foreground hover:underline" to={'/sign-in'}>이미 계정이 있다면? 로그인</Link>
