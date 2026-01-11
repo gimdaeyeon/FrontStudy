@@ -6,18 +6,25 @@ import {useSignInWithPassword} from "@/hooks/mutations/use-sign-in-with-password
 import gitHubLogo from '@/assets/github-mark.svg'
 import {useSignInWithOAuth} from "@/hooks/mutations/use-sign-in-with-oauth.ts";
 import {toast} from "sonner";
+import {generateErrorMessage} from "@/lib/error.ts";
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const {mutate: signInWithPassword} = useSignInWithPassword({
+    const {mutate: signInWithPassword, isPending:isSignInWithPasswordPending} = useSignInWithPassword({
         onError:(error)=>{
-            toast.error(error.message);
+            const message = generateErrorMessage(error);
+            toast.error(message);
             setPassword('');
         }
     });
-    const {mutate:signInWithOAuth} = useSignInWithOAuth();
+    const {mutate:signInWithOAuth, isPending:isSignInWithOAuthPending} = useSignInWithOAuth({
+        onError:(error)=>{
+            const message = generateErrorMessage(error);
+            toast.error(message);
+        }
+    });
 
     const handleSignInWithPasswordClick = () => {
         if (email.trim() === "") return;
@@ -33,6 +40,7 @@ export default function SignInPage() {
         signInWithOAuth('github');
     }
 
+    const isPending = isSignInWithOAuthPending || isSignInWithPasswordPending;
 
 
     return (
@@ -40,6 +48,7 @@ export default function SignInPage() {
             <div className="text-xl font-bold">로그인</div>
             <div className="flex flex-col gap-2">
                 <Input
+                    disabled={isPending}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="py-6"
@@ -47,6 +56,7 @@ export default function SignInPage() {
                     placeholder="example@abc.com"
                 />
                 <Input
+                    disabled={isPending}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="py-6"
@@ -55,8 +65,8 @@ export default function SignInPage() {
                 />
             </div>
             <div className="flex flex-col gap-2">
-                <Button onClick={handleSignInWithPasswordClick} className="w-full cursor-pointer">로그인</Button>
-                <Button onClick={handleSignInWithGitHubClick} variant={"outline"} className="w-full cursor-pointer">
+                <Button disabled={isPending} onClick={handleSignInWithPasswordClick} className="w-full cursor-pointer">로그인</Button>
+                <Button disabled={isPending} onClick={handleSignInWithGitHubClick} variant={"outline"} className="w-full cursor-pointer">
                     <img src={gitHubLogo} alt="" className="size-4"/>
                     GitHub 계정으로 로그인
                 </Button>
