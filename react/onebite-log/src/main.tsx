@@ -1,17 +1,19 @@
-import { createRoot } from "react-dom/client";
+import {createRoot} from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { BrowserRouter } from "react-router";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import {BrowserRouter} from "react-router";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {Toaster} from "@/components/ui/sonner.tsx";
 
 const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-      <App />
-    </QueryClientProvider>
-  </BrowserRouter>
+    <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+            <ReactQueryDevtools/>
+            <Toaster position="top-center" />
+            <App/>
+        </QueryClientProvider>
+    </BrowserRouter>
 );
