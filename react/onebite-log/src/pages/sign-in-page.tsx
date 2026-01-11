@@ -3,12 +3,15 @@ import {Button} from "@/components/ui/button.tsx";
 import {Link} from "react-router";
 import {useState} from "react";
 import {useSignInWithPassword} from "@/hooks/mutations/use-sign-in-with-password.ts";
+import gitHubLogo from '@/assets/github-mark.svg'
+import {useSignInWithOAuth} from "@/hooks/mutations/use-sign-in-with-oauth.ts";
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const {mutate: signInWithPassword} = useSignInWithPassword();
+    const {mutate:signInWithOAuth} = useSignInWithOAuth();
 
     const handleSignInWithPasswordClick = () => {
         if (email.trim() === "") return;
@@ -17,9 +20,14 @@ export default function SignInPage() {
         signInWithPassword({
             email,
             password,
-        })
-
+        });
     }
+
+    const handleSignInWithGitHubClick = ()=>{
+        signInWithOAuth('github');
+    }
+
+
 
     return (
         <div className="flex flex-col gap-8">
@@ -40,8 +48,12 @@ export default function SignInPage() {
                     placeholder="password"
                 />
             </div>
-            <div>
+            <div className="flex flex-col gap-2">
                 <Button onClick={handleSignInWithPasswordClick} className="w-full cursor-pointer">로그인</Button>
+                <Button onClick={handleSignInWithGitHubClick} variant={"outline"} className="w-full cursor-pointer">
+                    <img src={gitHubLogo} alt="" className="size-4"/>
+                    GitHub 계정으로 로그인
+                </Button>
             </div>
             <div>
                 <Link className="text-muted-foreground hover:underline" to={'/sign-up'}>계정이 없으시다면? 회원가입</Link>

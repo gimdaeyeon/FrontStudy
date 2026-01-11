@@ -4,5 +4,5 @@ import {signInWithPassword} from "@/api/auth.ts";
 export function useSignInWithPassword() {
     return useMutation({
         mutationFn: signInWithPassword
-    })
+    });
 }
