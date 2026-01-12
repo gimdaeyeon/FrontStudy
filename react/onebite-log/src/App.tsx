@@ -1,8 +1,10 @@
-import { Button } from "@/components/ui/button";
 import RootRoute from "@/root-route.tsx";
+import SessionProvider from "@/provider/session-provider.tsx";
 
 export default function App() {
-  return (
-    <RootRoute/>
-  );
+    return (
+        <SessionProvider>
+            <RootRoute/>
+        </SessionProvider>
+    );
 }
