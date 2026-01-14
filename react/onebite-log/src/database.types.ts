@@ -74,6 +74,30 @@ export type Database = {
         }
         Relationships: []
       }
+      profile: {
+        Row: {
+          avatar_url: string | null
+          bio: string
+          created_at: string
+          id: string
+          nickname: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string
+          created_at?: string
+          id?: string
+          nickname?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string
+          created_at?: string
+          id?: string
+          nickname?: string
+        }
+        Relationships: []
+      }
       Review: {
         Row: {
           author: string
