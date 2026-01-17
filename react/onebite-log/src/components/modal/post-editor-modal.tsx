@@ -3,9 +3,19 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { ImageIcon } from "lucide-react";
 import { usePostEditorModal } from "@/store/post-editor-modal.ts";
+import { useCreatePost } from "@/hooks/mutations/post/use-create-post.ts";
+import { toast } from "sonner";
 
 export default function PostEditorModal() {
   const { isOpen, close } = usePostEditorModal();
+  const { mutate: createPost, isPending: isCreatePending } = useCreatePost({
+    onSuccess: () => {
+      close();
+    },
+    onError: (error) => {
+      toast.error("포스트 생성에 실패했습니다.");
+    },
+  });
   const [content, setContent] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -13,17 +23,23 @@ export default function PostEditorModal() {
     close();
   };
 
+  const handleCreatePostClick = () => {
+    if (content.trim() === "") return;
+    createPost(content);
+  };
+
   useEffect(() => {
-    if(textareaRef.current){
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = textareaRef.current.scrollHeight+'px';
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
     }
   }, [content]);
 
   useEffect(() => {
-    if(!isOpen) return;
+    if (!isOpen) return;
     textareaRef.current?.focus();
-    setContent('');
+    setContent("");
   }, [isOpen]);
 
   return (
@@ -31,6 +47,7 @@ export default function PostEditorModal() {
       <DialogContent className="max-h-[90vh]">
         <DialogTitle>포스트 작성</DialogTitle>
         <textarea
+          disabled={isCreatePending}
           ref={textareaRef}
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -41,7 +58,13 @@ export default function PostEditorModal() {
           <ImageIcon />
           이미지 추가
         </Button>
-        <Button className="cursor-pointer">저장</Button>
+        <Button
+          disabled={isCreatePending}
+          onClick={handleCreatePostClick}
+          className="cursor-pointer"
+        >
+          저장
+        </Button>
       </DialogContent>
     </Dialog>
   );
