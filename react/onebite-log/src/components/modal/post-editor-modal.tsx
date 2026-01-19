@@ -10,6 +10,7 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel.tsx";
+import { useSession } from "@/store/session.ts";
 
 type Image = {
   file: File;
@@ -17,6 +18,7 @@ type Image = {
 };
 
 export default function PostEditorModal() {
+  const session = useSession();
   const { isOpen, close } = usePostEditorModal();
   const { mutate: createPost, isPending: isCreatePending } = useCreatePost({
     onSuccess: () => {
@@ -37,7 +39,11 @@ export default function PostEditorModal() {
 
   const handleCreatePostClick = () => {
     if (content.trim() === "") return;
-    createPost(content);
+    createPost({
+      content,
+      images: images.map((image) => image.file),
+      userId: session!.user.id,
+    });
   };
 
   const handleSelectImages = (e: ChangeEvent<HTMLInputElement>) => {
@@ -106,7 +112,10 @@ export default function PostEditorModal() {
                       src={image.previewUrl}
                       className="h-full w-full rounded-sm object-cover"
                     />
-                    <div onClick={()=>handleDeleteImage(image)} className="absolute top-0 right-0 m-1 cursor-pointer rounded-full bg-black/30 p-1">
+                    <div
+                      onClick={() => handleDeleteImage(image)}
+                      className="absolute top-0 right-0 m-1 cursor-pointer rounded-full bg-black/30 p-1"
+                    >
                       <XIcon className="size-4 text-white" />
                     </div>
                   </div>
