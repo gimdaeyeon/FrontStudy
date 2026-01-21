@@ -32,11 +32,32 @@ export default function PostEditorModal() {
   });
   const [content, setContent] = useState("");
   const [images, setImages] = useState<Image[]>([]);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
+    }
+  }, [content]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      images.forEach((image) => {
+        URL.revokeObjectURL(image.previewUrl);
+      });
+      return;
+    }
+    textareaRef.current?.focus();
+    setContent("");
+    setImages([]);
+  }, [isOpen]);
+
   const handleCloseModal = () => {
-    if(content !=='' || images.length >0){
+    if (content !== "" || images.length > 0) {
       openAlertModal({
         title: "게시글 작성이 마무리 되지 않았습니다",
         description: "이 화면에서 나가면 작성중이던 내용이 사라집니다.",
@@ -77,22 +98,9 @@ export default function PostEditorModal() {
     setImages((prevImages) =>
       prevImages.filter((item) => item.previewUrl !== image.previewUrl),
     );
+
+    URL.revokeObjectURL(image.previewUrl);
   };
-
-  useEffect(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = "auto";
-      textareaRef.current.style.height =
-        textareaRef.current.scrollHeight + "px";
-    }
-  }, [content]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    textareaRef.current?.focus();
-    setContent("");
-    setImages([]);
-  }, [isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={handleCloseModal}>
