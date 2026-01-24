@@ -5,6 +5,6 @@ import { fetchPosts } from "@/api/post.ts";
 export function usePostsData() {
   return useQuery({
     queryKey:QUERY_KEYS.post.list,
-    queryFn:() => fetchPosts(),
+    // queryFn:() => fetchPosts(),
   });
 }
