@@ -1,7 +1,6 @@
 import { HeartIcon, MessageCircle } from "lucide-react";
 import type { Post } from "@/types";
 import defaultAvatar from "@/assets/default-avatar.jpg";
-import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -10,8 +9,13 @@ import {
 import { formatTimeAgo } from "@/lib/time.ts";
 import EditPostButton from "@/components/post/edit-post-button.tsx";
 import DeletePostButton from "@/components/post/delete-post-button.tsx";
+import { useSession } from "@/store/session.ts";
 
 export default function PostItem(post: Post) {
+  const session = useSession();
+  const userId = session?.user.id;
+
+  const isMine = post.author_id === userId;
   return (
     <div className="flex flex-col gap-4 border-b pb-8">
       {/* 1. 유저 정보, 수정/삭제 버튼 */}
@@ -28,16 +32,19 @@ export default function PostItem(post: Post) {
               {post.author.nickname}
             </div>
             <div className="text-muted-foreground text-sm">
-              {formatTimeAgo((post.created_at))}
+              {formatTimeAgo(post.created_at)}
             </div>
           </div>
         </div>
 
-
         {/* 1-2. 수정/삭제 버튼 */}
         <div className="text-muted-foreground flex text-sm">
-          <EditPostButton {...post} />
-          <DeletePostButton id={post.id} />
+          {isMine && (
+            <>
+              <EditPostButton {...post} />
+              <DeletePostButton id={post.id} />
+            </>
+          )}
         </div>
       </div>
 
