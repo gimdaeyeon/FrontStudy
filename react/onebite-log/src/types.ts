@@ -6,7 +6,7 @@ import type { Database, Tables } from "@/database.types.ts";
 export type PostEntity = Tables<"post">
 export type ProfileEntity = Tables<"profile">
 
-export type Post = PostEntity & { author: ProfileEntity };
+export type Post = PostEntity & { author: ProfileEntity; isLiked:boolean };
 
 export type UseMutationCallback = {
   onSuccess?: () => void;
