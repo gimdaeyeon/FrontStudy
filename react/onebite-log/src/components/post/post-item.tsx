@@ -1,4 +1,4 @@
-import { HeartIcon, MessageCircle } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import defaultAvatar from "@/assets/default-avatar.jpg";
 import {
   Carousel,
@@ -15,22 +15,26 @@ import Fallback from "@/components/fallback.tsx";
 import LikePostButton from "@/components/post/like-post-button.tsx";
 import { Link } from "react-router";
 
-export default function PostItem({ postId }: { postId: number }) {
+export default function PostItem({
+  postId,
+  type,
+}: {
+  postId: number;
+  type: "FEED" | "DETAIL";
+}) {
   const session = useSession();
   const userId = session?.user.id;
 
-  const {
-    data: post,
-    isPending,
-    error,
-  } = usePostByIdData({ postId, type: "FEED" });
+  const { data: post, isPending, error } = usePostByIdData({ postId, type });
 
   if (isPending) return <Loader />;
   if (error) return <Fallback />;
 
   const isMine = post.author_id === userId;
   return (
-    <div className="flex flex-col gap-4 border-b pb-8">
+    <div
+      className={`flex flex-col gap-4 pb-8 ${type === "FEED" && "border-b"}`}
+    >
       {/* 1. 유저 정보, 수정/삭제 버튼 */}
       <div className="flex justify-between">
         {/* 1-1. 유저 정보 */}
@@ -66,9 +70,15 @@ export default function PostItem({ postId }: { postId: number }) {
       {/* 2. 컨텐츠, 이미지 캐러셀 */}
       <div className="flex cursor-pointer flex-col gap-5">
         {/* 2-1. 컨텐츠 */}
-        <div className="line-clamp-2 break-words whitespace-pre-wrap">
-          {post.content}
-        </div>
+        {type === "FEED" ? (
+          <Link to={`/post/${post.id}`}>
+            <div className="line-clamp-2 break-words whitespace-pre-wrap">
+              {post.content}
+            </div>
+          </Link>
+        ) : (
+          <div className="break-words whitespace-pre-wrap">{post.content}</div>
+        )}
 
         {/* 2-2. 이미지 캐러셀 */}
         <Carousel>
@@ -90,13 +100,21 @@ export default function PostItem({ postId }: { postId: number }) {
       {/* 3. 좋아요, 댓글 버튼 */}
       <div className="flex gap-2">
         {/* 3-1. 좋아요 버튼 */}
-        <LikePostButton id={post.id} likeCound={post.like_count} isLiked={post.isLiked}/>
+        <LikePostButton
+          id={post.id}
+          likeCound={post.like_count}
+          isLiked={post.isLiked}
+        />
 
         {/* 3-2. 댓글 버튼 */}
-        <div className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border-1 p-2 px-4 text-sm">
-          <MessageCircle className="h-4 w-4" />
-          <span>댓글 달기</span>
-        </div>
+        {type === "FEED" && (
+          <Link to={`/post/${post.id}`}>
+            <div className="hover:bg-muted flex cursor-pointer items-center gap-2 rounded-xl border-1 p-2 px-4 text-sm">
+              <MessageCircle className="h-4 w-4" />
+              <span>댓글 달기</span>
+            </div>
+          </Link>
+        )}
       </div>
     </div>
   );

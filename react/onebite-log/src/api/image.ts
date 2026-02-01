@@ -12,7 +12,7 @@ export async function uploadImage({
     .from(BUCKET_NAME)
     .upload(filePath, file);
 
-  if(error) throw error;
+  if (error) throw error;
 
   const {
     data: { publicUrl },
@@ -21,12 +21,16 @@ export async function uploadImage({
   return publicUrl;
 }
 
-export async function deleteImagesInPath(path:string){
-  const {data:files, error:fetchFilesError} = await supabase.storage.from(BUCKET_NAME).list(path);
+export async function deleteImagesInPath(path: string) {
+  const { data: files, error: fetchFilesError } = await supabase.storage
+    .from(BUCKET_NAME)
+    .list(path);
 
-  if(fetchFilesError) throw fetchFilesError;
-  const {error:removeError} = await supabase.storage.from(BUCKET_NAME).remove(
-    files?.map(file=>`${path}/${file.name}`)
-  );
-  if(removeError) throw removeError;
+  if (!files || files.length === 0) return;
+
+  if (fetchFilesError) throw fetchFilesError;
+  const { error: removeError } = await supabase.storage
+    .from(BUCKET_NAME)
+    .remove(files?.map((file) => `${path}/${file.name}`));
+  if (removeError) throw removeError;
 }
