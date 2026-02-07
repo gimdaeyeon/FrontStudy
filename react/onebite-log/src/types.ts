@@ -8,6 +8,7 @@ export type ProfileEntity = Tables<"profile">
 export type CommentEntity = Tables<"comment">
 
 export type Post = PostEntity & { author: ProfileEntity; isLiked:boolean };
+export type Comment = CommentEntity & {author: ProfileEntity;  };
 
 export type UseMutationCallback = {
   onSuccess?: () => void;
