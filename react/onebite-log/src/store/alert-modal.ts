@@ -43,6 +43,3 @@ export const useAlertModal = () => {
   const store = useAlertModalStore();
   return store as typeof store & State;
 };
-
-
-

@@ -11,7 +11,7 @@ export async function fetchPosts({
   from: number;
   to: number;
   userId: string;
-  authorId?:string;
+  authorId?: string;
 }) {
   const request = supabase
     .from("post")
@@ -20,9 +20,9 @@ export async function fetchPosts({
     .order("created_at", { ascending: false })
     .range(from, to);
 
-  if(authorId) request.eq("author_id", authorId);
+  if (authorId) request.eq("author_id", authorId);
 
-  const {data, error} = await request;
+  const { data, error } = await request;
 
   if (error) throw error;
   return data.map((post) => ({

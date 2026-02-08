@@ -30,9 +30,9 @@ const usePostEditorModalStore = create(
   devtools(
     combine(initialState, (set) => ({
       actions: {
-        openCreate: () => set({ isOpen: true, type:'CREATE'}),
-        openEdit: (param:Omit<EditMode, 'isOpen'|'type'>) => {
-          set({ isOpen: true, type:'EDIT', ...param });
+        openCreate: () => set({ isOpen: true, type: "CREATE" }),
+        openEdit: (param: Omit<EditMode, "isOpen" | "type">) => {
+          set({ isOpen: true, type: "EDIT", ...param });
         },
         close: () => set({ isOpen: false }),
       },
@@ -41,15 +41,15 @@ const usePostEditorModalStore = create(
   ),
 );
 
-export const useOpenCreatePostModal = ()=>{
-  return usePostEditorModalStore(store=>store.actions.openCreate);
-}
+export const useOpenCreatePostModal = () => {
+  return usePostEditorModalStore((store) => store.actions.openCreate);
+};
 
-export const useOpenEditPostModal = ()=>{
-  return usePostEditorModalStore(store=>store.actions.openEdit);
-}
+export const useOpenEditPostModal = () => {
+  return usePostEditorModalStore((store) => store.actions.openEdit);
+};
 
 export const usePostEditorModal = () => {
-   const store = usePostEditorModalStore();
-   return store as typeof store & State;
+  const store = usePostEditorModalStore();
+  return store as typeof store & State;
 };

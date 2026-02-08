@@ -1,80 +1,99 @@
-import {Input} from "@/components/ui/input.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {Link} from "react-router";
-import {useState} from "react";
-import {useSignInWithPassword} from "@/hooks/mutations/auth/use-sign-in-with-password.ts";
-import gitHubLogo from '@/assets/github-mark.svg'
-import {useSignInWithOAuth} from "@/hooks/mutations/auth/use-sign-in-with-oauth.ts";
-import {toast} from "sonner";
-import {generateErrorMessage} from "@/lib/error.ts";
+import { Input } from "@/components/ui/input.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { Link } from "react-router";
+import { useState } from "react";
+import { useSignInWithPassword } from "@/hooks/mutations/auth/use-sign-in-with-password.ts";
+import gitHubLogo from "@/assets/github-mark.svg";
+import { useSignInWithOAuth } from "@/hooks/mutations/auth/use-sign-in-with-oauth.ts";
+import { toast } from "sonner";
+import { generateErrorMessage } from "@/lib/error.ts";
 
 export default function SignInPage() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    const {mutate: signInWithPassword, isPending:isSignInWithPasswordPending} = useSignInWithPassword({
-        onError:(error)=>{
-            const message = generateErrorMessage(error);
-            toast.error(message);
-            setPassword('');
-        }
+  const { mutate: signInWithPassword, isPending: isSignInWithPasswordPending } =
+    useSignInWithPassword({
+      onError: (error) => {
+        const message = generateErrorMessage(error);
+        toast.error(message);
+        setPassword("");
+      },
     });
-    const {mutate:signInWithOAuth, isPending:isSignInWithOAuthPending} = useSignInWithOAuth({
-        onError:(error)=>{
-            const message = generateErrorMessage(error);
-            toast.error(message);
-        }
+  const { mutate: signInWithOAuth, isPending: isSignInWithOAuthPending } =
+    useSignInWithOAuth({
+      onError: (error) => {
+        const message = generateErrorMessage(error);
+        toast.error(message);
+      },
     });
 
-    const handleSignInWithPasswordClick = () => {
-        if (email.trim() === "") return;
-        if (password.trim() === "") return;
+  const handleSignInWithPasswordClick = () => {
+    if (email.trim() === "") return;
+    if (password.trim() === "") return;
 
-        signInWithPassword({
-            email,
-            password,
-        });
-    }
+    signInWithPassword({
+      email,
+      password,
+    });
+  };
 
-    const handleSignInWithGitHubClick = ()=>{
-        signInWithOAuth('github');
-    }
+  const handleSignInWithGitHubClick = () => {
+    signInWithOAuth("github");
+  };
 
-    const isPending = isSignInWithOAuthPending || isSignInWithPasswordPending;
+  const isPending = isSignInWithOAuthPending || isSignInWithPasswordPending;
 
-
-    return (
-        <div className="flex flex-col gap-8">
-            <div className="text-xl font-bold">로그인</div>
-            <div className="flex flex-col gap-2">
-                <Input
-                    disabled={isPending}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="py-6"
-                    type="email"
-                    placeholder="example@abc.com"
-                />
-                <Input
-                    disabled={isPending}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="py-6"
-                    type="password"
-                    placeholder="password"
-                />
-            </div>
-            <div className="flex flex-col gap-2">
-                <Button disabled={isPending} onClick={handleSignInWithPasswordClick} className="w-full cursor-pointer">로그인</Button>
-                <Button disabled={isPending} onClick={handleSignInWithGitHubClick} variant={"outline"} className="w-full cursor-pointer">
-                    <img src={gitHubLogo} alt="" className="size-4"/>
-                    GitHub 계정으로 로그인
-                </Button>
-            </div>
-            <div className="flex flex-col gap-2">
-                <Link className="text-muted-foreground hover:underline" to={'/sign-up'}>계정이 없으시다면? 회원가입</Link>
-                <Link className="text-muted-foreground hover:underline" to={'/forget-password'}>비밀번호를 잊으셨나요?</Link>
-            </div>
-        </div>
-    );
+  return (
+    <div className="flex flex-col gap-8">
+      <div className="text-xl font-bold">로그인</div>
+      <div className="flex flex-col gap-2">
+        <Input
+          disabled={isPending}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="py-6"
+          type="email"
+          placeholder="example@abc.com"
+        />
+        <Input
+          disabled={isPending}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="py-6"
+          type="password"
+          placeholder="password"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <Button
+          disabled={isPending}
+          onClick={handleSignInWithPasswordClick}
+          className="w-full cursor-pointer"
+        >
+          로그인
+        </Button>
+        <Button
+          disabled={isPending}
+          onClick={handleSignInWithGitHubClick}
+          variant={"outline"}
+          className="w-full cursor-pointer"
+        >
+          <img src={gitHubLogo} alt="" className="size-4" />
+          GitHub 계정으로 로그인
+        </Button>
+      </div>
+      <div className="flex flex-col gap-2">
+        <Link className="text-muted-foreground hover:underline" to={"/sign-up"}>
+          계정이 없으시다면? 회원가입
+        </Link>
+        <Link
+          className="text-muted-foreground hover:underline"
+          to={"/forget-password"}
+        >
+          비밀번호를 잊으셨나요?
+        </Link>
+      </div>
+    </div>
+  );
 }

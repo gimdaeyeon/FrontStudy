@@ -10,11 +10,13 @@ export default function CommentList({ postId }: { postId: number }) {
     isPending: isFetchCommentPending,
   } = useCommentsData(postId);
 
-  if(fetchCommentsError) return <Fallback/>
+  if (fetchCommentsError) return <Fallback />;
   if (isFetchCommentPending) return <Loader />;
   return (
     <div className="flex flex-col gap-5">
-      {comments.map(comment=><CommentItem key={comment.id} {...comment} />)}
+      {comments.map((comment) => (
+        <CommentItem key={comment.id} {...comment} />
+      ))}
     </div>
   );
 }

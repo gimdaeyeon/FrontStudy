@@ -3,7 +3,7 @@ import defaultAvatar from "@/assets/default-avatar.jpg";
 import type { Comment } from "@/types.ts";
 import { formatTimeAgo } from "@/lib/time.ts";
 
-export default function CommentItem(props:Comment) {
+export default function CommentItem(props: Comment) {
   return (
     <div className={"flex flex-col gap-8 border-b pb-5"}>
       <div className="flex items-start gap-4">

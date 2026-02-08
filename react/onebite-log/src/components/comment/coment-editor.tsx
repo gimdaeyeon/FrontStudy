@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useCreateComment } from "@/hooks/mutations/comment/use-create-comment.ts";
 import { toast } from "sonner";
 
-export default function CommentEditor({postId}:{postId:number;}) {
+export default function CommentEditor({ postId }: { postId: number }) {
   const { mutate: createComment, isPending: isCreateCommentPending } =
     useCreateComment({
       onSuccess: () => {
@@ -20,7 +20,7 @@ export default function CommentEditor({postId}:{postId:number;}) {
     if (content.trim() === "") return;
     createComment({
       postId,
-      content
+      content,
     });
   };
 

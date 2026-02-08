@@ -3,17 +3,17 @@ import { combine, devtools } from "zustand/middleware";
 
 const initialState = {
   isOpen: false,
-}
+};
 
 const useProfileEditorModalStore = create(
   devtools(
-    combine(initialState,(set)=>({
-      actions:{
-        open:()=>set({isOpen: true}),
-        close:()=>set({isOpen: false}),
-      }
+    combine(initialState, (set) => ({
+      actions: {
+        open: () => set({ isOpen: true }),
+        close: () => set({ isOpen: false }),
+      },
     })),
-    {name:'ProfileEditorModalStore'},
+    { name: "ProfileEditorModalStore" },
   ),
 );
 

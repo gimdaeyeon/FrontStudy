@@ -6,6 +6,5 @@ export function useCommentsData(postId: number) {
   return useQuery({
     queryKey: QUERY_KEYS.comment.post(postId),
     queryFn: () => fetchComments(postId),
-
   });
 }

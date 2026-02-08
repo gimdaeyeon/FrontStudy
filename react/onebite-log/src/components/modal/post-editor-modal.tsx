@@ -33,7 +33,7 @@ export default function PostEditorModal() {
     },
   });
 
-  const {mutate: updatePost, isPending: isUpdatePending} = useUpdatePost({
+  const { mutate: updatePost, isPending: isUpdatePending } = useUpdatePost({
     onSuccess: () => {
       postEditorModal.actions.close();
     },
@@ -64,9 +64,9 @@ export default function PostEditorModal() {
       return;
     }
 
-    if(postEditorModal.type === 'CREATE'){
+    if (postEditorModal.type === "CREATE") {
       setContent("");
-    }else{
+    } else {
       setContent(postEditorModal.content);
     }
     setImages([]);
@@ -89,22 +89,21 @@ export default function PostEditorModal() {
 
   const handleSavePostClick = () => {
     if (content.trim() === "") return;
-    if(!postEditorModal.isOpen) return;
+    if (!postEditorModal.isOpen) return;
 
-    if(postEditorModal.type === 'CREATE'){
+    if (postEditorModal.type === "CREATE") {
       createPost({
         content,
         images: images.map((image) => image.file),
         userId: session!.user.id,
       });
-    }else{
-      if(content === postEditorModal.content) return;
+    } else {
+      if (content === postEditorModal.content) return;
       updatePost({
         id: postEditorModal.postId,
-        content
-      })
+        content,
+      });
     }
-
   };
 
   const handleSelectImages = (e: ChangeEvent<HTMLInputElement>) => {

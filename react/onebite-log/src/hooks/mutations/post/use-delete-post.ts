@@ -10,12 +10,12 @@ export function useDeletePost(callbacks?: UseMutationCallback) {
     mutationFn: deletePost,
     onSuccess: async (deletedPost) => {
       if (callbacks?.onSuccess) callbacks.onSuccess();
-      if(deletedPost.image_urls && deletedPost.image_urls.length>0){
+      if (deletedPost.image_urls && deletedPost.image_urls.length > 0) {
         await deleteImagesInPath(`${deletedPost.author_id}/${deletedPost.id}`);
       }
       queryClient.resetQueries({
         queryKey: QUERY_KEYS.post.list,
-      })
+      });
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);

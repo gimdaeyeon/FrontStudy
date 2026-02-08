@@ -1,4 +1,4 @@
-import {Navigate, Route, Routes} from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import SignInPage from "@/pages/sign-in-page.tsx";
 import SignUpPage from "@/pages/sign-up-page.tsx";
 import ForgetPasswordPage from "@/pages/forget-password-page.tsx";
@@ -11,24 +11,24 @@ import GuestOnlyLayout from "@/components/layout/guest-only-layout.tsx";
 import MemberOnlyLayout from "@/components/layout/member-only-layout.tsx";
 
 export default function RootRoute() {
-    return (
-        <Routes>
-            <Route element={<GlobalLayout/>}>
-                <Route element={<GuestOnlyLayout/>}>
-                    <Route path="/sign-in" element={<SignInPage/>}/>
-                    <Route path="/sign-up" element={<SignUpPage/>}/>
-                    <Route path="/forget-password" element={<ForgetPasswordPage/>}/>
-                </Route>
+  return (
+    <Routes>
+      <Route element={<GlobalLayout />}>
+        <Route element={<GuestOnlyLayout />}>
+          <Route path="/sign-in" element={<SignInPage />} />
+          <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/forget-password" element={<ForgetPasswordPage />} />
+        </Route>
 
-                <Route element={<MemberOnlyLayout/>}>
-                    <Route path="/" element={<IndexPage/>}/>
-                    <Route path="/post/:postId" element={<PostDetailPage/>}/>
-                    <Route path="/profile/:userId" element={<ProfileDetailPage/>}/>
-                    <Route path="/reset-password" element={<ResetPasswordPage/>}/>
-                </Route>
+        <Route element={<MemberOnlyLayout />}>
+          <Route path="/" element={<IndexPage />} />
+          <Route path="/post/:postId" element={<PostDetailPage />} />
+          <Route path="/profile/:userId" element={<ProfileDetailPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
+        </Route>
 
-                <Route path="*" element={<Navigate to={"/"}/>}/>
-            </Route>
-        </Routes>
-    )
+        <Route path="*" element={<Navigate to={"/"} />} />
+      </Route>
+    </Routes>
+  );
 }

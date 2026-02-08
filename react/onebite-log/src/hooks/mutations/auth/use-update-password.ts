@@ -1,6 +1,6 @@
-import {useMutation} from "@tanstack/react-query";
-import {updatePassword} from "@/api/auth.ts";
-import type {UseMutationCallback} from "@/types.ts";
+import { useMutation } from "@tanstack/react-query";
+import { updatePassword } from "@/api/auth.ts";
+import type { UseMutationCallback } from "@/types.ts";
 
 export function useUpdatePassword(callbacks?: UseMutationCallback) {
   return useMutation({
@@ -10,6 +10,6 @@ export function useUpdatePassword(callbacks?: UseMutationCallback) {
     },
     onError: (error) => {
       if (callbacks?.onError) callbacks.onError(error);
-    }
+    },
   });
 }

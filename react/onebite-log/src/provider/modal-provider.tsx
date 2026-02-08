@@ -11,7 +11,7 @@ export default function ModalProvider({ children }: { children: ReactNode }) {
         <>
           <PostEditorModal />
           <AlertModal />
-          <ProfileEditorModal/>
+          <ProfileEditorModal />
         </>,
         document.getElementById("modal-root")!,
       )}
