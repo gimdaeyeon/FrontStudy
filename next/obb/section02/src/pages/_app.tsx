@@ -1,21 +1,12 @@
 import "@/styles/globals.css";
 import type {AppProps} from "next/app";
-import GlobalLayout from "@/components/global-layout";
-import {ReactNode} from "react";
-import {NextPage} from "next";
 
-type NextPgeWithLayout = NextPage &{
-  getLayout? :(page:ReactNode)=>ReactNode
-}
+export default function App({Component, pageProps}: AppProps) {
+  return (
+    <>
+      <header>글로벌헤더</header>
+      <Component {...pageProps} />
+    </>
+  );
 
-export default function App({Component, pageProps}: AppProps & {
-  Component:NextPgeWithLayout
-}) {
-
-  const getLayout = Component.getLayout??((page:ReactNode)=>page);
-    return (
-        <GlobalLayout>
-          {getLayout(<Component {...pageProps} />)}
-        </GlobalLayout>
-    );
 }
