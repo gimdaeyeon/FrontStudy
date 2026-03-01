@@ -3,8 +3,21 @@ import SearchableLayout from "@/components/searchable-layout";
 import {ReactNode} from "react";
 import books from '@/mock/books.json';
 import BookItem from "@/components/book-item";
+import {InferGetStaticPropsType} from "next";
 
-export default function Home() {
+export const getServerSideProps = () => {
+// 컴포넌트보다 먼저 실행되어서, 컴포넌트에 필요한 데이터를 불러오는 함수
+
+  const data = 'hello';
+  return {
+    props: {
+      data,
+    }
+  }
+};
+
+export default function Home({data}:InferGetStaticPropsType<typeof getServerSideProps>) {
+  console.log(data);
   return (
     <div className={style.container}>
       <section>
