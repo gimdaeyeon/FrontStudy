@@ -1,5 +1,7 @@
 import React from 'react';
 import style from './[id].module.css';
+import {GetServerSidePropsContext, InferGetServerSidePropsType} from "next";
+import fetchOneBooks from "@/lib/fetch-one-book";
 
 const mockData = {
   id: 1,
@@ -11,7 +13,19 @@ const mockData = {
   coverImgUrl: "https://shopping-phinf.pstatic.net/main_3888828/38888282618.20230913071643.jpg"
 };
 
-export default function Page() {
+
+export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+  const id = context.params!.id;
+  const book = await fetchOneBooks(Number(id));
+  return {
+    props: {
+      book
+    },
+  }
+}
+
+export default function Page({book}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  if (!book) return "문제가 발생했습니다 다시 시도하세요"
 
   const {
     id,
@@ -21,7 +35,7 @@ export default function Page() {
     author,
     publisher,
     coverImgUrl,
-  } = mockData;
+  } = book;
 
   return (
     <div className={style.container}>
