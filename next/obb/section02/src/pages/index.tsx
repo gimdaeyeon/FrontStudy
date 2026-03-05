@@ -6,8 +6,8 @@ import {InferGetStaticPropsType} from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
 
-export const getServerSideProps = async () => {
-
+// export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const [allBooks, recoBooks] = await Promise.all([fetchBooks(), fetchRandomBooks()]);
 
   return {
@@ -18,7 +18,8 @@ export const getServerSideProps = async () => {
   }
 };
 
-export default function Home({allBooks, recoBooks}: InferGetStaticPropsType<typeof getServerSideProps>) {
+// export default function Home({allBooks, recoBooks}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home({allBooks, recoBooks}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className={style.container}>
       <section>
